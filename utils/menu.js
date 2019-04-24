@@ -40,7 +40,15 @@ module.exports = [
 			{
 				label: "Create PDF/'s",
 				click() {
-					createPDF();
+					try {
+						createPDF();
+					} catch (error) {
+						dialog.showErrorBox(`Error Saving Files`, error);
+					}
+					dialog.showMessageBox({
+						message: `PDF's Have Been Saved`,
+						buttons: ['Ok'],
+					});
 				},
 			},
 			{

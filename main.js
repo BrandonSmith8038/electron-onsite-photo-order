@@ -1,4 +1,5 @@
 const { app, BrowserWindow, Menu } = require('electron');
+const ipcMain = require('electron').ipcMain;
 const menuTemplate = require('./utils/menu');
 
 // Enable live reload for Electron too
@@ -57,5 +58,8 @@ app.on('activate', () => {
 	}
 });
 
+ipcMain.on('user-data', (event, arg) => {
+	console.log('arg');
+});
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

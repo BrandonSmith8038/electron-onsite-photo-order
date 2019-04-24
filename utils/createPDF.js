@@ -1,4 +1,7 @@
 const fs = require('fs');
+const electron = require('electron');
+const { BrowserWindow } = require('electron');
+const ipcRenderer = require('electron').ipcRenderer;
 const path = require('path');
 const PDFDocument = require('pdfkit');
 const homeDir = require('os').homedir();
