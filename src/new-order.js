@@ -2,6 +2,7 @@ const fs = require('fs');
 const electron = require('electron');
 const { dialog, BrowserWindow } = require('electron');
 const rootPath = require('electron-root-path').rootPath;
+const getDate = require('../utils/getDate');
 const remote = electron.remote;
 const homeDir = require('os').homedir();
 
@@ -20,24 +21,6 @@ const photos = document.querySelector('#photos');
 const notes = document.querySelector('#notes');
 const payment = document.querySelector('#payment-method');
 const total = document.querySelector('#total');
-
-const getDate = () => {
-	let today = new Date();
-	let dd = today.getDate();
-	let mm = today.getMonth() + 1;
-	let yyyy = today.getFullYear();
-
-	if (dd < 10) {
-		dd = '0' + dd;
-	}
-
-	if (mm < 10) {
-		mm = '0' + mm;
-	}
-	today = `${mm}-${dd}-${yyyy}`;
-
-	return today;
-};
 
 date.value = getDate();
 
