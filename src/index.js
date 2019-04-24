@@ -11,6 +11,7 @@ newOrderButton.addEventListener('click', () => {
 		width: 800,
 		height: 600,
 		alwaysOnTop: true,
+		frame: false,
 	});
 
 	win.on('close', () => (win = null));
