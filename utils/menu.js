@@ -70,6 +70,16 @@ module.exports = [
 	},
 	{
 		label: 'Development',
-		submenu: [{ role: 'forcereload' }, { role: 'toggledevtools' }],
+		submenu: [
+			{
+				label: 'Create Sample Files',
+				click() {
+					console.log('Create Sample Files');
+				},
+			},
+			{ role: 'separator' },
+			{ role: 'forcereload' },
+			{ role: 'toggledevtools' },
+		],
 	},
 ];
