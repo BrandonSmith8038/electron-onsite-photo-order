@@ -38,6 +38,8 @@ const getDate = () => {
 	return today;
 };
 
+date.value = getDate();
+
 const onSubmit = e => {
 	e.preventDefault();
 
@@ -56,20 +58,35 @@ const onSubmit = e => {
 	if (total.value) newOrder.total = total.value;
 
 	const newOrderJSON = JSON.stringify(newOrder);
+
 	const filePath = `${homeDir}/Orders/${newOrder.date}-${newOrder.firstName} ${
 		newOrder.lastName
 	}.json`;
+
+	const notification = {
+		title: 'Order Saved....',
+		icon: '../assets/img/logo.png',
+		body: `New Order Saved | ${newOrder.firstName} ${newOrder.lastName} | $${
+			newOrder.total
+		}`,
+	};
 
 	fs.writeFile(filePath, newOrderJSON, 'utf8', err => {
 		if (err) {
 			console.log(err);
 			return;
 		}
+		const successNotification = new Notification(
+			notification.title,
+			notification,
+		);
 
-		let window = remote.getCurrentWindow();
-		window.close();
+		successNotification.onshow = () => {
+			console.log('Notificiation Shown');
+			let window = remote.getCurrentWindow();
+			window.close();
+		};
 	});
 };
 
-date.value = getDate();
 form.addEventListener('submit', onSubmit);
