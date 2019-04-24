@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<link rel="stylesheet" href="../assets/css/new-order.css" />
+		<title>Red Dirt Photography | New Order</title>
+	</head>
+	<body>
+		<div>
+			<h1>New Order</h1>
+			<form class="form-wrapper">
+				<label for="date">Date</label>
+				<input type="text" id="date" readonly />
+				<label for="first-name">First Name</label>
+				<input type="text" id="first-name" />
+				<label for="last-name">Last Name</label>
+				<input type="text" id="last-name" />
+				<label for="email">Email</label>
+				<input type="text" id="email" />
+				<label for="phone">Phone Number</label>
+				<input type="phone" id="phone" />
+				<label for="street">Street</label>
+				<input type="street" id="street" />
+				<label for="city">City</label>
+				<input type="city" id="city" />
+				<label for="zip">Zip</label>
+				<input type="zip" id="zip" />
+				<label for="photos">Photos</label>
+				<textarea id="photos"></textarea>
+				<label for="notes">Notes</label>
+				<textarea id="notes"></textarea>
+				<select id="payment-method">
+					<option value="" disabled selected>Payment Method</option>
+					<option value="cash">Cash</option>
+					<option value="card">Card</option>
+					<option value="invoice">Invoice</option>
+				</select>
+				<label for="total">Total</label>
+				<input type="total" id="total" />
+
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+		<script src="./new-order.js"></script>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+{
+	"name": "electron-photo-order",
+	"version": "1.0.0",
+	"description": "Red Dirt Photography Onsite Photo Ordering",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron main.js"
+	},
+	"keywords": [],
+	"author": "Red Dirt Web Design",
+	"license": "MIT",
+	"dependencies": {
+		"electron-root-path": "^1.0.9"
+	},
+	"devDependencies": {
+		"electron": "^4.1.4",
+		"electron-reload": "^1.4.0"
+	}
+}
