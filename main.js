@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 
 // Enable live reload for Electron too
 require('electron-reload')(__dirname, {
@@ -28,6 +28,57 @@ function createWindow() {
 		win = null;
 	});
 }
+// Template for application menu
+const menuTemplate = [
+	{
+		label: 'File',
+		submenu: [
+			{
+				label: 'New Order',
+				click() {
+					console.log('New Order');
+				},
+			},
+			{
+				label: "Create PDF's",
+				click() {
+					console.log("Create PDF's");
+				},
+			},
+			{
+				label: 'Clear Current Orders',
+				click() {
+					console.log('Clear Current');
+				},
+			},
+			{ role: 'seperator' },
+			{ role: 'quit' },
+		],
+	},
+	{
+		label: 'Edit',
+		submenu: [
+			{ role: 'undo' },
+			{ role: 'redo' },
+			{ type: 'separator' },
+			{ role: 'cut' },
+			{ role: 'copy' },
+			{ role: 'paste' },
+			{ role: 'delete' },
+			{ role: 'selectall' },
+		],
+	},
+	{
+		label: 'Development',
+		submenu: [{ role: 'forcereload' }, { role: 'toggledevtools' }],
+	},
+];
+
+// Create Menu From Template
+const menu = Menu.buildFromTemplate(menuTemplate);
+
+// Set The Menu
+Menu.setApplicationMenu(menu);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
