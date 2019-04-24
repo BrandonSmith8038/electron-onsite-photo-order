@@ -2,48 +2,93 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<link
+		rel="stylesheet"
+		href="../node_modules/materialize-css/dist/css/materialize.min.css"
+		/>
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<link rel="stylesheet" href="../assets/css/new-order.css" />
 		<title>Red Dirt Photography | New Order</title>
 	</head>
 	<body>
-		<div>
-			<h1>New Order</h1>
-			<form class="form-wrapper">
-				<label for="date">Date</label>
-				<input type="text" id="date" readonly />
-				<label for="first-name">First Name</label>
-				<input type="text" id="first-name" />
-				<label for="last-name">Last Name</label>
-				<input type="text" id="last-name" />
-				<label for="email">Email</label>
-				<input type="text" id="email" />
-				<label for="phone">Phone Number</label>
-				<input type="phone" id="phone" />
-				<label for="street">Street</label>
-				<input type="street" id="street" />
-				<label for="city">City</label>
-				<input type="city" id="city" />
-				<label for="state">State</label>
-				<input type="text" id="state" />
-				<label for="zip">Zip</label>
-				<input type="zip" id="zip" />
-				<label for="photos">Photos</label>
-				<textarea id="photos"></textarea>
-				<label for="notes">Notes</label>
-				<textarea id="notes"></textarea>
-				<select id="payment-method">
-					<option value="" disabled selected>Payment Method</option>
-					<option value="cash">Cash</option>
-					<option value="card">Card</option>
-					<option value="invoice">Invoice</option>
-				</select>
-				<label for="total">Total</label>
-				<input type="total" id="total" />
+			<div class="col s12 form-wrapper">
+				<form>
+				<div class="row">
+					<div class="input-field col s6">
+						<input type="text" id="date" readonly />
+						<label class="active" for="date">Date</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s3 ">
+						<input type="text" id="first-name" />
+						<label for="first-name">First Name</label>
+					</div>
+					<div class="input-field col s3">
+						<input type="text" id="last-name" />
+						<label for="last-name">Last Name</label>
+					</div>
+					<div class="input-field col s3">
+						<input type="text" id="email" />
+						<label for="email">Email</label>
+					</div>
+					<div class="input-field col s3">
+						<input type="text" id="phone" />
+						<label for="phone">Phone Number</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s3">
+						<input type="text" id="street" />
+						<label for="street">Street</label>
+					</div>
+					<div class="input-field col s3">
+						<input type="text" id="city" /> <label for="city">City</label>
+					</div>
+					<div class="input-field col s3">
+						<input type="text" id="state" /> <label for="state">State</label>
+					</div>
+					<div class="input-field col s3">
+						<input type="text" id="zip" /> <label for="zip">Zip</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						</row>				<textarea class="materialize-textarea" id="photos"></textarea>
+						<label for="photos">Photos</label>
+					</div>
+					<div class="input-field col s6">
+						<textarea class="materialize-textarea" id="notes"></textarea>
+						<label for="notes">Notes</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s3">
+						<select id="payment-method">
+							<option value="" disabled selected>Payment Method</option>
+							<option value="cash">Cash</option>
+							<option value="card">Card</option>
+							<option value="invoice">Invoice</option>
+						</select>
+						<label>Payment Method</label>
+					</div>
+						<div class="input-field col s2">
+							<input type="text" id="total" /> <label for="total">Total</label>
+						</div>
+					</div>
 
-				<button type="submit">Submit</button>
+				<button class="red darken-4 btn waves-effect waves-light " type="submit">Submit</button>
 			</form>
 		</div>
-		<script src="./new-order.js"></script>
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+var elems = document.querySelectorAll('select');
+var options = document.querySelectorAll('option');
+var instances = M.FormSelect.init(elems, options);
+});
+
+		</script>
+		<script src="../lib/materialize.min.js"></script>
+		<script type="text/javascript" src="./new-order.js"></script>
 	</body>
 </html>
