@@ -1,4 +1,6 @@
-const { dialog } = require('electron');
+const electron = require('electron');
+const { dialog, BrowserWindow } = require('electron');
+const path = require('path');
 const clearOrders = require('./clearOrders');
 const createSampleOrders = require('./createSampleOrders');
 
@@ -17,7 +19,20 @@ module.exports = [
 			{
 				label: 'New Order',
 				click() {
-					console.log('New Order');
+					const formPath = path.join(
+						'file://',
+						__dirname,
+						'../src/new-order.html',
+					);
+					let win = new BrowserWindow({
+						width: 800,
+						height: 600,
+						alwaysOnTop: true,
+					});
+
+					win.on('close', () => (win = null));
+					win.loadURL(formPath);
+					win.show();
 				},
 			},
 			{
