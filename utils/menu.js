@@ -1,3 +1,14 @@
+const { dialog } = require('electron');
+const clearOrders = require('./clearOrders');
+
+let options = {
+	buttons: ['Yes', 'Cancel'],
+	message: [
+		'Are You Sure You Want To Delete The Currently Saved Orders?',
+		'Are Your Absolutely Sure You Want To Delete The Currently Saved Orders?',
+	],
+};
+
 module.exports = [
 	{
 		label: 'File',
@@ -9,18 +20,38 @@ module.exports = [
 				},
 			},
 			{
-				label: "Create PDF's",
+				label: "Create PDF/'s",
 				click() {
-					console.log("Create PDF's");
+					console.log("Create PDF/'s");
 				},
 			},
 			{
 				label: 'Clear Current Orders',
 				click() {
-					console.log('Clear Current');
+					dialog.showMessageBox(
+						{ buttons: options.buttons, message: options.message[0] },
+						response => {
+							if (response === 1) {
+								return;
+							}
+
+							dialog.showMessageBox(
+								{
+									buttons: options.buttons,
+									message: options.message[1],
+								},
+								response => {
+									if (response === 1) {
+										return;
+									}
+									clearOrders();
+								},
+							);
+						},
+					);
 				},
 			},
-			{ role: 'seperator' },
+			{ role: 'separator' },
 			{ role: 'quit' },
 		],
 	},

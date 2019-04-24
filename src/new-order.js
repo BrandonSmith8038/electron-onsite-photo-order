@@ -84,7 +84,7 @@ const onSubmit = e => {
 		);
 
 		successNotification.onshow = () => {
-			console.log('Notificiation Shown');
+			console.log('Notification Shown');
 			let window = remote.getCurrentWindow();
 			window.close();
 		};
