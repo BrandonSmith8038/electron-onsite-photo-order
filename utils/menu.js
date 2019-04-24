@@ -1,9 +1,11 @@
 const electron = require('electron');
 const { dialog, BrowserWindow } = require('electron');
+const fs = require('fs');
 const path = require('path');
 const clearOrders = require('./clearOrders');
 const createSampleOrders = require('./createSampleOrders');
 const createPDF = require('./createPDF');
+const homeDir = require('os').homedir();
 
 let options = {
 	buttons: ['Yes', 'Cancel'],
@@ -38,16 +40,25 @@ module.exports = [
 				},
 			},
 			{
-				label: "Create PDF/'s",
+				label: `Create PDF's`,
 				click() {
-					try {
+					const ordersDirectory = `${homeDir}/Orders`;
+
+					fs.readdir(ordersDirectory, (err, files) => {
+						if (err) throw err;
+
+						if (files.length <= 1) {
+							dialog.showErrorBox(
+								`Error Saving Files `,
+								'There Are No Orders To Use',
+							);
+							return;
+						}
 						createPDF();
-					} catch (error) {
-						dialog.showErrorBox(`Error Saving Files`, error);
-					}
-					dialog.showMessageBox({
-						message: `PDF's Have Been Saved`,
-						buttons: ['Ok'],
+						dialog.showMessageBox({
+							message: `PDF's Have Been Saved`,
+							buttons: ['Ok'],
+						});
 					});
 				},
 			},

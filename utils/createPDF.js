@@ -84,6 +84,7 @@ module.exports = () => {
 	fs.readdir(ordersDirectory, (err, files) => {
 		if (err) throw err;
 		for (const file of files) {
+			if (files.length <= 1) return;
 			const stats = fs.statSync(path.join(ordersDirectory, file));
 			if (stats.isFile()) {
 				fs.readFile(path.join(ordersDirectory, file), 'utf8', (err, data) => {
