@@ -11,7 +11,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"electron-root-path": "^1.0.9",
-		"jspdf": "^1.5.3"
+		"pdfkit": "^0.9.0"
 	},
 	"devDependencies": {
 		"electron": "^4.1.4",

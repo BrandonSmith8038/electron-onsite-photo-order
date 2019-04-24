@@ -3,6 +3,7 @@ const { dialog, BrowserWindow } = require('electron');
 const path = require('path');
 const clearOrders = require('./clearOrders');
 const createSampleOrders = require('./createSampleOrders');
+const createPDF = require('./createPDF');
 
 let options = {
 	buttons: ['Yes', 'Cancel'],
@@ -39,7 +40,7 @@ module.exports = [
 			{
 				label: "Create PDF/'s",
 				click() {
-					console.log("Create PDF/'s");
+					createPDF();
 				},
 			},
 			{
