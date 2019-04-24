@@ -14,6 +14,7 @@ const email = document.querySelector('#email');
 const phone = document.querySelector('#phone');
 const street = document.querySelector('#street');
 const city = document.querySelector('#city');
+const state = document.querySelector('#state');
 const zip = document.querySelector('#zip');
 const photos = document.querySelector('#photos');
 const notes = document.querySelector('#notes');
@@ -51,6 +52,7 @@ const onSubmit = e => {
 	if (phone.value) newOrder.phone = phone.value;
 	if (street.value) newOrder.street = street.value;
 	if (city.value) newOrder.city = city.value;
+	if (state.value) newOrder.state = state.value;
 	if (zip.value) newOrder.city = zip.value;
 	if (photos.value) newOrder.photos = photos.value;
 	if (notes.value) newOrder.notes = notes.value;
