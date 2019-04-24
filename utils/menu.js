@@ -1,5 +1,6 @@
 const { dialog } = require('electron');
 const clearOrders = require('./clearOrders');
+const createSampleOrders = require('./createSampleOrders');
 
 let options = {
 	buttons: ['Yes', 'Cancel'],
@@ -74,7 +75,7 @@ module.exports = [
 			{
 				label: 'Create Sample Files',
 				click() {
-					console.log('Create Sample Files');
+					createSampleOrders();
 				},
 			},
 			{ role: 'separator' },
