@@ -10,7 +10,8 @@
 	"author": "Red Dirt Web Design",
 	"license": "MIT",
 	"dependencies": {
-		"electron-root-path": "^1.0.9"
+		"electron-root-path": "^1.0.9",
+		"jspdf": "^1.5.3"
 	},
 	"devDependencies": {
 		"electron": "^4.1.4",
