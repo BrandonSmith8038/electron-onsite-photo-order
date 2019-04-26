@@ -9,11 +9,18 @@ const { app, BrowserWindow, Menu } = require('electron');
 const ipcMain = require('electron').ipcMain;
 const menuTemplate = require('./utils/menu');
 
-// Enable live reload for Electron too
-require('electron-reload')(__dirname, {
-	// Note that the path to electron may vary according to the main file
-	electron: require(`${__dirname}/node_modules/electron`),
-});
+// Create Function to check if running in production or dev
+function isDev() {
+	return process.mainModule.filename.indexOf('app.asar') === -1;
+}
+
+if (isDev) {
+	// Enable live reload for Electron too
+	require('electron-reload')(__dirname, {
+		// Note that the path to electron may vary according to the main file
+		electron: require(`${__dirname}/node_modules/electron`),
+	});
+}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

@@ -15,12 +15,13 @@ function getInstallerConfig() {
 	const outPath = path.join(rootPath, 'release-builds');
 
 	return Promise.resolve({
-		appDirectory: path.join(outPath, 'red-dirt-photo-onsite-order-win32-ia32'),
+		appDirectory: path.join(outPath, 'Red-Dirt-Photos-On-Site-win32-ia32'),
 		authors: 'Red Dirt Media',
 		noMsi: true,
-		outputDirectory: path.join(outPath, 'windows-installer'),
-		exe: 'red-dirt-photo-onsite-order.exe',
-		setupExe: 'RedDirtPhotoOrderSetup.exe',
+		outputDirectory: path.join(outPath, 'Red Dirt Photos OnSite'),
+		exe: 'Red Dirt Photos OnSite.exe',
+		setupExe: 'Red Dirt Photos OnSite Setup.exe',
 		setupIcon: path.join(rootPath, 'assets', 'icons', 'win', 'icon.ico'),
+		name: 'OnSiteOrder',
 	});
 }

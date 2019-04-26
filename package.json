@@ -1,12 +1,12 @@
 {
-	"name": "red-dirt-photography-photo-order",
+	"name": "red-dirt-photography-onsite",
 	"version": "1.0.0",
 	"author": "Red Dirt Media",
 	"description": "Red Dirt Photography Onsite Photo Ordering",
 	"main": "main.js",
 	"scripts": {
 		"start": "electron main.js",
-		"package-win": "electron-packager . red-dirt-photo-onsite-order --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Red Dirt Photo Onsite Order\"",
+		"package-win": "electron-packager . Red-Dirt-Photos-On-Site --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=false --executableName=\"Red Dirt Photos OnSite\" --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Red Dirt Photo Onsite\"",
 		"create-installer-win": "node installers/windows/createinstaller.js"
 	},
 	"keywords": [],
