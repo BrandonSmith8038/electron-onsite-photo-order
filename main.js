@@ -8,11 +8,7 @@ if (setupEvents.handleSquirrelEvent()) {
 const { app, BrowserWindow, Menu, dialog } = require('electron');
 const ipcMain = require('electron').ipcMain;
 const menuTemplate = require('./utils/menu');
-
-// Create Function to check if running in production or dev
-function isDev() {
-	return process.mainModule.filename.indexOf('app.asar') === -1;
-}
+const isDev = require('./utils/isDev');
 
 if (isDev) {
 	// Enable live reload for Electron too
