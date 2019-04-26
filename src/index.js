@@ -12,6 +12,9 @@ newOrderButton.addEventListener('click', () => {
 		height: 600,
 		alwaysOnTop: true,
 		frame: true,
+		webPreferences: {
+			nodeIntegration: true,
+		},
 	});
 
 	win.on('close', () => (win = null));
