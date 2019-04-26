@@ -10,3 +10,77 @@ body {
 	justify-content: center;
 	align-items: center;
 }
+
+/* Materialize Side Nav Overides */
+
+.sidenav {
+	width: 250px;
+}
+
+.user-view .background {
+	border-bottom: 5px solid #b71c1c;
+}
+
+img.side-nav-avatar {
+	max-width: 200px;
+}
+
+.user-view span {
+	color: #b71c1c;
+}
+
+/* Hamburger Menu */
+#menuToggle {
+	margin: 10px 0 0 10px;
+	overflow: hidden;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#menuToggle input {
+	display: flex;
+	width: 60px;
+	height: 60px;
+	position: absolute;
+	cursor: pointer;
+	opacity: 0; /* hide input */
+	z-index: 1; /* top of the menu */
+}
+
+#menuToggle span {
+	width: 40px;
+	height: 4px;
+	margin-bottom: 6px;
+	background: #b71c1c;
+	border-radius: 4px;
+	-webkit-transition: all 0.5s cubic-bezier(0.08, 0.81, 0.87, 0.71);
+	-moz-transition: all 0.5s cubic-bezier(0.08, 0.81, 0.87, 0.71);
+	-ms-transition: all 0.5s cubic-bezier(0.08, 0.81, 0.87, 0.71);
+	-o-transition: all 0.5s cubic-bezier(0.08, 0.81, 0.87, 0.71);
+	transition: all 0.5s cubic-bezier(0.08, 0.81, 0.87, 0.71);
+}
+
+#span1 {
+	transform-origin: 4px 0px;
+}
+
+#span3 {
+	transform-origin: bottom right;
+}
+
+#menuToggle input:checked ~ #span1 {
+	background-color: #pink;
+	transform: rotate(45deg) translate(8px);
+}
+#menuToggle input:checked ~ #span2 {
+	background-color: #pink;
+	transform: rotate(495deg) translate(4px);
+}
+#menuToggle input:checked ~ #span3 {
+	background-color: #pink;
+	transform: rotate(45deg);
+	opacity: 0;
+}

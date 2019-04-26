@@ -10,6 +10,26 @@
 		<title>Red Dirt Photography</title>
 	</head>
 	<body>
+		<ul id="slide-out" class="sidenav">
+			<li>
+				<div class="user-view">
+					<div class="background"></div>
+					<a href="#user"
+						><img class="side-nav-avatar" src="../assets/img/logo.png"
+					/></a>
+					<a href="#name"><span class="name">Brandon Smith</span></a>
+					<a href="#email"><span class="email">brandon@reddirt.photos</span></a>
+				</div>
+			</li>
+			<li><a href="#getTotal" id="get-total">Get Nightly Total</a></li>
+		</ul>
+		<a href="#" data-target="slide-out" class="sidenav-trigger">
+			<div id="menuToggle">
+				<span id="span1"></span>
+				<span id="span2"></span>
+				<span id="span3"></span>
+			</div>
+		</a>
 		<div class="main-wrapper">
 			<img src="../assets/img/logo.png" alt="" />
 			<button
@@ -20,6 +40,7 @@
 			</button>
 		</div>
 
+		<script src="../lib/materialize.min.js"></script>
 		<script src="index.js"></script>
 	</body>
 </html>
