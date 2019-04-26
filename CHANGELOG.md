@@ -12,6 +12,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 - Get Nightly Total Menu Functionality ([367fbb8](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/367fbb8))
 
-### Added
+### Changed
 
 - Moved isDev() to utilities ([5fbea1](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/5fbea1))
