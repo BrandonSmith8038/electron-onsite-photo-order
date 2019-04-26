@@ -70,17 +70,3 @@ img.side-nav-avatar {
 #span3 {
 	transform-origin: bottom right;
 }
-
-#menuToggle input:checked ~ #span1 {
-	background-color: #pink;
-	transform: rotate(45deg) translate(8px);
-}
-#menuToggle input:checked ~ #span2 {
-	background-color: #pink;
-	transform: rotate(495deg) translate(4px);
-}
-#menuToggle input:checked ~ #span3 {
-	background-color: #pink;
-	transform: rotate(45deg);
-	opacity: 0;
-}

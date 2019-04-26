@@ -3,10 +3,6 @@ const homeDir = require('os').homedir();
 const sampleData = require('../sampleData');
 
 module.exports = () => {
-	console.log('Order1: ', sampleData[0]);
-	console.log('Order2: ', sampleData[1]);
-	console.log('Order3: ', sampleData[2]);
-
 	const filePath1 = `${homeDir}/Orders/${sampleData[0].date}-${
 		sampleData[0].firstName
 	} ${sampleData[0].lastName}.json`;

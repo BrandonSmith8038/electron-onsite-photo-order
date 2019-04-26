@@ -5,7 +5,7 @@ if (setupEvents.handleSquirrelEvent()) {
 	return;
 }
 
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, dialog } = require('electron');
 const ipcMain = require('electron').ipcMain;
 const menuTemplate = require('./utils/menu');
 
@@ -80,6 +80,21 @@ app.on('activate', () => {
 
 ipcMain.on('user-data', (event, arg) => {
 	console.log('arg');
+});
+
+ipcMain.on('notify-order-totals', (event, arg) => {
+	const { nightlyTotal, numberOfOrders } = arg;
+	const options = {
+		type: 'info',
+		buttons: ['Ok'],
+		title: 'Nightly Order Info',
+	};
+
+	numberOfOrders === 0
+		? (options.message = "You haven't solde anything yet, get busy!")
+		: (options.message = `So far you have made ${numberOfOrders} sales totaling ${nightlyTotal}!`);
+
+	dialog.showMessageBox(null, options);
 });
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
