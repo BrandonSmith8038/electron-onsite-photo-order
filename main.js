@@ -87,7 +87,7 @@ ipcMain.on('notify-order-totals', (event, arg) => {
 	};
 
 	numberOfOrders === 0
-		? (options.message = "You haven't sold anything yet, get busy!")
+		? (options.message = "You haven't solde anything yet, get busy!")
 		: (options.message = `So far you have made ${numberOfOrders} sales totaling ${nightlyTotal}!`);
 
 	dialog.showMessageBox(null, options);
