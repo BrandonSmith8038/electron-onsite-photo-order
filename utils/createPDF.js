@@ -8,6 +8,7 @@ const homeDir = require('os').homedir();
 const sampleData = require('../sampleData');
 
 module.exports = () => {
+	const pdfDirectory = `${homeDir}/Orders/PDFs`;
 	const ordersDirectory = `${homeDir}/Orders`;
 
 	const createPDF = currentOrder => {
@@ -29,12 +30,11 @@ module.exports = () => {
 
 		const fontFolder = path.join(__dirname, '../assets/fonts');
 		const imageFolder = path.join(__dirname, `../assets/img`);
-		const pdfDirectory = `${homeDir}/Orders/PDFs`;
 		const doc = new PDFDocument();
 
 		doc.pipe(
 			fs.createWriteStream(
-				`${pdfDirectory}/${firstName} ${lastName} - ${date}.pdf`,
+				`${pdfDirectory}/${firstName} ${lastName}/${firstName} ${lastName} - ${date}.pdf`,
 			),
 		); // write to PDF
 
@@ -89,7 +89,10 @@ module.exports = () => {
 			if (stats.isFile()) {
 				fs.readFile(path.join(ordersDirectory, file), 'utf8', (err, data) => {
 					if (err) throw err;
-					createPDF(JSON.parse(data));
+					const orderData = JSON.parse(data);
+					const { firstName, lastName } = orderData;
+					fs.mkdirSync(`${pdfDirectory}/${firstName} ${lastName}/`);
+					createPDF(orderData);
 				});
 			}
 		}
