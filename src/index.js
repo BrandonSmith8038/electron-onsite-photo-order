@@ -1,19 +1,28 @@
 const electron = require('electron');
 const path = require('path');
 const remote = electron.remote;
+const shell = electron.shell;
 const BrowserWindow = electron.remote.BrowserWindow;
 const ipcRenderer = electron.ipcRenderer;
 const { nightlyTotal, numberOfOrders } = require('../utils/nightlyOrderTotals');
+const homeDir = require('os').homedir();
 
 // Grab The Main New Order Button
 const newOrderButton = document.querySelector('#new-order-button');
 const getNightlyTotalBtn = document.querySelector('#get-total');
+const openOrdersFolderBtn = document.querySelector('#open-orders-folder');
 
 // Initialize The Materialize SideNav
 document.addEventListener('DOMContentLoaded', function() {
 	const elems = document.querySelectorAll('.sidenav');
 	const options = {};
 	const instances = M.Sidenav.init(elems, options);
+});
+
+// Open orders folder when menu item is clicked
+openOrdersFolderBtn.addEventListener('click', () => {
+	console.log('Open Orders folder Button click');
+	shell.openItem(`${homeDir}/Orders`);
 });
 
 // Get Nightly Totals When Menu Item Clicked
