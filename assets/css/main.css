@@ -29,6 +29,14 @@ img.side-nav-avatar {
 	color: #b71c1c;
 }
 
+/* Internet Connection Section */
+.connection-test {
+	float: right;
+	margin-right: 30px;
+	margin-top: 30px;
+	color: red;
+}
+
 /* Hamburger Menu */
 #menuToggle {
 	margin: 10px 0 0 10px;

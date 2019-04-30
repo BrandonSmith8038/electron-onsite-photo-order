@@ -2,9 +2,11 @@ const electron = require('electron');
 const path = require('path');
 const remote = electron.remote;
 const shell = electron.shell;
+const dns = require('dns');
 const BrowserWindow = electron.remote.BrowserWindow;
 const ipcRenderer = electron.ipcRenderer;
 const { nightlyTotal, numberOfOrders } = require('../utils/nightlyOrderTotals');
+// const checkInternetConnected = require('check-internet-connected');
 const homeDir = require('os').homedir();
 
 // Grab The Main New Order Button
@@ -47,3 +49,21 @@ newOrderButton.addEventListener('click', () => {
 	win.loadURL(formPath);
 	win.show();
 });
+
+// Check If Online or Offline
+
+const checkConnection = () => {
+	const isConnected = dns.lookup('google.com', err => {
+		if (err) {
+			document.querySelector('.connection-test').innerHTML = 'Offline';
+			document.querySelector('.connection-test').style.color = '#d32f2f';
+		} else {
+			document.querySelector('.connection-test').innerHTML = 'Online';
+			document.querySelector('.connection-test').style.color = '#2e7d32';
+		}
+	});
+};
+
+setInterval(() => {
+	checkConnection();
+}, 5000);
