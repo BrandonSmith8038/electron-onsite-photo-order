@@ -105,18 +105,4 @@ module.exports = [
 			{ role: 'selectall' },
 		],
 	},
-	{
-		label: 'Development',
-		submenu: [
-			{
-				label: 'Create Sample Files',
-				click() {
-					createSampleOrders();
-				},
-			},
-			{ role: 'separator' },
-			{ role: 'forcereload' },
-			{ role: 'toggledevtools' },
-		],
-	},
 ];

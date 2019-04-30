@@ -48,6 +48,24 @@ function createWindow() {
 		win = null;
 	});
 }
+
+// Dont Show The Development Menu In Production
+if (isDev()) {
+	menuTemplate.push({
+		label: 'Development',
+		submenu: [
+			{
+				label: 'Create Sample Files',
+				click() {
+					createSampleOrders();
+				},
+			},
+			{ role: 'separator' },
+			{ role: 'forcereload' },
+			{ role: 'toggledevtools' },
+		],
+	});
+}
 // Create Menu From Template
 const menu = Menu.buildFromTemplate(menuTemplate);
 
