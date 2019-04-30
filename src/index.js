@@ -6,6 +6,7 @@ const dns = require('dns');
 const BrowserWindow = electron.remote.BrowserWindow;
 const ipcRenderer = electron.ipcRenderer;
 const { nightlyTotal, numberOfOrders } = require('../utils/nightlyOrderTotals');
+const isConnected = require('../utils/checkConnection');
 // const checkInternetConnected = require('check-internet-connected');
 const homeDir = require('os').homedir();
 
@@ -51,19 +52,12 @@ newOrderButton.addEventListener('click', () => {
 });
 
 // Check If Online or Offline
-
-const checkConnection = () => {
-	const isConnected = dns.lookup('google.com', err => {
-		if (err) {
-			document.querySelector('.connection-test').innerHTML = 'Offline';
-			document.querySelector('.connection-test').style.color = '#d32f2f';
-		} else {
-			document.querySelector('.connection-test').innerHTML = 'Online';
-			document.querySelector('.connection-test').style.color = '#2e7d32';
-		}
-	});
-};
-
 setInterval(() => {
-	checkConnection();
+	if (isConnected() === 'Connected') {
+		document.querySelector('.connection-test').innerHTML = 'Online';
+		document.querySelector('.connection-test').style.color = '#2e7d32';
+	} else {
+		document.querySelector('.connection-test').innerHTML = 'Offline';
+		document.querySelector('.connection-test').style.color = '#d32f2f';
+	}
 }, 5000);
