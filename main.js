@@ -10,7 +10,7 @@ const ipcMain = require('electron').ipcMain;
 const menuTemplate = require('./utils/menu');
 const isDev = require('./utils/isDev');
 
-if (isDev) {
+if (isDev()) {
 	// Enable live reload for Electron too
 	require('electron-reload')(__dirname, {
 		// Note that the path to electron may vary according to the main file
@@ -35,7 +35,7 @@ function createWindow() {
 	// and load the index.html of the app.
 	win.loadURL(`file://${__dirname}/src/index.html`);
 
-	if (isDev) {
+	if (isDev()) {
 		// Open the DevTools.
 		win.webContents.openDevTools();
 	}
