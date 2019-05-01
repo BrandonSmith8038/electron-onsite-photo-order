@@ -13,6 +13,7 @@ const keys = require('./src/config');
 const createSampleOrders = require('./utils/createSampleOrders');
 const mongoose = require('mongoose');
 const Order = require('./schemas/OrdersSchema');
+const checkConnection = require('./utils/checkConnection');
 
 if (isDev()) {
 	// Enable live reload for Electron too
@@ -94,17 +95,19 @@ app.on('ready', createWindow);
 
 // Create Database Connection
 app.on('ready', () => {
-	mongoose.connect(
-		'mongodb://cowboy8038:Nascar8038@ds117111.mlab.com:17111/reddirt-photo-order-dev',
-		{ useNewUrlParser: true },
-		err => {
-			if (err) {
-				console.log(err);
-			} else {
-				console.log('Database connected');
-			}
-		},
-	);
+	if (checkConnection() === 'Connected') {
+		mongoose.connect(
+			'mongodb://cowboy8038:Nascar8038@ds117111.mlab.com:17111/reddirt-photo-order-dev',
+			{ useNewUrlParser: true },
+			err => {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log('Database connected');
+				}
+			},
+		);
+	}
 });
 
 // Quit when all windows are closed.
