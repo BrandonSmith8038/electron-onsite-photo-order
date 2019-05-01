@@ -3,7 +3,6 @@ const { dialog, BrowserWindow } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const clearOrders = require('./clearOrders');
-const createSampleOrders = require('./createSampleOrders');
 const createPDF = require('./createPDF');
 const homeDir = require('os').homedir();
 

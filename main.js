@@ -9,6 +9,9 @@ const { app, BrowserWindow, Menu, dialog } = require('electron');
 const ipcMain = require('electron').ipcMain;
 const menuTemplate = require('./utils/menu');
 const isDev = require('./utils/isDev');
+const keys = require('./src/config');
+const createSampleOrders = require('./utils/createSampleOrders');
+const mongoose = require('mongoose');
 
 if (isDev()) {
 	// Enable live reload for Electron too
@@ -76,6 +79,19 @@ Menu.setApplicationMenu(menu);
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
+
+// Create Database Connection
+mongoose.connect(
+	'mongodb://cowboy8038:Nascar8038@ds117111.mlab.com:17111/reddirt-photo-order-dev',
+	{ useNewUrlParser: true },
+	err => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log('Database connected');
+		}
+	},
+);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
