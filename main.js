@@ -128,6 +128,15 @@ ipcMain.on('user-data', (event, arg) => {
 	console.log('arg');
 });
 
+ipcMain.on('write-order-db', (event, arg) => {
+	const newOrder = new Order(arg);
+	newOrder.save(err => {
+		if (err) {
+			console.log(err);
+		}
+	});
+});
+
 ipcMain.on('notify-order-totals', (event, arg) => {
 	const { nightlyTotal, numberOfOrders } = arg;
 	const options = {

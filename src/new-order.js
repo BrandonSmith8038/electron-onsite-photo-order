@@ -5,8 +5,9 @@ const rootPath = require('electron-root-path').rootPath;
 const getDate = require('../utils/getDate');
 const remote = electron.remote;
 const homeDir = require('os').homedir();
-
+const isConnected = require('../utils/checkConnection');
 const form = document.querySelector('form');
+const { ipcRenderer } = require('electron');
 
 const date = document.querySelector('#date');
 const firstName = document.querySelector('#first-name');
@@ -23,6 +24,14 @@ const payment = document.querySelector('#payment-method');
 const total = document.querySelector('#total');
 
 date.value = getDate();
+
+let connectionStatus = 'Not Connected';
+
+setInterval(() => {
+	if (isConnected() === 'Connected') {
+		connectionStatus = 'Connected';
+	}
+}, 2000);
 
 const onSubmit = e => {
 	e.preventDefault();
@@ -65,12 +74,14 @@ const onSubmit = e => {
 			notification.title,
 			notification,
 		);
-
-		successNotification.onshow = () => {
-			console.log('Notification Shown');
+		if (connectionStatus === 'Connected') {
+			ipcRenderer.send('write-order-db', newOrder);
 			let window = remote.getCurrentWindow();
 			window.close();
-		};
+		} else {
+			let window = remote.getCurrentWindow();
+			window.close();
+		}
 	});
 };
 
