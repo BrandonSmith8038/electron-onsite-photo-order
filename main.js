@@ -95,19 +95,22 @@ app.on('ready', createWindow);
 
 // Create Database Connection
 app.on('ready', () => {
-	if (checkConnection() === 'Connected') {
-		mongoose.connect(
-			'mongodb://cowboy8038:Nascar8038@ds117111.mlab.com:17111/reddirt-photo-order-dev',
-			{ useNewUrlParser: true },
-			err => {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log('Database connected');
-				}
-			},
-		);
-	}
+	checkConnection();
+	setTimeout(() => {
+		if (checkConnection() === 'Connected') {
+			mongoose.connect(
+				'mongodb://cowboy8038:Nascar8038@ds117111.mlab.com:17111/reddirt-photo-order-dev',
+				{ useNewUrlParser: true },
+				err => {
+					if (err) {
+						console.log(err);
+					} else {
+						console.log('Database connected');
+					}
+				},
+			);
+		}
+	}, 2000);
 });
 
 // Quit when all windows are closed.
@@ -137,6 +140,7 @@ ipcMain.on('write-order-db', (event, arg) => {
 		if (err) {
 			console.log(err);
 		}
+		console.log('Order Saved To DB');
 	});
 });
 

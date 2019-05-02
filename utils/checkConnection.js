@@ -1,6 +1,6 @@
 const dns = require('dns');
 
-status = '';
+status = 'Not Connected';
 module.exports = () => {
 	dns.lookup('google.com', (err, addresses) => {
 		if (err) {
