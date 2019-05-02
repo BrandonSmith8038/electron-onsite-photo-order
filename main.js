@@ -29,7 +29,6 @@ let win;
 
 function createWindow() {
 	let mainDisplay = electron.screen.getPrimaryDisplay();
-	console.log(mainDisplay);
 	// Create the browser window.
 	win = new BrowserWindow({
 		width: 1000,
