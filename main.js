@@ -4,7 +4,7 @@ if (setupEvents.handleSquirrelEvent()) {
 	// squirrel event handled and app will exit in 1000ms, so don't do anything else
 	return;
 }
-
+const electron = require('electron');
 const { app, BrowserWindow, Menu, dialog } = require('electron');
 const ipcMain = require('electron').ipcMain;
 const menuTemplate = require('./utils/menu');
@@ -28,10 +28,14 @@ if (isDev()) {
 let win;
 
 function createWindow() {
+	let mainDisplay = electron.screen.getPrimaryDisplay();
+	console.log(mainDisplay);
 	// Create the browser window.
 	win = new BrowserWindow({
 		width: 1000,
 		height: 800,
+		x: mainDisplay.bounds.width + 450,
+		y: mainDisplay.bounds.y + 250,
 		webPreferences: {
 			nodeIntegration: true,
 		},
@@ -91,11 +95,11 @@ Menu.setApplicationMenu(menu);
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
 
-// Create Database Connection
 app.on('ready', () => {
+	createWindow();
 	checkConnection();
+	// Create Database Connection
 	setTimeout(() => {
 		if (checkConnection() === 'Connected') {
 			mongoose.connect(
