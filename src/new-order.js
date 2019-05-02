@@ -33,10 +33,14 @@ setInterval(() => {
 	}
 }, 2000);
 
+const eventDetails = JSON.parse(localStorage.getItem('Current Event'));
+
 const onSubmit = e => {
 	e.preventDefault();
 
 	const newOrder = {};
+	newOrder.eventName = eventDetails.eventName;
+	newOrder.venue = eventDetails.venue;
 	if (date.value) newOrder.date = date.value;
 	if (lastName.value) newOrder.lastName = lastName.value;
 	if (firstName.value) newOrder.firstName = firstName.value;
@@ -67,7 +71,6 @@ const onSubmit = e => {
 
 	fs.writeFile(filePath, newOrderJSON, 'utf8', err => {
 		if (err) {
-			console.log(err);
 			return;
 		}
 		const successNotification = new Notification(

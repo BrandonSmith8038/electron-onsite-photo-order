@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema({
 	date: String,
+	eventName: String,
+	venue: String,
 	lastName: String,
 	firstName: String,
 	email: String,
