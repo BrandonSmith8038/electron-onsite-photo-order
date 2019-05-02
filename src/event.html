@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link
+			rel="stylesheet"
+			href="../node_modules/materialize-css/dist/css/materialize.min.css"
+		/>
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<title>Red Dirt Photography | Event</title>
+	</head>
+	<body>
+		<form>
+			<div class="form-wrapper">
+				<div class="row">
+					<div class="input-field ">
+						<input type="text" id="event-name" required />
+						<label for="event-name">Event Name</label>
+					</div>
+					<div class="input-field">
+						<input type="text" id="venue" required />
+						<label for="venue">Venue</label>
+					</div>
+				</div>
+			</div>
+			<div class="start-event-button center-align">
+				<button
+					class="red darken-4 btn waves-effect waves-light "
+					type="submit"
+				>
+					Start Event
+				</button>
+			</div>
+		</form>
+		<script src="../lib/materialize.min.js"></script>
+		<script type="text/javascript" src="./event.js"></script>
+	</body>
+</html>

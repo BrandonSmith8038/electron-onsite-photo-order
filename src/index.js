@@ -35,7 +35,7 @@ getNightlyTotalBtn.addEventListener('click', () => {
 
 // Creates The Add New Order Window
 newOrderButton.addEventListener('click', () => {
-	const formPath = path.join('file://', __dirname, 'new-order.html');
+	const orderPath = path.join('file://', __dirname, 'new-order.html');
 	let mainDisplay = electron.screen.getPrimaryDisplay();
 	let win = new BrowserWindow({
 		width: 800,
@@ -50,7 +50,7 @@ newOrderButton.addEventListener('click', () => {
 	});
 
 	win.on('close', () => (win = null));
-	win.loadURL(formPath);
+	win.loadURL(orderPath);
 	win.show();
 });
 
@@ -66,6 +66,25 @@ setInterval(() => {
 }, 5000);
 
 // Starting & Ending and Events
-eventButton.addEventListener('click', () =>
-	console.log('Event Button Clicked'),
-);
+eventButton.addEventListener('click', () => {
+	if (localStorage.getItem('Current Event') === null) {
+		const orderPath = path.join('file://', __dirname, 'event.html');
+		let mainDisplay = electron.screen.getPrimaryDisplay();
+		let win = new BrowserWindow({
+			width: 800,
+			height: 600,
+			alwaysOnTop: true,
+			frame: true,
+			x: mainDisplay.bounds.width + 450,
+			y: mainDisplay.bounds.y + 250,
+			webPreferences: {
+				nodeIntegration: true,
+			},
+		});
+
+		win.on('close', () => (win = null));
+		win.loadURL(orderPath);
+		win.show();
+		eventButton.innerHTML = 'End Event';
+	}
+});
