@@ -10,8 +10,8 @@ const isConnected = require('../utils/checkConnection');
 // const checkInternetConnected = require('check-internet-connected');
 const homeDir = require('os').homedir();
 
-// Grab The Main New Order Button
 const newOrderButton = document.querySelector('#new-order-button');
+const eventButton = document.querySelector('#event-button');
 const getNightlyTotalBtn = document.querySelector('#get-total');
 const openOrdersFolderBtn = document.querySelector('#open-orders-folder');
 
@@ -61,3 +61,8 @@ setInterval(() => {
 		document.querySelector('.connection-test').style.color = '#d32f2f';
 	}
 }, 5000);
+
+// Starting & Ending and Events
+eventButton.addEventListener('click', () =>
+	console.log('Event Button Clicked'),
+);
