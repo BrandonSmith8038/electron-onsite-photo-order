@@ -70,6 +70,11 @@ if (localStorage.getItem('Current Event')) {
 	eventButton.innerHTML = 'End Event';
 }
 
+if (localStorage.getItem('Current Event') === null) {
+	// Hide the new order button until a event has been created
+	newOrderButton.style.display = 'none';
+}
+
 // Starting & Ending and Events
 eventButton.addEventListener('click', () => {
 	if (localStorage.getItem('Current Event') === null) {
@@ -90,6 +95,9 @@ eventButton.addEventListener('click', () => {
 		win.on('close', () => (win = null));
 		win.loadURL(orderPath);
 		win.show();
+		// Change Event Button Text
 		eventButton.innerHTML = 'End Event';
+		// Show The New Order Button
+		newOrderButton.style.display = 'inline-block';
 	}
 });
