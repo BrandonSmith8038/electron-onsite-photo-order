@@ -77,14 +77,11 @@ const onSubmit = e => {
 			notification.title,
 			notification,
 		);
-		if (connectionStatus === 'Connected') {
-			ipcRenderer.send('write-order-db', newOrder);
+
+		successNotification.onshow = () => {
 			let window = remote.getCurrentWindow();
 			window.close();
-		} else {
-			let window = remote.getCurrentWindow();
-			window.close();
-		}
+		};
 	});
 };
 
