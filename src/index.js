@@ -65,6 +65,11 @@ setInterval(() => {
 	}
 }, 5000);
 
+// Change Event Button Text If There Is a Event Currently In Local Storage
+if (localStorage.getItem('Current Event')) {
+	eventButton.innerHTML = 'End Event';
+}
+
 // Starting & Ending and Events
 eventButton.addEventListener('click', () => {
 	if (localStorage.getItem('Current Event') === null) {
