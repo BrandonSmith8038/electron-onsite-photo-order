@@ -7,6 +7,7 @@ const BrowserWindow = electron.remote.BrowserWindow;
 const ipcRenderer = electron.ipcRenderer;
 const { nightlyTotal, numberOfOrders } = require('../utils/nightlyOrderTotals');
 const isConnected = require('../utils/checkConnection');
+const clearOrders = require('../utils/clearOrders');
 // const checkInternetConnected = require('check-internet-connected');
 const homeDir = require('os').homedir();
 
@@ -24,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Open orders folder when menu item is clicked
 openOrdersFolderBtn.addEventListener('click', () => {
-	console.log('Open Orders folder Button click');
 	shell.openItem(`${homeDir}/Orders`);
 });
 
@@ -100,4 +100,19 @@ eventButton.addEventListener('click', () => {
 		// Show The New Order Button
 		newOrderButton.style.display = 'inline-block';
 	}
+	if (localStorage.getItem('Current Event')) {
+		if (isConnected() === 'Connected') {
+			ipcRenderer.send('event-end-with-connection');
+		} else {
+			ipcRenderer.send('event-end-no-connection');
+		}
+	}
+	// Clear local storage and set button states
+	ipcRenderer.on('clear-event', () => {
+		// Clear All The Current Orders
+		// clearOrders();
+		localStorage.removeItem('Current Event');
+		eventButton.innerHTML = 'Create Event';
+		newOrderButton.style.display = 'none';
+	});
 });

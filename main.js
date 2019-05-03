@@ -4,16 +4,24 @@ if (setupEvents.handleSquirrelEvent()) {
 	// squirrel event handled and app will exit in 1000ms, so don't do anything else
 	return;
 }
+const fs = require('fs');
+const fsPromises = require('fs').promises;
+const path = require('path');
+const homeDir = require('os').homedir();
 const electron = require('electron');
 const { app, BrowserWindow, Menu, dialog } = require('electron');
 const ipcMain = require('electron').ipcMain;
-const menuTemplate = require('./utils/menu');
-const isDev = require('./utils/isDev');
 const keys = require('./src/config');
-const createSampleOrders = require('./utils/createSampleOrders');
 const mongoose = require('mongoose');
 const Order = require('./schemas/OrdersSchema');
+const isDev = require('./utils/isDev');
+const menuTemplate = require('./utils/menu');
+const createSampleOrders = require('./utils/createSampleOrders');
+
 const checkConnection = require('./utils/checkConnection');
+const clearOrders = require('./utils/clearOrders');
+
+mongoose.Promise = global.Promise;
 
 if (isDev()) {
 	// Enable live reload for Electron too
@@ -106,9 +114,7 @@ app.on('ready', () => {
 				{ useNewUrlParser: true },
 				err => {
 					if (err) {
-						console.log(err);
 					} else {
-						console.log('Database connected');
 					}
 				},
 			);
@@ -133,17 +139,13 @@ app.on('activate', () => {
 	}
 });
 
-ipcMain.on('user-data', (event, arg) => {
-	console.log('arg');
-});
+ipcMain.on('user-data', (event, arg) => {});
 
 ipcMain.on('write-order-db', (event, arg) => {
 	const newOrder = new Order(arg);
 	newOrder.save(err => {
 		if (err) {
-			console.log(err);
 		}
-		console.log('Order Saved To DB');
 	});
 });
 
@@ -160,6 +162,64 @@ ipcMain.on('notify-order-totals', (event, arg) => {
 		: (options.message = `So far you have made ${numberOfOrders} sales totaling ${nightlyTotal}!`);
 
 	dialog.showMessageBox(null, options);
+});
+
+ipcMain.on('event-end-no-connection', () => {
+	const options = {
+		type: 'error',
+		buttons: ['Ok'],
+		title: 'Error',
+		message: 'You Must Be Connected To The Internet First',
+	};
+	dialog.showMessageBox(null, options);
+});
+
+ipcMain.on('event-end-with-connection', () => {
+	const options = {
+		type: 'question',
+		buttons: ['No', 'Yes'],
+		title: 'Are You Sure You Want To End This Event?',
+	};
+	dialog.showMessageBox(null, options, response => {
+		//TODO Need To Add Confirmation Dialogs
+		if (response === 0) return;
+		const ordersDirectory = `${homeDir}/Orders`;
+		const pdfDirectory = `${homeDir}/Orders/PDFs`;
+		// Look in The Orders Directory and see if there are files
+		const files = fs.readdirSync(ordersDirectory);
+		// Show Error If There Are No Files
+		if (files.length <= 1) {
+			dialog.showErrorBox(`Error Saving Files `, 'There Are No Orders To Use');
+		}
+		for (const file of files) {
+			const stats = fs.statSync(path.join(ordersDirectory, file));
+			if (stats.isFile()) {
+				const data = fs.readFileSync(path.join(ordersDirectory, file));
+				const orderData = JSON.parse(data);
+				//TODO: Check If Folders Already Exist
+				fsPromises
+					.mkdir(`${pdfDirectory}/${orderData.firstName} ${orderData.lastName}`)
+					.catch(e => console.error(e))
+					.then(() => {
+						const createPDF = require('./utils/createPDF');
+						//TODO Need TO Change This To A Promise
+						createPDF(orderData);
+					})
+					.then(() => {
+						const newOrder = new Order(orderData);
+						newOrder
+							.save()
+							.catch(e => console.error(e))
+							.then(() => {
+								fs.unlink(path.join(ordersDirectory, file), err => {
+									if (err) throw err;
+									win.webContents.send('clear-event');
+								});
+							});
+					});
+			}
+		}
+	});
 });
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
