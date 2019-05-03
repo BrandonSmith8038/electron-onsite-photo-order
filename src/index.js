@@ -10,6 +10,7 @@ const isConnected = require('../utils/checkConnection');
 const clearOrders = require('../utils/clearOrders');
 // const checkInternetConnected = require('check-internet-connected');
 const homeDir = require('os').homedir();
+const fetchCustomers = require('../utils/fetchCustomers');
 
 const newOrderButton = document.querySelector('#new-order-button');
 const eventButton = document.querySelector('#event-button');
@@ -27,6 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
 openOrdersFolderBtn.addEventListener('click', () => {
 	shell.openItem(`${homeDir}/Orders`);
 });
+const getCustomers = async () => {
+	const allCustomers = await fetchCustomers();
+	console.log('allCustomers: ', allCustomers.length);
+};
+getCustomers();
 
 // Get Nightly Totals When Menu Item Clicked
 getNightlyTotalBtn.addEventListener('click', () => {
@@ -107,6 +113,7 @@ eventButton.addEventListener('click', () => {
 			ipcRenderer.send('event-end-no-connection');
 		}
 	}
+
 	// Clear local storage and set button states
 	ipcRenderer.on('clear-event', () => {
 		// Clear All The Current Orders
