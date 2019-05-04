@@ -20,8 +20,8 @@ const query2 = `query {
     defaultEmail
   }
 }`;
-module.exports = () => {
-	let customers = [];
+const fetchCustomers = () => {
+	let customers = {};
 	fetch('https://gql.waveapps.com/graphql/public', {
 		method: 'POST',
 		headers: {
@@ -32,7 +32,7 @@ module.exports = () => {
 	})
 		.then(res => res.json())
 		.then(data => {
-			customers.push(data.data.business.customers.edges);
+			return data.data.business.customers.edges;
 		});
-	return customers;
 };
+module.exports = fetchCustomers();
