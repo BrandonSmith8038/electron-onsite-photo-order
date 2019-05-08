@@ -34,11 +34,11 @@ module.exports = () => {
 				const email = customer.node.email;
 				const phone = customer.node.phone;
 				const person = {};
-				person[name] = {};
-				person[name].contact = {};
-				if (email) person[name].contact.email = email;
-				if (phone) person[name].contact.phone = phone;
-				person[name].address = {};
+				person.name = name;
+				person.contact = {};
+				if (email) person.contact.email = email;
+				if (phone) person.contact.phone = phone;
+				person.address = {};
 				customersArray.push(person);
 			});
 			console.log(customersArray);
