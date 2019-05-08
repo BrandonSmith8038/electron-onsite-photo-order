@@ -3,7 +3,7 @@ const query = `query {
   business(id: "QnVzaW5lc3M6NDgxZDExM2QtMzUxOC00YzBiLWFiOTItZWM1MTMyNDBiMTFh") {
     id
     name
-    customers(page: 1, pageSize: 50) {
+    customers(page: 1, pageSize: 1000) {
       edges {
         node {
           id

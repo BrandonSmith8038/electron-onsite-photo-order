@@ -2,3 +2,4 @@ node_modules/
 release-builds
 keys.dev.js
 keys.prod.js
+customers.json
