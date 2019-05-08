@@ -20,6 +20,11 @@ const newOrderButton = document.querySelector('#new-order-button');
 const eventButton = document.querySelector('#event-button');
 const getNightlyTotalBtn = document.querySelector('#get-total');
 const openOrdersFolderBtn = document.querySelector('#open-orders-folder');
+const customersBtn = document.querySelector('#customers-button');
+
+customersBtn.addEventListener('click', () => {
+	fetchCustomers();
+});
 
 const query = `query {
   business(id: "QnVzaW5lc3M6NDgxZDExM2QtMzUxOC00YzBiLWFiOTItZWM1MTMyNDBiMTFh") {
@@ -39,8 +44,7 @@ const query = `query {
 }`;
 
 const fetchCustomers = () => {
-	let customers = {};
-	let customerJson = {};
+	let customersArray = [];
 	fetch('https://gql.waveapps.com/graphql/public', {
 		method: 'POST',
 		headers: {
@@ -59,29 +63,25 @@ const fetchCustomers = () => {
 				const email = customer.node.email;
 				const phone = customer.node.phone;
 				const person = {};
-				person.name = name;
-				if (email) person.email = email;
-				if (phone) person.phone = phone;
-				const personJson = JSON.stringify(person);
-				let c = Object.assign(customerJson, person);
-				console.log('After Merge', c);
-				//! Need To Still Merge Each Person Into One Large Object
+				person[name] = {};
+				person[name].contact = {};
+				if (email) person[name].contact.email = email;
+				if (phone) person[name].contact.phone = phone;
+				person[name].address = {};
+				customersArray.push(person);
 			});
+			console.log(customersArray);
 		})
 		.then(() => {
-			// fs.writeFile(
-			// 	`${rootPath}/customers.json`,
-			// 	JSON.stringify(customerJson),
-			// 	err => {
-			// 		console.log(err);
-			// 	},
-			// );
+			fs.writeFile(
+				`${rootPath}/customers.json`,
+				JSON.stringify(customersArray),
+				err => {
+					if (err) console.log(err);
+				},
+			);
 		});
 };
-// const saveCustomersToFile = customerList => {
-
-// }
-fetchCustomers();
 
 // Initialize The Materialize SideNav
 document.addEventListener('DOMContentLoaded', function() {

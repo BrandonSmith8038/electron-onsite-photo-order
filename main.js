@@ -104,7 +104,6 @@ Menu.setApplicationMenu(menu);
 // Some APIs can only be used after this event occurs.
 
 app.on('ready', () => {
-	// getCustomers();
 	createWindow();
 	checkConnection();
 	// Create Database Connection
