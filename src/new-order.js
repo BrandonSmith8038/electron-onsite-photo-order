@@ -142,7 +142,13 @@ const onSubmit = e => {
 	if (zip.value) newOrder.city = zip.value;
 	if (photos.value) newOrder.photos = photos.value;
 	if (notes.value) newOrder.notes = notes.value;
-	if (payment.value) newOrder.payment = payment.value;
+	if (!payment.value) {
+		M.toast({ html: 'You Must Choose A Payment Type', classes: 'rounded' });
+		return;
+	} else {
+		newOrder.payment = payment.value;
+	}
+
 	if (total.value) newOrder.total = total.value;
 
 	const newOrderJSON = JSON.stringify(newOrder);
