@@ -9,6 +9,7 @@ const isConnected = require('../utils/checkConnection');
 const form = document.querySelector('form');
 const { ipcRenderer } = require('electron');
 
+const autoComplete = document.querySelector('.auto-complete');
 const date = document.querySelector('#date');
 const firstName = document.querySelector('#first-name');
 const lastName = document.querySelector('#last-name');
@@ -22,10 +23,99 @@ const photos = document.querySelector('#photos');
 const notes = document.querySelector('#notes');
 const payment = document.querySelector('#payment-method');
 const total = document.querySelector('#total');
+const firstNameLabel = document.querySelector('label[for=first-name]');
+const lastNameLabel = document.querySelector('label[for=last-name]');
+const emailLabel = document.querySelector('label[for=email]');
+const phoneLabel = document.querySelector('label[for=phone]');
 
+let customers;
+let connectionStatus = 'Not Connected';
+const eventDetails = JSON.parse(localStorage.getItem('Current Event'));
 date.value = getDate();
 
-let connectionStatus = 'Not Connected';
+const getCustomers = () => {
+	ipcRenderer.send('getCustomers');
+};
+
+ipcRenderer.on('sendCustomers', (event, arg) => {
+	customers = JSON.parse(arg);
+});
+window.addEventListener('DOMContentLoaded', getCustomers);
+
+const getSelectedCustomerInfo = e => {
+	if (!e.target.matches('li')) return;
+	const selectedName = e.target.dataset.name;
+	let customerInfo = customers.filter(customer => {
+		const regex = new RegExp(`^${selectedName}`, 'gi');
+		return customer.name.match(regex);
+	});
+	const {
+		name,
+		contact: { email: emailValue, phone: phoneValue },
+	} = customerInfo[0];
+	const firstNameValue = name
+		.split(' ')
+		.slice(0, -1)
+		.join(' ');
+	const lastNameValue = name
+		.split(' ')
+		.slice(-1)
+		.join(' ');
+
+	if (firstNameValue) {
+		firstName.value = firstNameValue;
+		firstNameLabel.classList.add('active');
+	}
+
+	if (lastNameValue) {
+		lastName.value = lastNameValue;
+		lastNameLabel.classList.add('active');
+	}
+
+	if (emailValue) {
+		email.value = emailValue;
+		emailLabel.classList.add('active');
+	}
+	if (phoneValue) {
+		phone.value = phoneValue;
+		phoneLabel.classList.add('active');
+	}
+	autoComplete.style.display = 'none';
+	autoComplete.innerHTML = '';
+};
+
+autoComplete.addEventListener('click', getSelectedCustomerInfo);
+
+const searchCustomers = searchText => {
+	let matches = customers.filter(customer => {
+		const regex = new RegExp(`^${searchText}`, 'gi');
+		return customer.name.match(regex);
+	});
+
+	if (searchText.length < 3) {
+		matches = [];
+		autoComplete.style.display = 'none';
+		autoComplete.innerHTML = '';
+	}
+	if (searchText.length > 2 && matches.length !== 0) {
+		outputHTML(matches);
+	}
+};
+
+const outputHTML = matches => {
+	autoComplete.style.display = 'inline-block';
+	if (matches.length > 0) {
+		const html = matches
+			.map(
+				customer =>
+					`<li class="autocomplete-item" data-name="${customer.name}">${
+						customer.name
+					}</li>`,
+			)
+			.join('');
+		autoComplete.innerHTML = html;
+	}
+};
 
 setInterval(() => {
 	if (isConnected() === 'Connected') {
@@ -33,7 +123,7 @@ setInterval(() => {
 	}
 }, 2000);
 
-const eventDetails = JSON.parse(localStorage.getItem('Current Event'));
+firstName.addEventListener('input', () => searchCustomers(firstName.value));
 
 const onSubmit = e => {
 	e.preventDefault();

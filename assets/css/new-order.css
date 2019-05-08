@@ -41,3 +41,26 @@
 .input-field .prefix.active {
 	color: #b71c1c !important;
 }
+
+input.first-name {
+	margin: 0;
+}
+
+.auto-complete {
+	display: none;
+	max-height: 200px;
+	overflow-x: hidden;
+	overflow-y: visible;
+	width: 100%;
+	margin: 0;
+	padding: 5px;
+}
+
+li.autocomplete-item {
+	list-style: none;
+	cursor: pointer;
+}
+
+li.autocomplete-item:hover {
+	color: #b71c1c;
+}

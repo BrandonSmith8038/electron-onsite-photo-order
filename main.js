@@ -141,6 +141,17 @@ app.on('activate', () => {
 
 ipcMain.on('user-data', (event, arg) => {});
 
+ipcMain.on('getCustomers', async (event, arg) => {
+	let customers;
+	fs.readFile('./customers.json', (err, data) => {
+		if (err) {
+			throw err;
+		}
+		customers = data.toString('utf8');
+		event.reply('sendCustomers', customers);
+	});
+});
+
 ipcMain.on('write-order-db', (event, arg) => {
 	const newOrder = new Order(arg);
 	newOrder.save(err => {

@@ -8,7 +8,8 @@ const query = `query {
         node {
           id
           name
-          email
+					email
+					phone
         }
       }
     }
