@@ -14,14 +14,8 @@ const query = `query {
     }
   }
 }`;
-const query2 = `query {
-  user {
-    id
-    defaultEmail
-  }
-}`;
-const fetchCustomers = () => {
-	let customers = {};
+module.exports = () => {
+	let customersArray = [];
 	fetch('https://gql.waveapps.com/graphql/public', {
 		method: 'POST',
 		headers: {
@@ -32,7 +26,30 @@ const fetchCustomers = () => {
 	})
 		.then(res => res.json())
 		.then(data => {
-			return data.data.business.customers.edges;
+			let customers = data.data.business.customers;
+			const keys = Object.values(customers);
+			const allCustomers = keys[0];
+			allCustomers.forEach(customer => {
+				const name = customer.node.name;
+				const email = customer.node.email;
+				const phone = customer.node.phone;
+				const person = {};
+				person[name] = {};
+				person[name].contact = {};
+				if (email) person[name].contact.email = email;
+				if (phone) person[name].contact.phone = phone;
+				person[name].address = {};
+				customersArray.push(person);
+			});
+			console.log(customersArray);
+		})
+		.then(() => {
+			fs.writeFile(
+				`${rootPath}/customers.json`,
+				JSON.stringify(customersArray),
+				err => {
+					if (err) console.log(err);
+				},
+			);
 		});
 };
-module.exports = fetchCustomers();

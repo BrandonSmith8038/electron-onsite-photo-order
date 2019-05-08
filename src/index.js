@@ -10,11 +10,9 @@ const rootPath = require('electron-root-path').rootPath;
 const { nightlyTotal, numberOfOrders } = require('../utils/nightlyOrderTotals');
 const isConnected = require('../utils/checkConnection');
 const clearOrders = require('../utils/clearOrders');
-const fetch = require('node-fetch');
-
+const getCustomers = require('../utils/fetchCustomers');
 // const checkInternetConnected = require('check-internet-connected');
 const homeDir = require('os').homedir();
-// const fetchCustomers = require('../utils/fetchCustomers');
 
 const newOrderButton = document.querySelector('#new-order-button');
 const eventButton = document.querySelector('#event-button');
@@ -23,65 +21,8 @@ const openOrdersFolderBtn = document.querySelector('#open-orders-folder');
 const customersBtn = document.querySelector('#customers-button');
 
 customersBtn.addEventListener('click', () => {
-	fetchCustomers();
+	getCustomers();
 });
-
-const query = `query {
-  business(id: "QnVzaW5lc3M6NDgxZDExM2QtMzUxOC00YzBiLWFiOTItZWM1MTMyNDBiMTFh") {
-    id
-    name
-    customers(page: 1, pageSize: 50) {
-      edges {
-        node {
-          id
-          name
-					email
-					phone
-        }
-      }
-    }
-  }
-}`;
-
-const fetchCustomers = () => {
-	let customersArray = [];
-	fetch('https://gql.waveapps.com/graphql/public', {
-		method: 'POST',
-		headers: {
-			Authorization: 'Bearer 44JWI9Z5Jk9ZBDpjnu1w13bXYiYM9j',
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ query }),
-	})
-		.then(res => res.json())
-		.then(data => {
-			let customers = data.data.business.customers;
-			const keys = Object.values(customers);
-			const allCustomers = keys[0];
-			allCustomers.forEach(customer => {
-				const name = customer.node.name;
-				const email = customer.node.email;
-				const phone = customer.node.phone;
-				const person = {};
-				person[name] = {};
-				person[name].contact = {};
-				if (email) person[name].contact.email = email;
-				if (phone) person[name].contact.phone = phone;
-				person[name].address = {};
-				customersArray.push(person);
-			});
-			console.log(customersArray);
-		})
-		.then(() => {
-			fs.writeFile(
-				`${rootPath}/customers.json`,
-				JSON.stringify(customersArray),
-				err => {
-					if (err) console.log(err);
-				},
-			);
-		});
-};
 
 // Initialize The Materialize SideNav
 document.addEventListener('DOMContentLoaded', function() {
@@ -94,12 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
 openOrdersFolderBtn.addEventListener('click', () => {
 	shell.openItem(`${homeDir}/Orders`);
 });
-// const getCustomers = async () => {
-// 	const allCustomers = await fetchCustomers;
-// 	console.log('allCustomers: ', allCustomers);
-// };
-// getCustomers();
-// console.log(fetchCustomers());
 
 // Get Nfightly Totals When Menu Item Clicked
 getNightlyTotalBtn.addEventListener('click', () => {
