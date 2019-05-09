@@ -159,7 +159,7 @@ const onSubmit = e => {
 
 	const notification = {
 		title: 'Order Saved....',
-		icon: '../assets/img/logo.png',
+		icon: '../assets/png/32x32.png',
 		body: `New Order Saved | ${newOrder.firstName} ${newOrder.lastName} | $${
 			newOrder.total
 		}`,

@@ -58,6 +58,7 @@ function createWindow() {
 		win = new BrowserWindow({
 			width: 1000,
 			height: 800,
+			icon: path.join(__dirname, 'assets/icons/png/64X64.png'),
 			webPreferences: {
 				nodeIntegration: true,
 			},
