@@ -9,6 +9,7 @@ const ipcRenderer = electron.ipcRenderer;
 const rootPath = require('electron-root-path').rootPath;
 const { nightlyTotal, numberOfOrders } = require('../utils/nightlyOrderTotals');
 const isConnected = require('../utils/checkConnection');
+const isDev = require('../utils/isDev');
 const clearOrders = require('../utils/clearOrders');
 const getCustomers = require('../utils/fetchCustomers');
 // const checkInternetConnected = require('check-internet-connected');
@@ -19,6 +20,10 @@ const eventButton = document.querySelector('#event-button');
 const getNightlyTotalBtn = document.querySelector('#get-total');
 const openOrdersFolderBtn = document.querySelector('#open-orders-folder');
 const customersBtn = document.querySelector('#customers-button');
+
+if (isDev()) {
+	customersBtn.style.display = 'inline-block';
+}
 
 customersBtn.addEventListener('click', () => {
 	getCustomers();
@@ -44,18 +49,29 @@ getNightlyTotalBtn.addEventListener('click', () => {
 // Creates The Add New Order Window
 newOrderButton.addEventListener('click', () => {
 	const orderPath = path.join('file://', __dirname, 'new-order.html');
+	let screens = electron.screen.getAllDisplays();
 	let mainDisplay = electron.screen.getPrimaryDisplay();
-	let win = new BrowserWindow({
-		width: 800,
-		height: 600,
-		alwaysOnTop: true,
-		frame: true,
-		x: mainDisplay.bounds.width + 450,
-		y: mainDisplay.bounds.y + 250,
-		webPreferences: {
-			nodeIntegration: true,
-		},
-	});
+	if (screens.length > 1) {
+		win = new BrowserWindow({
+			// Create the browser window.
+
+			width: 1000,
+			height: 800,
+			x: mainDisplay.bounds.width + 450,
+			y: mainDisplay.bounds.y + 250,
+			webPreferences: {
+				nodeIntegration: true,
+			},
+		});
+	} else {
+		win = new BrowserWindow({
+			width: 1000,
+			height: 800,
+			webPreferences: {
+				nodeIntegration: true,
+			},
+		});
+	}
 
 	win.on('close', () => (win = null));
 	win.loadURL(orderPath);
@@ -87,18 +103,29 @@ if (localStorage.getItem('Current Event') === null) {
 eventButton.addEventListener('click', () => {
 	if (localStorage.getItem('Current Event') === null) {
 		const orderPath = path.join('file://', __dirname, 'event.html');
+		let screens = electron.screen.getAllDisplays();
 		let mainDisplay = electron.screen.getPrimaryDisplay();
-		let win = new BrowserWindow({
-			width: 800,
-			height: 600,
-			alwaysOnTop: true,
-			frame: true,
-			x: mainDisplay.bounds.width + 450,
-			y: mainDisplay.bounds.y + 250,
-			webPreferences: {
-				nodeIntegration: true,
-			},
-		});
+		if (screens.length > 1) {
+			win = new BrowserWindow({
+				// Create the browser window.
+
+				width: 1000,
+				height: 800,
+				x: mainDisplay.bounds.width + 450,
+				y: mainDisplay.bounds.y + 250,
+				webPreferences: {
+					nodeIntegration: true,
+				},
+			});
+		} else {
+			win = new BrowserWindow({
+				width: 1000,
+				height: 800,
+				webPreferences: {
+					nodeIntegration: true,
+				},
+			});
+		}
 
 		win.on('close', () => (win = null));
 		win.loadURL(orderPath);

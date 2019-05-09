@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+const path = require('path');
+const keys = require('../src/config');
 const query = `query {
   business(id: "QnVzaW5lc3M6NDgxZDExM2QtMzUxOC00YzBiLWFiOTItZWM1MTMyNDBiMTFh") {
     id
@@ -42,15 +44,10 @@ module.exports = () => {
 				person.address = {};
 				customersArray.push(person);
 			});
-			console.log(customersArray);
 		})
 		.then(() => {
-			fs.writeFile(
-				`${rootPath}/customers.json`,
-				JSON.stringify(customersArray),
-				err => {
-					if (err) console.log(err);
-				},
-			);
+			fs.writeFile(keys.CUSTOMERSFILE, JSON.stringify(customersArray), err => {
+				if (err) throw err;
+			});
 		});
 };

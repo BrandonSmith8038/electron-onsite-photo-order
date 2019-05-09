@@ -17,9 +17,12 @@ const Order = require('./schemas/OrdersSchema');
 const isDev = require('./utils/isDev');
 const menuTemplate = require('./utils/menu');
 const createSampleOrders = require('./utils/createSampleOrders');
+const rootPath = require('electron-root-path');
 
 const checkConnection = require('./utils/checkConnection');
 const clearOrders = require('./utils/clearOrders');
+
+const customerJSON = keys.CUSTOMERSFILE;
 
 mongoose.Promise = global.Promise;
 
@@ -36,17 +39,31 @@ if (isDev()) {
 let win;
 
 function createWindow() {
+	let screens = electron.screen.getAllDisplays();
 	let mainDisplay = electron.screen.getPrimaryDisplay();
+
+	if (screens.length > 1) {
+		win = new BrowserWindow({
+			// Create the browser window.
+
+			width: 1000,
+			height: 800,
+			x: mainDisplay.bounds.width + 450,
+			y: mainDisplay.bounds.y + 250,
+			webPreferences: {
+				nodeIntegration: true,
+			},
+		});
+	} else {
+		win = new BrowserWindow({
+			width: 1000,
+			height: 800,
+			webPreferences: {
+				nodeIntegration: true,
+			},
+		});
+	}
 	// Create the browser window.
-	win = new BrowserWindow({
-		width: 1000,
-		height: 800,
-		x: mainDisplay.bounds.width + 450,
-		y: mainDisplay.bounds.y + 250,
-		webPreferences: {
-			nodeIntegration: true,
-		},
-	});
 
 	// and load the index.html of the app.
 	win.loadURL(`file://${__dirname}/src/index.html`);
@@ -109,15 +126,13 @@ app.on('ready', () => {
 	// Create Database Connection
 	setTimeout(() => {
 		if (checkConnection() === 'Connected') {
-			mongoose.connect(
-				'mongodb://cowboy8038:Nascar8038@ds117111.mlab.com:17111/reddirt-photo-order-dev',
-				{ useNewUrlParser: true },
-				err => {
-					if (err) {
-					} else {
-					}
-				},
-			);
+			mongoose.connect(keys.MONGOURI, { useNewUrlParser: true }, err => {
+				if (err) {
+					throw err;
+				} else {
+					console.log('Database Connected');
+				}
+			});
 		}
 	}, 2000);
 });
@@ -143,7 +158,7 @@ ipcMain.on('user-data', (event, arg) => {});
 
 ipcMain.on('getCustomers', async (event, arg) => {
 	let customers;
-	fs.readFile('./customers.json', (err, data) => {
+	fs.readFile(customerJSON, (err, data) => {
 		if (err) {
 			throw err;
 		}
@@ -189,7 +204,8 @@ ipcMain.on('event-end-with-connection', () => {
 	const options = {
 		type: 'question',
 		buttons: ['No', 'Yes'],
-		title: 'Are You Sure You Want To End This Event?',
+		message: 'Are You Sure You Want To End This Event?',
+		title: 'Confirm event end',
 	};
 	dialog.showMessageBox(null, options, response => {
 		//TODO Need To Add Confirmation Dialogs
@@ -210,7 +226,9 @@ ipcMain.on('event-end-with-connection', () => {
 				//TODO: Check If Folders Already Exist
 				fsPromises
 					.mkdir(`${pdfDirectory}/${orderData.firstName} ${orderData.lastName}`)
-					.catch(e => console.error(e))
+					.catch(e => {
+						throw e;
+					})
 					.then(() => {
 						const createPDF = require('./utils/createPDF');
 						//TODO Need TO Change This To A Promise
@@ -220,7 +238,9 @@ ipcMain.on('event-end-with-connection', () => {
 						const newOrder = new Order(orderData);
 						newOrder
 							.save()
-							.catch(e => console.error(e))
+							.catch(e => {
+								throw e;
+							})
 							.then(() => {
 								fs.unlink(path.join(ordersDirectory, file), err => {
 									if (err) throw err;

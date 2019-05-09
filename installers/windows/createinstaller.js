@@ -1,6 +1,7 @@
 const createWindowsInstaller = require('electron-winstaller')
 	.createWindowsInstaller;
 const path = require('path');
+const getDate = require('../../utils/getDate');
 
 getInstallerConfig()
 	.then(createWindowsInstaller)
@@ -18,10 +19,10 @@ function getInstallerConfig() {
 		appDirectory: path.join(outPath, 'Red-Dirt-Photos-On-Site-win32-ia32'),
 		authors: 'Red Dirt Media',
 		noMsi: true,
-		outputDirectory: path.join(outPath, 'Red Dirt Photos OnSite'),
+		outputDirectory: path.join(outPath, `Red Dirt Photos OnSite ${getDate()}`),
 		exe: 'Red Dirt Photos OnSite.exe',
 		setupExe: 'Red Dirt Photos OnSite Setup.exe',
 		setupIcon: path.join(rootPath, 'assets', 'icons', 'win', 'icon.ico'),
-		name: 'OnSiteOrder',
+		name: 'Red-Dirt-Media-On-Site-Order',
 	});
 }
