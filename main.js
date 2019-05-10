@@ -67,7 +67,7 @@ function createWindow() {
 	// Create the browser window.
 
 	// and load the index.html of the app.
-	win.loadURL(`file://${__dirname}/src/index.html`);
+	win.loadURL(`http://localhost:3000`);
 
 	if (isDev()) {
 		// Open the DevTools.

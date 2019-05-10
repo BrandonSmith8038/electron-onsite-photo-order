@@ -5,7 +5,8 @@
 	"description": "Red Dirt Photography Onsite Photo Ordering",
 	"main": "main.js",
 	"scripts": {
-		"start": "electron main.js",
+		"start": "concurrently \"npm run start-react\" \"sleep 5 && electron main.js\"",
+		"start-react": "npm start --prefix react-version",
 		"package-win": "electron-packager . Red-Dirt-Photos-On-Site --extra-resource=\"customers.json\" --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=false --executableName=\"Red Dirt Photos OnSite\" --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Red Dirt Photo Onsite\"",
 		"package-linux": "electron-packager . red-dirt-photography-onsite --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds",
 		"create-installer-win": "node installers/windows/createinstaller.js",
@@ -20,6 +21,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"apollo-boost": "^0.3.1",
+		"concurrently": "^4.1.0",
 		"electron": "^5.0.0",
 		"electron-reload": "^1.4.0",
 		"electron-root-path": "^1.0.9",
