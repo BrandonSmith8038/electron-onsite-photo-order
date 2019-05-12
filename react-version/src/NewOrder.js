@@ -1,102 +1,202 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
+import getDate from './utils/getDate';
+import useOrderForm from './utils/CustomHooks';
+
 import Home from './Home';
 
-const NewOrder = () => {
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
+const styles = theme => ({
+	container: { display: 'flex', flexWrap: 'wrap' },
+	textField: {
+		marginLeft: theme.spacing.unit,
+		marginRight: theme.spacing.unit,
+	},
+	dense: {
+		marginTop: 16,
+	},
+	selectEmpty: {
+		marginTop: theme.spacing.unit * 2,
+	},
+});
+
+const NewOrder = props => {
+	const { classes } = props;
+
+	const newOrderSubmit = () => {
+		console.log(inputs);
+	};
+
 	const { currentPage, setPage } = useState('New Order');
+	const {
+		inputs,
+		handleInputChange,
+		handleSubmit,
+		handleSelectChange,
+	} = useOrderForm(newOrderSubmit);
 	switch (currentPage) {
 		case 'Home':
 			return <Home />;
 			break;
 		default:
 			return (
-				<div class='col s12 form-wrapper'>
-					<form>
-						<div class='row'>
-							<div class='input-field col s6'>
-								<input type='text' id='date' readonly />
-								<label class='active' for='date'>
-									Date
-								</label>
-							</div>
-						</div>
-						<div class='row'>
-							<div class='input-field col s3 '>
-								<input
-									type='text'
-									id='first-name'
-									class='first-name'
-									required
-								/>
-								<label for='first-name'>First Name</label>
-								<div class='auto-complete card' />
-							</div>
-							<div class='input-field col s3'>
-								<input type='text' id='last-name' required />
-								<label for='last-name'>Last Name</label>
-							</div>
-							<div class='input-field col s3'>
-								<input type='text' id='email' />
-								<label for='email'>Email</label>
-							</div>
-							<div class='input-field col s3'>
-								<input type='text' id='phone' />
-								<label for='phone'>Phone Number</label>
-							</div>
-						</div>
-						<div class='row'>
-							<div class='input-field col s3'>
-								<input type='text' id='street' />
-								<label for='street'>Street</label>
-							</div>
-							<div class='input-field col s3'>
-								<input type='text' id='city' /> <label for='city'>City</label>
-							</div>
-							<div class='input-field col s3'>
-								<input type='text' id='state' />{' '}
-								<label for='state'>State</label>
-							</div>
-							<div class='input-field col s3'>
-								<input type='text' id='zip' /> <label for='zip'>Zip</label>
-							</div>
-						</div>
-						<div class='row'>
-							<div class='input-field col s6'>
-								<textarea class='materialize-textarea' id='photos' required />
-								<label for='photos'>Photos</label>
-							</div>
-							<div class='input-field col s6'>
-								<textarea class='materialize-textarea' id='notes' />
-								<label for='notes'>Notes</label>
-							</div>
-						</div>
-						<div class='row'>
-							<div class='input-field col s3'>
-								<select id='payment-method'>
-									<option value='' disabled selected>
-										Payment Method
-									</option>
-									<option value='Cash'>Cash</option>
-									<option value='Card'>Card</option>
-									<option value='Invoice'>Invoice</option>
-								</select>
-								<label>Payment Method</label>
-							</div>
-							<div class='input-field col s2'>
-								<input type='text' id='total' required />{' '}
-								<label for='total'>Total</label>
-							</div>
-						</div>
+				<form onSubmit={handleSubmit}>
+					<TextField
+						id='date'
+						label='Date'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						InputProps={{
+							readOnly: true,
+						}}
+						defaultValue={getDate()}
+						name='date'
+					/>
 
-						<button
-							class='red darken-4 btn waves-effect waves-light '
-							type='submit'
-						>
-							Submit
-						</button>
-					</form>
-				</div>
+					<TextField
+						id='firstName'
+						name='firsName'
+						label='First Name'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+						defaultValue={inputs.firsName}
+					/>
+
+					<TextField
+						id='lastName'
+						name='lasName'
+						label='Last Name'
+						defaultValue={inputs.lastName}
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+
+					<TextField
+						id='email'
+						name='email'
+						defaultValue={inputs.email}
+						label='Email'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+
+					<TextField
+						id='phone'
+						name='phone'
+						defaultValue={inputs.phone}
+						label='Phone'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+
+					<TextField
+						id='street'
+						name='street'
+						defaultValue={inputs.street}
+						label='Street'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+
+					<TextField
+						id='city'
+						name='city'
+						defaultValue={inputs.city}
+						label='City'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+
+					<TextField
+						id='state'
+						name='state'
+						defaultValue={inputs.state}
+						label='State'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+
+					<TextField
+						id='zip'
+						name='zip'
+						defaultValue={inputs.zip}
+						label='Zip'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+					<TextField
+						id='photos'
+						name='photos'
+						defaultValue={inputs.photos}
+						label='Photos'
+						variant='outlined'
+						multiline={true}
+						rowsMax={4}
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+
+					<TextField
+						id='notes'
+						name='notes'
+						defaultValue={inputs.notes}
+						label='Notes'
+						variant='outlined'
+						multiline={true}
+						rowsMax={4}
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+
+					<InputLabel htmlFor='payment-method'>Payment Method</InputLabel>
+					<Select
+						value={inputs.paymentMethod ? inputs.paymentMethod : ''}
+						name='paymentMethod'
+						onChange={handleInputChange}
+						inputProps={{
+							name: 'paymentMethod',
+							id: 'paymentMethod',
+						}}
+					>
+						<MenuItem value=''>
+							<em>Payment Method</em>
+						</MenuItem>
+						<MenuItem value='Cash'>Cash</MenuItem>
+						<MenuItem value='Card'>Card</MenuItem>
+						<MenuItem value='Invoice'>Invoice</MenuItem>
+					</Select>
+					<TextField
+						id='total'
+						name='total'
+						defaultValue={inputs.total}
+						label='total'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						onChange={handleInputChange}
+					/>
+
+					<button
+						className='red darken-4 btn waves-effect waves-light '
+						type='submit'
+					>
+						Submit
+					</button>
+				</form>
 			);
 	}
 };
 
-export default NewOrder;
+export default withStyles(styles)(NewOrder);

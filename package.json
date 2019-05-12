@@ -21,6 +21,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"apollo-boost": "^0.3.1",
+		"classnames": "^2.2.6",
 		"concurrently": "^4.1.0",
 		"electron": "^5.0.0",
 		"electron-reload": "^1.4.0",
