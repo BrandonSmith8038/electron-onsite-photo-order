@@ -33,7 +33,10 @@ let connectionStatus = 'Not Connected';
 const eventDetails = JSON.parse(localStorage.getItem('Current Event'));
 date.value = getDate();
 
-lastName.addEventListener('blur', () => (autoComplete.style.display = 'none'));
+lastName.addEventListener('focus', () => {
+	console.log('Blur');
+	autoComplete.style.display = 'none';
+});
 
 const getCustomers = () => {
 	ipcRenderer.send('getCustomers');
