@@ -33,12 +33,9 @@ const NewOrder = props => {
 	};
 
 	const { currentPage, setPage } = useState('New Order');
-	const {
-		inputs,
-		handleInputChange,
-		handleSubmit,
-		handleSelectChange,
-	} = useOrderForm(newOrderSubmit);
+	const { inputs, handleInputChange, handleSubmit } = useOrderForm(
+		newOrderSubmit,
+	);
 	switch (currentPage) {
 		case 'Home':
 			return <Home />;

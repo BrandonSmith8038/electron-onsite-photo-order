@@ -18,13 +18,6 @@ const useOrderForm = callback => {
 		}));
 	};
 
-	const handleSelectChange = e => {
-		setInputs(inputs => ({
-			...inputs,
-			paymentMethod: e.target.value,
-		}));
-	};
-
 	return {
 		handleSubmit,
 		handleInputChange,
