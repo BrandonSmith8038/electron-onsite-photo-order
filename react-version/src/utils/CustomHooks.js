@@ -21,7 +21,6 @@ const useOrderForm = callback => {
 	return {
 		handleSubmit,
 		handleInputChange,
-		handleSelectChange,
 		inputs,
 	};
 };
