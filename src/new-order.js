@@ -33,6 +33,8 @@ let connectionStatus = 'Not Connected';
 const eventDetails = JSON.parse(localStorage.getItem('Current Event'));
 date.value = getDate();
 
+lastName.addEventListener('blur', () => (autoComplete.style.display = 'none'));
+
 const getCustomers = () => {
 	ipcRenderer.send('getCustomers');
 };
@@ -80,6 +82,7 @@ const getSelectedCustomerInfo = e => {
 		phone.value = phoneValue;
 		phoneLabel.classList.add('active');
 	}
+
 	autoComplete.style.display = 'none';
 	autoComplete.innerHTML = '';
 };
@@ -99,6 +102,9 @@ const searchCustomers = searchText => {
 	}
 	if (searchText.length > 2 && matches.length !== 0) {
 		outputHTML(matches);
+	}
+	if (searchText.length > 2 && matches.length === 0) {
+		autoComplete.style.display = 'none';
 	}
 };
 
