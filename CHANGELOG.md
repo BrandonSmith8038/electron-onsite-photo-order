@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.2](https://github.com/BrandonSmith8038/electron-onsite-photo-order/compare/v2.1.1...v2.1.2) (2019-05-12)
+
+
+### Bug Fixes
+
+* Hide auto complete choices after choosing, Hide auto complete when no matches are available. ([722a9ee](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/722a9ee))
+* Hide autocomplete selection when clicking to last name field ([248b5f5](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/248b5f5))
+
+
+
 ## [2.1.1](https://github.com/BrandonSmith8038/electron-onsite-photo-order/compare/v2.1.0...v2.1.1) (2019-05-09)
 
 
