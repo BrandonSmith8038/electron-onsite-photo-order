@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+const { ipcRenderer } = window.require('electron');
 
 const styles = theme => ({
 	container: { display: 'flex', flexWrap: 'wrap' },
@@ -29,13 +30,13 @@ const NewOrder = props => {
 	const { classes } = props;
 
 	const newOrderSubmit = () => {
-		console.log(inputs);
+		ipcRenderer.send('create-order', inputs);
 	};
 
 	const { currentPage, setPage } = useState('New Order');
-	const { inputs, handleInputChange, handleSubmit } = useOrderForm(
-		newOrderSubmit,
-	);
+	const { inputs, handleInputChange, handleSubmit } = useOrderForm(() => {
+		newOrderSubmit();
+	});
 	switch (currentPage) {
 		case 'Home':
 			return <Home />;
@@ -57,7 +58,7 @@ const NewOrder = props => {
 
 					<TextField
 						id='firstName'
-						name='firsName'
+						name='firstName'
 						label='First Name'
 						variant='outlined'
 						className={classNames(classes.textField, classes.dense)}
@@ -67,7 +68,7 @@ const NewOrder = props => {
 
 					<TextField
 						id='lastName'
-						name='lasName'
+						name='lastName'
 						label='Last Name'
 						defaultValue={inputs.lastName}
 						variant='outlined'

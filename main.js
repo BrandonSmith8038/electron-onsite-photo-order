@@ -8,6 +8,7 @@ const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
 const homeDir = require('os').homedir();
+const os = require('os');
 const electron = require('electron');
 const { app, BrowserWindow, Menu, dialog } = require('electron');
 const ipcMain = require('electron').ipcMain;
@@ -34,6 +35,7 @@ ipcMainFunctions.writeOrderDB();
 ipcMainFunctions.notifyOrderTotals();
 ipcMainFunctions.eventEndNoConnection();
 ipcMainFunctions.eventEndWithConnection();
+ipcMainFunctions.createOrder();
 
 if (isDev()) {
 	// Enable live reload for Electron too
@@ -82,6 +84,13 @@ function createWindow() {
 		// Open the DevTools.
 		win.webContents.openDevTools();
 	}
+
+	BrowserWindow.addDevToolsExtension(
+		path.join(
+			os.homedir(),
+			'.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.6.0_0',
+		),
+	);
 
 	// Emitted when the window is closed.
 	win.on('closed', () => {

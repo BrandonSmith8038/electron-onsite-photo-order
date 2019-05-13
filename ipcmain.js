@@ -1,4 +1,7 @@
 const electron = require('electron');
+const { dialog, BrowserWindow } = require('electron');
+const homeDir = require('os').homedir();
+const fs = require('fs');
 
 const ipcMain = require('electron').ipcMain;
 
@@ -13,6 +16,38 @@ const getCustomers = () =>
 			event.reply('sendCustomers', customers);
 		});
 	});
+
+const createOrder = () => {
+	ipcMain.on('create-order', (event, arg) => {
+		const newOrderJSON = JSON.stringify(arg);
+		const { firstName, lastName, date, total } = arg;
+
+		// const { date, firstName, lastName, total } = arg;
+
+		const filePath = `${homeDir}/Orders/${date}-${firstName} ${lastName}.json`;
+
+		const notification = {
+			title: 'Order Saved....',
+			icon: '../assets/png/32x32.png',
+			body: `New Order Saved | ${firstName} ${lastName} | $${total}`,
+		};
+
+		fs.writeFile(filePath, newOrderJSON, 'utf8', err => {
+			if (err) {
+				return;
+			}
+			// const successNotification = new Notification(
+			// 	notification.title,
+			// 	notification,
+			// );
+
+			// successNotification.onshow = () => {
+			// 	let window = remote.getCurrentWindow();
+			// 	window.close();
+			// };
+		});
+	});
+};
 
 const writeOrderDB = () =>
 	ipcMain.on('write-order-db', (event, arg) => {
@@ -115,4 +150,5 @@ module.exports = {
 	notifyOrderTotals,
 	eventEndNoConnection,
 	eventEndWithConnection,
+	createOrder,
 };

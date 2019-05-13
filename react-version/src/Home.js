@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import Logo from './img/logo.png';
 import isDev from './utils/isDev';
 import NewOrder from './NewOrder';
-const { ipcRenderer } = window.require('electron');
 
 const styles = theme => ({
 	button: {
