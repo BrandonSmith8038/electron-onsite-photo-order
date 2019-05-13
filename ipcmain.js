@@ -1,6 +1,7 @@
 const electron = require('electron');
 const { dialog, BrowserWindow } = require('electron');
 const homeDir = require('os').homedir();
+const remote = electron.remote;
 const fs = require('fs');
 
 const ipcMain = require('electron').ipcMain;
@@ -26,25 +27,11 @@ const createOrder = () => {
 
 		const filePath = `${homeDir}/Orders/${date}-${firstName} ${lastName}.json`;
 
-		const notification = {
-			title: 'Order Saved....',
-			icon: '../assets/png/32x32.png',
-			body: `New Order Saved | ${firstName} ${lastName} | $${total}`,
-		};
-
 		fs.writeFile(filePath, newOrderJSON, 'utf8', err => {
 			if (err) {
 				return;
 			}
-			// const successNotification = new Notification(
-			// 	notification.title,
-			// 	notification,
-			// );
-
-			// successNotification.onshow = () => {
-			// 	let window = remote.getCurrentWindow();
-			// 	window.close();
-			// };
+			event.sender.send('order-saved', { firstName, lastName, date, total });
 		});
 	});
 };

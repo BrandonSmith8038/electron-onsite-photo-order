@@ -26,6 +26,18 @@ const styles = theme => ({
 	},
 });
 
+ipcRenderer.on('order-saved', (event, arg) => {
+	const { firstName, lastName, date, total } = arg;
+	const notification = {
+		title: 'Order Saved....',
+		icon: '../assets/png/32x32.png',
+		body: `New Order Saved | ${firstName} ${lastName} | $${total}`,
+	};
+	const successNotification = new Notification(
+		notification.title,
+		notification,
+	);
+});
 const NewOrder = props => {
 	const { classes } = props;
 
