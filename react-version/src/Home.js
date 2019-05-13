@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Logo from './img/logo.png';
 import isDev from './utils/isDev';
 import NewOrder from './NewOrder';
+const { ipcRenderer } = window.require('electron');
 
 const styles = theme => ({
 	button: {
@@ -27,7 +28,6 @@ const MainWrapper = styled.div`
 const Home = props => {
 	const [currentPage, setPage] = useState('Home');
 	const { classes } = props;
-
 	switch (currentPage) {
 		case 'New Order':
 			return <NewOrder />;
@@ -58,7 +58,7 @@ const Home = props => {
 								className={classes.button}
 								id='customers-button'
 								style={{
-									display: isDev() ? 'none' : 'inline-block',
+									display: isDev() ? 'inline-block' : 'none',
 									backgroundColor: '#b71c1c',
 									color: 'white',
 								}}
