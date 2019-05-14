@@ -29,7 +29,7 @@ const Home = props => {
 	const { classes } = props;
 	switch (currentPage) {
 		case 'New Order':
-			return <NewOrder />;
+			return <NewOrder setPage={setPage} />;
 			break;
 		default:
 			return (
