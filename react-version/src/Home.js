@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import Button from '@material-ui/core/Button';
+
+import CreateEvent from './CreateEvent';
 import Logo from './img/logo.png';
-import isDev from './utils/isDev';
 import NewOrder from './NewOrder';
+import isDev from './utils/isDev';
 
 const styles = theme => ({
 	button: {
@@ -31,6 +33,9 @@ const Home = props => {
 		case 'New Order':
 			return <NewOrder setPage={setPage} />;
 			break;
+		case 'Create Event':
+			return <CreateEvent setPage={setPage} />;
+			break;
 		default:
 			return (
 				<div>
@@ -50,6 +55,7 @@ const Home = props => {
 								className={classes.button}
 								id='event-button'
 								style={{ backgroundColor: '#b71c1c', color: 'white' }}
+								onClick={() => setPage('Create Event')}
 							>
 								Create Event
 							</Button>

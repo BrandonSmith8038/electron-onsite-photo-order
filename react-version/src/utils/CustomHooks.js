@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+
 import getDate from './getDate';
 
-const useOrderForm = callback => {
+const useFormSubmit = callback => {
 	const [inputs, setInputs] = useState({ date: getDate() });
 
 	const handleSubmit = e => {
@@ -26,4 +27,4 @@ const useOrderForm = callback => {
 	};
 };
 
-export default useOrderForm;
+export default useFormSubmit;

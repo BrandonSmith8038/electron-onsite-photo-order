@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-import useOrderForm from './utils/CustomHooks';
+import useFormSubmit from './utils/CustomHooks';
 import getDate from './utils/getDate';
 
 const { ipcRenderer } = window.require('electron');
@@ -48,7 +48,7 @@ const NewOrder = props => {
 		props.setPage('Home');
 	};
 
-	const { inputs, handleInputChange, handleSubmit } = useOrderForm(() => {
+	const { inputs, handleInputChange, handleSubmit } = useFormSubmit(() => {
 		newOrderSubmit();
 	});
 
