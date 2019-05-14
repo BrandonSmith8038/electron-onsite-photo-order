@@ -42,7 +42,6 @@ ipcRenderer.on('order-saved', (event, arg) => {
 
 const NewOrder = props => {
 	const { classes } = props;
-	const { hasSubmitted, setSubmitted } = useState(false);
 
 	const newOrderSubmit = () => {
 		ipcRenderer.send('create-order', inputs);
