@@ -1,9 +1,12 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { Fragment } from 'react';
 
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
 import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 
 import useFormSubmit from './utils/CustomHooks';
 
@@ -12,6 +15,9 @@ const styles = theme => ({
 	textField: {
 		marginLeft: theme.spacing.unit,
 		marginRight: theme.spacing.unit,
+	},
+	fab: {
+		margin: theme.spacing.unit,
 	},
 	dense: {
 		marginTop: 16,
@@ -33,34 +39,49 @@ const CreateEvent = props => {
 
 	const { classes, setEvents, setPage } = props;
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>
+		<>
+			<Fab
+				color='primary'
+				aria-label='back'
+				className={classes.fab}
+				size='small'
+				onClick={() => props.setPage('Home')}
+				style={{
+					backgroundColor: '#b71c1c',
+					color: 'white',
+				}}
+			>
+				<ArrowBack />
+			</Fab>
+			<form onSubmit={handleSubmit}>
+				<div>
+					<TextField
+						id='eventName'
+						label='Event Name'
+						variant='outlined'
+						className={classNames(classes.textField, classes.dense)}
+						name='eventName'
+						onChange={handleInputChange}
+					/>
+				</div>
 				<TextField
-					id='eventName'
-					label='Event Name'
+					id='venue'
+					label='Venue'
 					variant='outlined'
 					className={classNames(classes.textField, classes.dense)}
-					name='eventName'
+					name='venue'
 					onChange={handleInputChange}
 				/>
-			</div>
-			<TextField
-				id='venue'
-				label='Venue'
-				variant='outlined'
-				className={classNames(classes.textField, classes.dense)}
-				name='venue'
-				onChange={handleInputChange}
-			/>
-			<div>
-				<button
-					className='red darken-4 btn waves-effect waves-light '
-					type='submit'
-				>
-					Submit
-				</button>
-			</div>
-		</form>
+				<div>
+					<button
+						className='red darken-4 btn waves-effect waves-light '
+						type='submit'
+					>
+						Submit
+					</button>
+				</div>
+			</form>
+		</>
 	);
 };
 
