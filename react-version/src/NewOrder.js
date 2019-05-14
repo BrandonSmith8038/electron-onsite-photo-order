@@ -12,7 +12,7 @@ import getDate from './utils/getDate';
 
 const { ipcRenderer } = window.require('electron');
 
-let formSubmitted = false;
+// let formSubmitted = false;
 const styles = theme => ({
 	container: { display: 'flex', flexWrap: 'wrap' },
 	textField: {
@@ -26,6 +26,7 @@ const styles = theme => ({
 		marginTop: theme.spacing.unit * 2,
 	},
 });
+
 ipcRenderer.on('order-saved', (event, arg) => {
 	const { firstName, lastName, total } = arg;
 	const notification = {
@@ -37,7 +38,6 @@ ipcRenderer.on('order-saved', (event, arg) => {
 		notification.title,
 		notification,
 	);
-	formSubmitted = true;
 });
 
 const NewOrder = props => {
