@@ -1,5 +1,5 @@
 import { withStyles } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Button from '@material-ui/core/Button';
@@ -28,6 +28,20 @@ const MainWrapper = styled.div`
 
 const Home = props => {
 	const [currentPage, setPage] = useState('Home');
+	const [connectionStatus, setConnectionStatus] = useState('');
+
+	// Check the connection status every 5 seconds
+	useEffect(() => {
+		setInterval(() => {
+			const isOnline = navigator.onLine;
+			if (isOnline) {
+				setConnectionStatus('Online');
+			} else {
+				setConnectionStatus('Offline');
+			}
+		}, 5000);
+	}, [connectionStatus]);
+
 	const { classes } = props;
 	switch (currentPage) {
 		case 'New Order':
@@ -39,6 +53,28 @@ const Home = props => {
 		default:
 			return (
 				<div>
+					<div style={{ float: 'right' }}>
+						{connectionStatus === 'Online' ? (
+							<Button
+								variant='contained'
+								className={classes.button}
+								style={{ backgroundColor: '#4caf50', color: 'white' }}
+								disabled={true}
+								onClick={() => setPage('New Order')}
+							>
+								Online
+							</Button>
+						) : (
+							<Button
+								variant='contained'
+								className={classes.button}
+								style={{ backgroundColor: '#f44336', color: 'white' }}
+								disabled={true}
+							>
+								Offline
+							</Button>
+						)}
+					</div>
 					<MainWrapper className='main-wrapper'>
 						<img src={Logo} alt='' />
 						<div className='main-buttons'>
