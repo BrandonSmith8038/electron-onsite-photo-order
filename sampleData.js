@@ -10,7 +10,7 @@ module.exports = [
 		state: 'Arizona',
 		photos: '7845,6598,4124,',
 		notes: 'No Note',
-		payment: 'cash',
+		paymentMethod: 'cash',
 		total: '100',
 	},
 	{
@@ -24,7 +24,7 @@ module.exports = [
 		state: 'AZ',
 		photos: '4578,6548,1235',
 		notes: 'Test Note',
-		payment: 'cash',
+		paymentMethod: 'cash',
 		total: '40',
 	},
 	{
@@ -37,7 +37,7 @@ module.exports = [
 		city: '85361',
 		state: 'Arizona',
 		photos: '7894,1248,6541',
-		payment: 'invoice',
+		paymentMethod: 'invoice',
 		total: '15',
 	},
 ];

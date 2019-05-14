@@ -30,6 +30,7 @@ const styles = theme => ({
 const CreateEvent = props => {
 	const addEventToLocalStorage = () => {
 		localStorage.setItem('Current Event', JSON.stringify(inputs));
+		props.setEvent(inputs);
 		props.setPage('Home');
 	};
 

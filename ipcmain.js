@@ -1,6 +1,9 @@
 const electron = require('electron');
 const { dialog, BrowserWindow } = require('electron');
+const fsPromises = require('fs').promises;
+const Order = require('./schemas/OrdersSchema');
 const homeDir = require('os').homedir();
+const path = require('path');
 const remote = electron.remote;
 const fs = require('fs');
 
@@ -73,7 +76,7 @@ const eventEndNoConnection = () =>
 	});
 
 const eventEndWithConnection = () =>
-	ipcMain.on('event-end-with-connection', () => {
+	ipcMain.on('event-end-with-connection', (event, arg) => {
 		const options = {
 			type: 'question',
 			buttons: ['No', 'Yes'],
@@ -108,7 +111,7 @@ const eventEndWithConnection = () =>
 							throw e;
 						})
 						.then(() => {
-							const createPDF = require('./utils/createPDF');
+							const createPDF = require('./react-version/src/utils/createPDF');
 							//TODO Need TO Change This To A Promise
 							createPDF(orderData);
 						})
@@ -122,12 +125,12 @@ const eventEndWithConnection = () =>
 								.then(() => {
 									fs.unlink(path.join(ordersDirectory, file), err => {
 										if (err) throw err;
-										win.webContents.send('clear-event');
 									});
 								});
 						});
 				}
 			}
+			event.sender.send('clear-event');
 		});
 	});
 

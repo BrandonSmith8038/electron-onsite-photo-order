@@ -9,6 +9,8 @@ import Logo from './img/logo.png';
 import NewOrder from './NewOrder';
 import isDev from './utils/isDev';
 
+const { ipcRenderer } = window.require('electron');
+
 const styles = theme => ({
 	button: {
 		margin: theme.spacing.unit,
@@ -29,7 +31,20 @@ const MainWrapper = styled.div`
 const Home = props => {
 	const [currentPage, setPage] = useState('Home');
 	const [connectionStatus, setConnectionStatus] = useState('');
+	const [currentEvent, setEvent] = useState('');
 
+	const eventEnd = () => {
+		if (connectionStatus === 'Online') {
+			ipcRenderer.send('event-end-with-connection');
+		} else {
+			ipcRenderer.send('event-end-no-connection');
+		}
+	};
+
+	ipcRenderer.on('clear-event', () => {
+		localStorage.removeItem('Current Event');
+		setEvent('');
+	});
 	// Check the connection status every 5 seconds
 	useEffect(() => {
 		setInterval(() => {
@@ -48,7 +63,7 @@ const Home = props => {
 			return <NewOrder setPage={setPage} />;
 			break;
 		case 'Create Event':
-			return <CreateEvent setPage={setPage} />;
+			return <CreateEvent setPage={setPage} setEvent={setEvent} />;
 			break;
 		default:
 			return (
@@ -58,7 +73,10 @@ const Home = props => {
 							<Button
 								variant='contained'
 								className={classes.button}
-								style={{ backgroundColor: '#4caf50', color: 'white' }}
+								style={{
+									backgroundColor: '#4caf50',
+									color: 'white',
+								}}
 								disabled={true}
 								onClick={() => setPage('New Order')}
 							>
@@ -78,21 +96,23 @@ const Home = props => {
 					<MainWrapper className='main-wrapper'>
 						<img src={Logo} alt='' />
 						<div className='main-buttons'>
-							<Button
-								variant='contained'
-								className={classes.button}
-								id='new-order-button'
-								style={{ backgroundColor: '#b71c1c', color: 'white' }}
-								onClick={() => setPage('New Order')}
-							>
-								New Order
-							</Button>
-							{localStorage.getItem('Current Event') ? (
+							{currentEvent ? (
+								<Button
+									variant='contained'
+									className={classes.button}
+									id='new-order-button'
+									style={{ backgroundColor: '#b71c1c', color: 'white' }}
+									onClick={() => setPage('New Order')}
+								>
+									New Order
+								</Button>
+							) : null}
+							{currentEvent ? (
 								<Button
 									className={classes.button}
 									id='end-event-button'
 									style={{ backgroundColor: '#b71c1c', color: 'white' }}
-									// onClick={() => setPage('Create Event')}
+									onClick={() => eventEnd()}
 								>
 									End Event
 								</Button>
@@ -106,17 +126,19 @@ const Home = props => {
 									Create Event
 								</Button>
 							)}
-							<Button
-								className={classes.button}
-								id='customers-button'
-								style={{
-									display: isDev() ? 'inline-block' : 'none',
-									backgroundColor: '#b71c1c',
-									color: 'white',
-								}}
-							>
-								Get Customers
-							</Button>
+							{isDev() ? (
+								<Button
+									className={classes.button}
+									id='customers-button'
+									style={{
+										display: isDev() ? 'inline-block' : 'none',
+										backgroundColor: '#b71c1c',
+										color: 'white',
+									}}
+								>
+									Get Customers
+								</Button>
+							) : null}
 						</div>
 					</MainWrapper>
 				</div>
