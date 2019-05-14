@@ -24,14 +24,14 @@ const styles = theme => ({
 const CreateEvent = props => {
 	const addEventToLocalStorage = () => {
 		localStorage.setItem('Current Event', JSON.stringify(inputs));
-		// console.log('Event Submitted');
+		props.setPage('Home');
 	};
 
 	const { inputs, handleSubmit, handleInputChange } = useFormSubmit(
 		addEventToLocalStorage,
 	);
 
-	const { classes } = props;
+	const { classes, setEvents, setPage } = props;
 	return (
 		<form onSubmit={handleSubmit}>
 			<div>

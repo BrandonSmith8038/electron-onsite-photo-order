@@ -51,14 +51,25 @@ const Home = props => {
 							>
 								New Order
 							</Button>
-							<Button
-								className={classes.button}
-								id='event-button'
-								style={{ backgroundColor: '#b71c1c', color: 'white' }}
-								onClick={() => setPage('Create Event')}
-							>
-								Create Event
-							</Button>
+							{localStorage.getItem('Current Event') ? (
+								<Button
+									className={classes.button}
+									id='end-event-button'
+									style={{ backgroundColor: '#b71c1c', color: 'white' }}
+									// onClick={() => setPage('Create Event')}
+								>
+									End Event
+								</Button>
+							) : (
+								<Button
+									className={classes.button}
+									id='creat-event-button'
+									style={{ backgroundColor: '#b71c1c', color: 'white' }}
+									onClick={() => setPage('Create Event')}
+								>
+									Create Event
+								</Button>
+							)}
 							<Button
 								className={classes.button}
 								id='customers-button'
