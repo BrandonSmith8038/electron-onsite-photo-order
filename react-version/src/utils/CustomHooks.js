@@ -5,8 +5,6 @@ import getDate from './getDate';
 const useFormSubmit = callback => {
 	const [inputs, setInputs] = useState({
 		date: getDate(),
-		firstName: '',
-		lastName: '',
 	});
 
 	const handleSubmit = e => {
