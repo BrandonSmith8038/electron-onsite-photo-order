@@ -41,6 +41,10 @@ const Home = props => {
 		}
 	};
 
+	ipcRenderer.on('ping', (event, message) => {
+		console.log(message); // Prints 'whoooooooh!'
+	});
+
 	ipcRenderer.on('clear-event', () => {
 		localStorage.removeItem('Current Event');
 		setEvent('');
