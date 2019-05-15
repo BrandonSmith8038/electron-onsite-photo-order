@@ -1,4 +1,5 @@
 const electron = require('electron');
+const { shell } = require('electron');
 const { dialog, BrowserWindow } = require('electron');
 const fs = require('fs');
 const path = require('path');
@@ -62,29 +63,9 @@ module.exports = [
 				},
 			},
 			{
-				label: 'Clear Current Orders',
+				label: 'Open Orders Folder',
 				click() {
-					dialog.showMessageBox(
-						{ buttons: options.buttons, message: options.message[0] },
-						response => {
-							if (response === 1) {
-								return;
-							}
-
-							dialog.showMessageBox(
-								{
-									buttons: options.buttons,
-									message: options.message[1],
-								},
-								response => {
-									if (response === 1) {
-										return;
-									}
-									clearOrders();
-								},
-							);
-						},
-					);
+					shell.openItem(`${homeDir}/Orders`);
 				},
 			},
 			{ role: 'separator' },
