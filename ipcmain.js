@@ -6,6 +6,8 @@ const homeDir = require('os').homedir();
 const path = require('path');
 const remote = electron.remote;
 const fs = require('fs');
+const keys = require('./src/config');
+const customerJSON = keys.CUSTOMERSFILE;
 
 const ipcMain = require('electron').ipcMain;
 

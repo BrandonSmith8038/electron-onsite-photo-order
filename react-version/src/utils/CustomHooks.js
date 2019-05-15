@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import getDate from './getDate';
 
 const useFormSubmit = callback => {
-	const [inputs, setInputs] = useState({ date: getDate() });
+	const [inputs, setInputs] = useState({
+		date: getDate(),
+		firstName: '',
+		lastName: '',
+	});
 
 	const handleSubmit = e => {
 		if (e) {
@@ -20,9 +24,17 @@ const useFormSubmit = callback => {
 		}));
 	};
 
+	const handleAutoComplete = (inputField, newValue) => {
+		setInputs(inputs => ({
+			...inputs,
+			[inputField]: newValue,
+		}));
+	};
+
 	return {
 		handleSubmit,
 		handleInputChange,
+		handleAutoComplete,
 		inputs,
 	};
 };

@@ -19,6 +19,7 @@ const isDev = require('./utils/isDev');
 const menuTemplate = require('./utils/menu');
 const createSampleOrders = require('./utils/createSampleOrders');
 const rootPath = require('electron-root-path');
+const getCustomers = require('./utils/fetchCustomers');
 
 const ipcMainFunctions = require('./ipcmain');
 
@@ -88,7 +89,7 @@ function createWindow() {
 	BrowserWindow.addDevToolsExtension(
 		path.join(
 			os.homedir(),
-			'.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.6.0_0',
+			'.config/google-chrome/Default/Extensions/pkmnigdcbihgkcpblhoollboafggfkpm/4.0.0.6_0',
 		),
 	);
 
@@ -121,6 +122,12 @@ if (isDev()) {
 						total: '34',
 					});
 					newOrder.save();
+				},
+			},
+			{
+				label: 'Fetch Customers',
+				click() {
+					getCustomers();
 				},
 			},
 			{ role: 'separator' },

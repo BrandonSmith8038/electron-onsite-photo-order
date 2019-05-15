@@ -41,19 +41,21 @@ const CreateEvent = props => {
 	const { classes, setEvents, setPage } = props;
 	return (
 		<>
-			<Fab
-				color='primary'
-				aria-label='back'
-				className={classes.fab}
-				size='small'
-				onClick={() => props.setPage('Home')}
-				style={{
-					backgroundColor: '#b71c1c',
-					color: 'white',
-				}}
-			>
-				<ArrowBack />
-			</Fab>
+			<div style={{ float: 'left', clear: 'both', marginBottom: 50 }}>
+				<Fab
+					color='primary'
+					aria-label='back'
+					className={classes.fab}
+					size='small'
+					onClick={() => props.setPage('Home')}
+					style={{
+						backgroundColor: '#b71c1c',
+						color: 'white',
+					}}
+				>
+					<ArrowBack />
+				</Fab>
+			</div>
 			<form onSubmit={handleSubmit}>
 				<div>
 					<TextField

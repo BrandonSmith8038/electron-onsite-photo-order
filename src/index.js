@@ -11,7 +11,6 @@ const { nightlyTotal, numberOfOrders } = require('../utils/nightlyOrderTotals');
 const isConnected = require('../utils/checkConnection');
 const isDev = require('../utils/isDev');
 const clearOrders = require('../utils/clearOrders');
-const getCustomers = require('../utils/fetchCustomers');
 // const checkInternetConnected = require('check-internet-connected');
 const homeDir = require('os').homedir();
 

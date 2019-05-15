@@ -47,6 +47,10 @@ const Home = props => {
 	});
 	// Check the connection status every 5 seconds
 	useEffect(() => {
+		const currentEvent = localStorage.getItem('Current Event');
+		if (currentEvent) {
+			setEvent(JSON.parse(currentEvent));
+		}
 		setInterval(() => {
 			const isOnline = navigator.onLine;
 			if (isOnline) {
