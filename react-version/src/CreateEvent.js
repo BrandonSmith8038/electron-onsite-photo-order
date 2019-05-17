@@ -59,6 +59,7 @@ const CreateEvent = props => {
 			<form onSubmit={handleSubmit}>
 				<div>
 					<TextField
+						required={true}
 						id='eventName'
 						label='Event Name'
 						variant='outlined'
@@ -68,6 +69,7 @@ const CreateEvent = props => {
 					/>
 				</div>
 				<TextField
+					require={true}
 					id='venue'
 					label='Venue'
 					variant='outlined'

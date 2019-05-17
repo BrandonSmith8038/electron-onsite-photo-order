@@ -182,6 +182,7 @@ const NewOrder = props => {
 						}}
 						onKeyUp={() => searchCustomers()}
 						value={inputs.firstName ? inputs.firstName : ''}
+						required={true}
 					/>
 					{/* On Show If There Are Matches Stored In The Matches State */}
 					{matches && !inputs.lastName ? (
@@ -206,6 +207,7 @@ const NewOrder = props => {
 					className={classNames(classes.textField, classes.dense)}
 					onChange={handleInputChange}
 					value={inputs.lastName ? inputs.lastName : ''}
+					required={true}
 				/>
 				<TextField
 					id='email'
@@ -215,6 +217,7 @@ const NewOrder = props => {
 					className={classNames(classes.textField, classes.dense)}
 					onChange={handleInputChange}
 					value={inputs.email ? inputs.email : ''}
+					required={true}
 				/>
 				<TextField
 					id='phone'
@@ -224,6 +227,7 @@ const NewOrder = props => {
 					className={classNames(classes.textField, classes.dense)}
 					value={inputs.phone ? inputs.phone : ''}
 					onChange={handleInputChange}
+					required={true}
 				/>
 				<TextField
 					id='street'
@@ -271,6 +275,7 @@ const NewOrder = props => {
 					rowsMax={4}
 					className={classNames(classes.textField, classes.dense)}
 					onChange={handleInputChange}
+					required={true}
 				/>
 				<TextField
 					id='notes'
@@ -308,6 +313,7 @@ const NewOrder = props => {
 					variant='outlined'
 					className={classNames(classes.textField, classes.dense)}
 					onChange={handleInputChange}
+					required={true}
 				/>
 				<button
 					className='red darken-4 btn waves-effect waves-light '
