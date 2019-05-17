@@ -2,10 +2,13 @@ import classNames from 'classnames';
 import React, { Fragment, useEffect, useState } from 'react';
 
 import Fab from '@material-ui/core/Fab';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
@@ -70,6 +73,7 @@ const NewOrder = props => {
 	const { classes } = props;
 	const [customers, setCustomers] = useState([]);
 	const [matches, setMatches] = useState([]);
+	const [needAddress, setNeedAddress] = useState(false);
 	// When a new order is submitted
 	const newOrderSubmit = () => {
 		// Send a command to ipcmain to save the order as a json file
@@ -97,6 +101,10 @@ const NewOrder = props => {
 		// Create an array of all the the cusomers recieved
 		setCustomers(JSON.parse(arg));
 	});
+
+	const handleSwitchChange = () => {
+		setNeedAddress(!needAddress);
+	};
 	// Runs Every Time A Key Is Pressed In The First Name Field
 	const searchCustomers = () => {
 		// Make Sure The First Name FIeld Has Text
@@ -229,42 +237,57 @@ const NewOrder = props => {
 					onChange={handleInputChange}
 					required={true}
 				/>
-				<TextField
-					id='street'
-					name='street'
-					defaultValue={inputs.street}
-					label='Street'
-					variant='outlined'
-					className={classNames(classes.textField, classes.dense)}
-					onChange={handleInputChange}
+				<FormControlLabel
+					control={
+						<Switch
+							value='address-needed'
+							checked={needAddress}
+							onChange={handleSwitchChange}
+						/>
+					}
+					label='Need Address'
 				/>
-				<TextField
-					id='city'
-					name='city'
-					defaultValue={inputs.city}
-					label='City'
-					variant='outlined'
-					className={classNames(classes.textField, classes.dense)}
-					onChange={handleInputChange}
-				/>
-				<TextField
-					id='state'
-					name='state'
-					defaultValue={inputs.state}
-					label='State'
-					variant='outlined'
-					className={classNames(classes.textField, classes.dense)}
-					onChange={handleInputChange}
-				/>
-				<TextField
-					id='zip'
-					name='zip'
-					defaultValue={inputs.zip}
-					label='Zip'
-					variant='outlined'
-					className={classNames(classes.textField, classes.dense)}
-					onChange={handleInputChange}
-				/>
+				{needAddress ? (
+					<>
+						<TextField
+							id='street'
+							name='street'
+							defaultValue={inputs.street}
+							label='Street'
+							variant='outlined'
+							className={classNames(classes.textField, classes.dense)}
+							onChange={handleInputChange}
+						/>
+						<TextField
+							id='city'
+							name='city'
+							defaultValue={inputs.city}
+							label='City'
+							variant='outlined'
+							className={classNames(classes.textField, classes.dense)}
+							onChange={handleInputChange}
+						/>
+						<TextField
+							id='state'
+							name='state'
+							defaultValue={inputs.state}
+							label='State'
+							variant='outlined'
+							className={classNames(classes.textField, classes.dense)}
+							onChange={handleInputChange}
+						/>
+						<TextField
+							id='zip'
+							name='zip'
+							defaultValue={inputs.zip}
+							label='Zip'
+							variant='outlined'
+							className={classNames(classes.textField, classes.dense)}
+							onChange={handleInputChange}
+						/>{' '}
+					</>
+				) : null}
+
 				<TextField
 					id='photos'
 					name='photos'
