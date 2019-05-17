@@ -49,6 +49,12 @@ module.exports = [
 					shell.openItem(`${homeDir}/Orders`);
 				},
 			},
+			{
+				label: 'Clear Current Orders',
+				click() {
+					clearOrders();
+				},
+			},
 			//{
 			// 	label: 'Force End Event',
 			// 	click() {
