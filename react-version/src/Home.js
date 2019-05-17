@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 
 import CreateEvent from './CreateEvent';
 import Logo from './img/logo.png';
@@ -17,6 +18,12 @@ const styles = theme => ({
 	},
 	input: {
 		display: 'none',
+	},
+	paper: {
+		...theme.mixins.gutters(),
+		paddingTop: theme.spacing.unit * 10,
+		paddingBottom: theme.spacing.unit * 10,
+		width: '70%',
 	},
 });
 
@@ -102,52 +109,54 @@ const Home = props => {
 						)}
 					</div>
 					<MainWrapper className='main-wrapper'>
-						<img src={Logo} alt='' />
-						<div className='main-buttons'>
-							{currentEvent ? (
-								<Button
-									variant='contained'
-									className={classes.button}
-									id='new-order-button'
-									style={{ backgroundColor: '#b71c1c', color: 'white' }}
-									onClick={() => setPage('New Order')}
-								>
-									New Order
-								</Button>
-							) : null}
-							{currentEvent ? (
-								<Button
-									className={classes.button}
-									id='end-event-button'
-									style={{ backgroundColor: '#b71c1c', color: 'white' }}
-									onClick={() => eventEnd()}
-								>
-									End Event
-								</Button>
-							) : (
-								<Button
-									className={classes.button}
-									id='creat-event-button'
-									style={{ backgroundColor: '#b71c1c', color: 'white' }}
-									onClick={() => setPage('Create Event')}
-								>
-									Create Event
-								</Button>
-							)}
-							{isDev() ? (
-								<Button
-									className={classes.button}
-									id='customers-button'
-									style={{
-										display: isDev() ? 'inline-block' : 'none',
-										backgroundColor: '#b71c1c',
-										color: 'white',
-									}}
-								>
-									Get Customers
-								</Button>
-							) : null}
-						</div>
+						<Paper className={classes.paper} elevation={3}>
+							<img src={Logo} alt='' />
+							<div className='main-buttons'>
+								{currentEvent ? (
+									<Button
+										variant='contained'
+										className={classes.button}
+										id='new-order-button'
+										style={{ backgroundColor: '#b71c1c', color: 'white' }}
+										onClick={() => setPage('New Order')}
+									>
+										New Order
+									</Button>
+								) : null}
+								{currentEvent ? (
+									<Button
+										className={classes.button}
+										id='end-event-button'
+										style={{ backgroundColor: '#b71c1c', color: 'white' }}
+										onClick={() => eventEnd()}
+									>
+										End Event
+									</Button>
+								) : (
+									<Button
+										className={classes.button}
+										id='creat-event-button'
+										style={{ backgroundColor: '#b71c1c', color: 'white' }}
+										onClick={() => setPage('Create Event')}
+									>
+										Create Event
+									</Button>
+								)}
+								{isDev() ? (
+									<Button
+										className={classes.button}
+										id='customers-button'
+										style={{
+											display: isDev() ? 'inline-block' : 'none',
+											backgroundColor: '#b71c1c',
+											color: 'white',
+										}}
+									>
+										Get Customers
+									</Button>
+								) : null}
+							</div>
+						</Paper>
 					</MainWrapper>
 				</div>
 			);
