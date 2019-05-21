@@ -1,11 +1,11 @@
 import { withStyles } from '@material-ui/core';
 import React, { Fragment, useEffect, useState } from 'react';
-import styled from 'styled-components';
 
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
 import ConnectionStatusButton from './components/ConnectionStatusButton';
+import { MainWrapper } from './components/Layout';
 import CreateEvent from './CreateEvent';
 import Logo from './img/logo.png';
 import NewOrder from './NewOrder';
@@ -16,15 +16,6 @@ const styles = theme => ({
 		margin: theme.spacing.unit,
 	},
 });
-
-const MainWrapper = styled.div`
-	display: flex;
-	height: 100vh;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-`;
 
 const Home = props => {
 	const {

@@ -11,6 +11,7 @@ import './index.css';
 
 ReactDOM.render(
 	<MuiThemeProvider theme={theme}>
+		{console.log(theme)}
 		<App />
 	</MuiThemeProvider>,
 	document.getElementById('root'),
