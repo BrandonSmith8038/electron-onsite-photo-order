@@ -31,7 +31,7 @@ const styles = theme => ({
 		marginTop: theme.spacing.unit * 2,
 	},
 	redLabel: {
-		color: theme.palette.primary.main,
+		color: theme.palette.text.hint,
 		'&$cssFocused': {
 			color: theme.palette.primary.main,
 		},

@@ -45,10 +45,10 @@ const styles = theme => ({
 	},
 	select: {
 		'&:before': {
-			borderColor: red[900],
+			borderColor: theme.palette.primary.main,
 		},
 		'&:after': {
-			borderColor: red[900],
+			borderColor: theme.palette.primary.main,
 		},
 	},
 	paper: {
@@ -68,12 +68,12 @@ const styles = theme => ({
 	},
 	// Switch Customization
 	customSwitch: {
-		color: grey[700],
-		colorBar: red[900],
+		color: theme.palette.secondary.light,
+		colorBar: theme.palette.primary.main,
 		'&$colorChecked': {
-			color: red[900],
+			color: theme.palette.primary.main,
 			'& + $colorBar': {
-				backgroundColor: red[900],
+				backgroundColor: theme.palette.primary.main,
 			},
 		},
 	},
@@ -89,23 +89,15 @@ const styles = theme => ({
 	},
 	// Text Field Label Color
 	redLabel: {
+		color: theme.palette.text.hint,
 		'&$cssFocused': {
-			color: red[900],
-		},
-	},
-	// Button Background Color
-	redButton: {
-		width: '50%',
-		color: 'white',
-		backgroundColor: red[800],
-		'&:hover': {
-			backgroundColor: red[900],
+			color: theme.palette.primary,
 		},
 	},
 	// Textfield Colors
 	cssOutlinedInput: {
 		'&$cssFocused $notchedOutline': {
-			borderColor: `#b71c1c !important`,
+			borderColor: `${theme.palette.primary.main} !important`,
 		},
 	},
 
@@ -113,23 +105,28 @@ const styles = theme => ({
 
 	notchedOutline: {
 		borderWidth: '1px',
-		borderColor: '#333 !important',
+		borderColor: `${theme.palette.text.hint} !important`,
 	},
 	autoCompleteItem: {
 		listStyle: 'none',
 		cursor: 'pointer',
 		'&:hover': {
-			color: '#b71c1c',
+			color: theme.palette.primary.main,
 		},
 	},
-	Paper: { background: 'red' },
 
 	formLabelRoot: {
+		color: theme.palette.text.hint,
 		// must provide all of formLabelRoot && '&$formLabelFocused' && formLabelFocused
-		'&$formLabelFocused': { color: red[900] },
+		'&$formLabelFocused': { color: theme.palette.primary.main },
 	},
 	formLabelFocused: {
 		// color: 'green', // won't affect anything
+	},
+	inputAdornmentRoot: {
+		positionStart: {
+			color: theme.palette.text.hint,
+		},
 	},
 });
 
@@ -639,7 +636,12 @@ const NewOrder = props => {
 											notchedOutline: classes.notchedOutline,
 										},
 										startAdornment: (
-											<InputAdornment position='start'>$</InputAdornment>
+											<InputAdornment
+												position='start'
+												className={classes.redLabel}
+											>
+												<div style={{ color: '#777' }}>$</div>
+											</InputAdornment>
 										),
 									}}
 									onChange={handleInputChange}
@@ -649,9 +651,10 @@ const NewOrder = props => {
 							<Grid item xs={12}>
 								<Button
 									className={classNames(classes.redButton)}
+									color='primary'
 									type='submit'
 									variant='contained'
-									fullWidth
+									style={{ width: '50%' }}
 								>
 									Submit
 								</Button>
