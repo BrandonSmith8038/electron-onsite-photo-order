@@ -39,6 +39,8 @@ const CreateEvent = props => {
 	);
 
 	const { classes, setEvents, setPage } = props;
+	console.log(props);
+	console.log(inputs);
 	return (
 		<>
 			<div style={{ float: 'left', clear: 'both', marginBottom: 50 }}>
@@ -59,7 +61,7 @@ const CreateEvent = props => {
 			<form onSubmit={handleSubmit}>
 				<div>
 					<TextField
-						required={true}
+						color='textSecondary'
 						id='eventName'
 						label='Event Name'
 						variant='outlined'
@@ -69,7 +71,6 @@ const CreateEvent = props => {
 					/>
 				</div>
 				<TextField
-					require={true}
 					id='venue'
 					label='Venue'
 					variant='outlined'

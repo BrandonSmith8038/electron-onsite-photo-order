@@ -11,8 +11,6 @@ import Logo from './img/logo.png';
 import NewOrder from './NewOrder';
 import isDev from './utils/isDev';
 
-const { ipcRenderer } = window.require('electron');
-
 const styles = theme => ({
 	button: {
 		margin: theme.spacing.unit,
@@ -29,34 +27,16 @@ const MainWrapper = styled.div`
 `;
 
 const Home = props => {
-	const [currentPage, setPage] = useState('Home');
-	const [currentEvent, setEvent] = useState('');
+	const {
+		classes,
+		connectionStatus,
+		currentPage,
+		setPage,
+		currentEvent,
+		setEvent,
+		eventEnd,
+	} = props;
 
-	useEffect(() => {
-		const currentEvent = localStorage.getItem('Current Event');
-		if (currentEvent) {
-			setEvent(JSON.parse(currentEvent));
-		}
-	}, []);
-
-	const eventEnd = () => {
-		if (connectionStatus === 'Online') {
-			ipcRenderer.send('event-end-with-connection');
-		} else {
-			ipcRenderer.send('event-end-no-connection');
-		}
-	};
-
-	ipcRenderer.on('ping', (event, message) => {
-		console.log(message); // Prints 'whoooooooh!'
-	});
-
-	ipcRenderer.on('clear-event', () => {
-		localStorage.removeItem('Current Event');
-		setEvent('');
-	});
-
-	const { classes, connectionStatus } = props;
 	switch (currentPage) {
 		case 'New Order':
 			return <NewOrder setPage={setPage} />;

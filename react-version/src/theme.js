@@ -18,8 +18,8 @@ const theme = createMuiTheme({
 			contrastText: '#fff',
 		},
 		text: {
-			primary: '#fff',
-			secondary: 'rgba(0, 0, 0, 0.54)',
+			primary: 'rgba(0, 0, 0, 0.84)',
+			secondary: '#fff',
 			disabled: 'rgba(0, 0, 0, 0.38)',
 			hint: 'rgba(0, 0, 0, 0.38)',
 		},
