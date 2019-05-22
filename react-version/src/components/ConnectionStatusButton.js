@@ -1,15 +1,12 @@
 import React from 'react';
 
-import Button from '@material-ui/core/Button';
-
 const ConnectionStatusButton = props => {
 	const { setPage, connectionStatus } = props;
 	return (
 		<div>
 			<div style={{ float: 'right' }}>
 				{connectionStatus === 'Online' ? (
-					<Button
-						variant='contained'
+					<button
 						style={{
 							backgroundColor: '#4caf50',
 							color: 'white',
@@ -18,10 +15,9 @@ const ConnectionStatusButton = props => {
 						onClick={() => setPage('New Order')}
 					>
 						Online
-					</Button>
+					</button>
 				) : (
-					<Button
-						variant='contained'
+					<button
 						style={{
 							backgroundColor: '#f44336',
 							color: 'white',
@@ -29,7 +25,7 @@ const ConnectionStatusButton = props => {
 						disabled={true}
 					>
 						Offline
-					</Button>
+					</button>
 				)}
 			</div>
 		</div>
