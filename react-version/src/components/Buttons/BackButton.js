@@ -59,9 +59,9 @@ const Arrow = styled.div`
 	}
 `;
 
-const BackButton = () => {
+const BackButton = props => {
 	return (
-		<Button>
+		<Button onClick={props.onClick}>
 			<Arrow />
 		</Button>
 	);

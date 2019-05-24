@@ -55,7 +55,7 @@ function App() {
 		case 'Create Event':
 			content = <CreateEvent setPage={setPage} setEvent={setEvent} />;
 			break;
-		default:
+		case 'Home':
 			content = (
 				<Home
 					connectionStatus={connectionStatus}
@@ -66,6 +66,9 @@ function App() {
 					eventEnd={eventEnd}
 				/>
 			);
+			break;
+		default:
+			return <h1>No Component Found</h1>;
 	}
 
 	return (
