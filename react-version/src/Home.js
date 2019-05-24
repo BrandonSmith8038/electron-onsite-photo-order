@@ -19,67 +19,57 @@ const Home = props => {
 		eventEnd,
 	} = props;
 
-	switch (currentPage) {
-		case 'New Order':
-			return <NewOrder setPage={setPage} />;
-			break;
-		case 'Create Event':
-			return <CreateEvent setPage={setPage} setEvent={setEvent} />;
-			break;
-		default:
-			return (
-				<div>
-					<ConnectionStatusButton
-						setPage={setPage}
-						connectionStatus={connectionStatus}
-					/>
-					<MainWrapper>
-						<img src={Logo} alt='' />
-						<HomeButtonWrapper>
-							{currentEvent ? (
-								<>
-									<PrimaryButton
-										variant='contained'
-										id='new-order-button'
-										color='primary'
-										onClick={() => setPage('New Order')}
-									>
-										New Order
-									</PrimaryButton>
-								</>
-							) : null}
-							{currentEvent ? (
-								<PrimaryButton
-									variant='contained'
-									color='primary'
-									onClick={() => eventEnd()}
-								>
-									End Event
-								</PrimaryButton>
-							) : (
-								<PrimaryButton
-									id='creat-event-button'
-									color='primary'
-									variant='contained'
-									onClick={() => setPage('Create Event')}
-								>
-									Create Event
-								</PrimaryButton>
-							)}
-							{isDev() ? (
-								<PrimaryButton
-									id='customers-button'
-									color='primary'
-									variant='contained'
-								>
-									Get Customers
-								</PrimaryButton>
-							) : null}
-						</HomeButtonWrapper>
-					</MainWrapper>
-				</div>
-			);
-	}
+	return (
+		<div>
+			<ConnectionStatusButton
+				setPage={setPage}
+				connectionStatus={connectionStatus}
+			/>
+			<MainWrapper>
+				<img src={Logo} alt='' />
+				<HomeButtonWrapper>
+					{currentEvent ? (
+						<>
+							<PrimaryButton
+								variant='contained'
+								id='new-order-button'
+								color='primary'
+								onClick={() => setPage('New Order')}
+							>
+								New Order
+							</PrimaryButton>
+						</>
+					) : null}
+					{currentEvent ? (
+						<PrimaryButton
+							variant='contained'
+							color='primary'
+							onClick={() => eventEnd()}
+						>
+							End Event
+						</PrimaryButton>
+					) : (
+						<PrimaryButton
+							id='creat-event-button'
+							color='primary'
+							variant='contained'
+							onClick={() => setPage('Create Event')}
+						>
+							Create Event
+						</PrimaryButton>
+					)}
+					{isDev() ? (
+						<PrimaryButton
+							id='customers-button'
+							color='primary'
+							variant='contained'
+						>
+							Get Customers
+						</PrimaryButton>
+					) : null}
+				</HomeButtonWrapper>
+			</MainWrapper>
+		</div>
+	);
 };
-
 export default Home;

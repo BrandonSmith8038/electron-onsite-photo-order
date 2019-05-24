@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import Home from './Home';
+import NewOrder from './NewOrder';
+import CreateEvent from './CreateEvent';
 import Sidebar from './components/Sidebar';
 
 import { AppWrapper } from './Layout';
@@ -44,17 +46,32 @@ function App() {
 		localStorage.removeItem('Current Event');
 		setEvent('');
 	});
+	let content;
+
+	switch (currentPage) {
+		case 'New Order':
+			content = <NewOrder setPage={setPage} />;
+			break;
+		case 'Create Event':
+			content = <CreateEvent setPage={setPage} setEvent={setEvent} />;
+			break;
+		default:
+			content = (
+				<Home
+					connectionStatus={connectionStatus}
+					currentPage={currentPage}
+					setPage={setPage}
+					currentEvent={currentEvent}
+					setEvent={setEvent}
+					eventEnd={eventEnd}
+				/>
+			);
+	}
+
 	return (
 		<AppWrapper>
 			<Sidebar />
-			<Home
-				connectionStatus={connectionStatus}
-				currentPage={currentPage}
-				setPage={setPage}
-				currentEvent={currentEvent}
-				setEvent={setEvent}
-				eventEnd={eventEnd}
-			/>
+			{content}
 		</AppWrapper>
 	);
 }
