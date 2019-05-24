@@ -8,3 +8,8 @@ export const MainWrapper = styled.div`
 	align-items: center;
 	width: 100%;
 `;
+
+export const AppWrapper = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+`;

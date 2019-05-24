@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import ConnectionStatusButton from './components/ConnectionStatusButton';
-import { MainWrapper } from './components/Layout';
+import { MainWrapper } from './Layout';
 import CreateEvent from './CreateEvent';
+import { PrimaryButton } from './components/Buttons';
 import Logo from './img/logo.png';
 import NewOrder from './NewOrder';
 import isDev from './utils/isDev';
@@ -37,14 +38,14 @@ const Home = props => {
 						<div className='main-buttons'>
 							{currentEvent ? (
 								<>
-									<button
+									<PrimaryButton
 										variant='contained'
 										id='new-order-button'
 										color='primary'
 										onClick={() => setPage('New Order')}
 									>
 										New Order
-									</button>
+									</PrimaryButton>
 								</>
 							) : null}
 							{currentEvent ? (

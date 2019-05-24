@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import Home from './Home';
-import logo from './logo.svg';
+import Sidebar from './components/Sidebar';
 
-import './App.css';
+import { AppWrapper } from './Layout';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -45,7 +45,8 @@ function App() {
 		setEvent('');
 	});
 	return (
-		<div className='App'>
+		<AppWrapper>
+			<Sidebar />
 			<Home
 				connectionStatus={connectionStatus}
 				currentPage={currentPage}
@@ -54,7 +55,7 @@ function App() {
 				setEvent={setEvent}
 				eventEnd={eventEnd}
 			/>
-		</div>
+		</AppWrapper>
 	);
 }
 

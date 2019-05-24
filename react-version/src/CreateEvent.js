@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { Fragment } from 'react';
 
-import { MainWrapper } from './components/Layout';
+import { MainWrapper } from './Layout';
 import useFormSubmit from './utils/CustomHooks';
 
 const CreateEvent = props => {
