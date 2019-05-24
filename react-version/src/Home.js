@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import ConnectionStatusButton from './components/ConnectionStatusButton';
-import { MainWrapper } from './Layout';
+import { MainWrapper, HomeButtonWrapper } from './Layout';
 import CreateEvent from './CreateEvent';
 import { PrimaryButton } from './components/Buttons';
 import Logo from './img/logo.png';
@@ -33,9 +33,9 @@ const Home = props => {
 						setPage={setPage}
 						connectionStatus={connectionStatus}
 					/>
-					<MainWrapper className='main-wrapper'>
+					<MainWrapper>
 						<img src={Logo} alt='' />
-						<div className='main-buttons'>
+						<HomeButtonWrapper>
 							{currentEvent ? (
 								<>
 									<PrimaryButton
@@ -49,33 +49,33 @@ const Home = props => {
 								</>
 							) : null}
 							{currentEvent ? (
-								<button
+								<PrimaryButton
 									variant='contained'
 									color='primary'
 									onClick={() => eventEnd()}
 								>
 									End Event
-								</button>
+								</PrimaryButton>
 							) : (
-								<button
+								<PrimaryButton
 									id='creat-event-button'
 									color='primary'
 									variant='contained'
 									onClick={() => setPage('Create Event')}
 								>
 									Create Event
-								</button>
+								</PrimaryButton>
 							)}
 							{isDev() ? (
-								<button
+								<PrimaryButton
 									id='customers-button'
 									color='primary'
 									variant='contained'
 								>
 									Get Customers
-								</button>
+								</PrimaryButton>
 							) : null}
-						</div>
+						</HomeButtonWrapper>
 					</MainWrapper>
 				</div>
 			);

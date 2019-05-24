@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { primary, hint, whiteText } from '../Colors.js';
 
 const hover = 'all 0.2s ease-in';
