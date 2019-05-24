@@ -1,11 +1,12 @@
 import styled from 'styled-components/macro';
 
 export const MainWrapper = styled.div`
-	display: flex;
-	height: 100vh;
-	flex-direction: column;
-	justify-content: center;
 	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: center;
+	position: relative;
 	width: 100%;
 `;
 

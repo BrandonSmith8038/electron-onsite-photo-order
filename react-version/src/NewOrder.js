@@ -1,7 +1,8 @@
 import { FormControl } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { Fragment, useEffect, useState } from 'react';
-
+import { MainWrapper } from './Layout';
+import { PrimaryButton, BackButton } from './components/Buttons';
 import useFormSubmit from './utils/CustomHooks';
 import getDate from './utils/getDate';
 
@@ -112,21 +113,9 @@ const NewOrder = props => {
 	};
 
 	return (
-		<>
-			<button
-				aria-label='back'
-				size='small'
-				onClick={() => props.setPage('Home')}
-				style={{
-					backgroundColor: '#b71c1c',
-					color: 'white',
-					float: 'left',
-					clear: 'both',
-				}}
-			>
-				BACK
-			</button>
-			<main>
+		<div>
+			<MainWrapper>
+				<BackButton onClick={() => props.setPage('Home')} />
 				<form onSubmit={handleSubmit}>
 					<button onChange={handleSwitchChange}>Need Address</button>
 					<input id='date' label='Date' defaultValue={getDate()} name='date' />
@@ -212,7 +201,6 @@ const NewOrder = props => {
 					) : null}
 					<input
 						id='photos'
-						fullWidth
 						name='photos'
 						defaultValue={inputs.photos}
 						label='Photos'
@@ -221,7 +209,6 @@ const NewOrder = props => {
 					<input
 						id='notes'
 						name='notes'
-						fullWidth
 						defaultValue={inputs.notes}
 						label='Notes'
 						onChange={handleInputChange}
@@ -248,8 +235,8 @@ const NewOrder = props => {
 						Submit
 					</button>
 				</form>
-			</main>
-		</>
+			</MainWrapper>
+		</div>
 	);
 };
 
