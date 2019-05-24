@@ -2,7 +2,7 @@ import { FormControl } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { Fragment, useEffect, useState } from 'react';
 import { MainWrapper } from './Layout';
-import { PrimaryButton, BackButton } from './components/Buttons';
+import { PrimaryButton, BackButton, PrimarySwitch } from './components/Buttons';
 import useFormSubmit from './utils/CustomHooks';
 import getDate from './utils/getDate';
 
@@ -117,7 +117,9 @@ const NewOrder = props => {
 			<MainWrapper>
 				<BackButton onClick={() => props.setPage('Home')} />
 				<form onSubmit={handleSubmit}>
-					<button onChange={handleSwitchChange}>Need Address</button>
+					<PrimarySwitch onChange={handleSwitchChange} checked={needAddress}>
+						Need Address
+					</PrimarySwitch>
 					<input id='date' label='Date' defaultValue={getDate()} name='date' />
 					<div>
 						<input
@@ -231,9 +233,9 @@ const NewOrder = props => {
 						onChange={handleInputChange}
 						required={true}
 					/>
-					<button type='submit' style={{ width: '50%' }}>
+					<PrimaryButton type='submit' style={{ width: '50%' }}>
 						Submit
-					</button>
+					</PrimaryButton>
 				</form>
 			</MainWrapper>
 		</div>
