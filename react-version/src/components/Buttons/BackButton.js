@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { primary, primaryAccent } from '../Colors.js';
+import PropTypes from 'prop-types';
 
 const transition = '.5s';
 const width = '2rem';
@@ -65,6 +66,10 @@ const BackButton = props => {
 			<Arrow />
 		</Button>
 	);
+};
+
+BackButton.propTypes = {
+	onClick: PropTypes.func,
 };
 
 export default BackButton;

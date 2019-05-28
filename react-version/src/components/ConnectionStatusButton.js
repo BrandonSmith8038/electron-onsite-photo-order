@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ConnectionStatusButton = props => {
 	const { setPage, connectionStatus } = props;
@@ -30,6 +31,11 @@ const ConnectionStatusButton = props => {
 			</div>
 		</div>
 	);
+};
+
+ConnectionStatusButton.propTypes = {
+	connectionStatus: PropTypes.string.isRequired,
+	setPage: PropTypes.func.isRequired,
 };
 
 export default ConnectionStatusButton;

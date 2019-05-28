@@ -1,6 +1,7 @@
 import Switch from 'react-switch';
 import { primary } from '../Colors.js';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const PrimarySwitch = props => {
 	return (
@@ -14,6 +15,11 @@ const PrimarySwitch = props => {
 			/>
 		</div>
 	);
+};
+
+PrimarySwitch.propTypes = {
+	checked: PropTypes.bool.isRequired,
+	onChange: PropTypes.func.isRequired,
 };
 
 export default PrimarySwitch;
