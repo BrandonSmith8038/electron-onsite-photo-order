@@ -1,10 +1,14 @@
 import { FormControl } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { Fragment, useEffect, useState } from 'react';
-import { MainWrapper } from './Layout';
+import { MainWrapper, FormWrapper, FormRow } from './Layout';
 import { PrimaryButton, BackButton, PrimarySwitch } from './components/Buttons';
+import { TextField, TextArea, SelectField } from './components/Inputs';
+import { AutoComplete } from './components/AutoComplete';
+import { Card } from './components/Card';
 import useFormSubmit from './utils/CustomHooks';
 import getDate from './utils/getDate';
+import { DirectiveLocation } from 'graphql';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -27,8 +31,15 @@ const NewOrder = props => {
 	const [matches, setMatches] = useState([]);
 	const [needAddress, setNeedAddress] = useState(false);
 	const [selectError, setSelectError] = useState(false);
+	const options = [
+		{ value: 'Payment Method', placeholder: true },
+		{ value: 'Cash' },
+		{ value: 'Card' },
+		{ value: 'Invoice' },
+	];
 	// When a new order is submitted
 	const newOrderSubmit = () => {
+		console.log(inputs);
 		if (!inputs.paymentMethod) {
 			// If Payment Method Is Not Selected, display in error state for two seconds
 			setSelectError(true);
@@ -66,6 +77,7 @@ const NewOrder = props => {
 	const handleSwitchChange = () => {
 		setNeedAddress(!needAddress);
 	};
+
 	// Runs Every Time A Key Is Pressed In The First Name Field
 	const searchCustomers = () => {
 		// Make Sure The First Name FIeld Has Text
@@ -116,127 +128,185 @@ const NewOrder = props => {
 		<div>
 			<MainWrapper>
 				<BackButton onClick={() => props.setPage('Home')} />
-				<form onSubmit={handleSubmit}>
-					<PrimarySwitch onChange={handleSwitchChange} checked={needAddress}>
-						Need Address
-					</PrimarySwitch>
-					<input id='date' label='Date' defaultValue={getDate()} name='date' />
-					<div>
-						<input
-							id='firstName'
-							name='firstName'
-							label='First Name'
-							onChange={e => {
-								handleInputChange(e);
-							}}
-							onKeyUp={() => searchCustomers()}
-							value={inputs.firstName ? inputs.firstName : ''}
-							required={true}
-						/>
-						{/* On Show If There Are Matches Stored In The Matches State */}
-						{matches && !inputs.lastName ? (
-							<div>
-								{matches.map(match => (
-									<li key={match.name} onClick={() => selectedMatch(match)}>
-										{match.name}
-									</li>
-								))}
+				<FormWrapper onSubmit={handleSubmit} width='80%'>
+					<Card>
+						<PrimarySwitch onChange={handleSwitchChange} checked={needAddress}>
+							Need Address
+						</PrimarySwitch>
+						{/* <div
+					style={{
+					display: 'grid',
+					gridTemplateColumns: 'repeat(4,150px)',
+					gridTemplateRows: '40px 40px 40px 60px 60px 40px',
+					gridGap: 10,
+					}}
+					> */}
+						<FormRow>
+							<TextField
+								id='date'
+								placeHolder='Date'
+								defaultValue={getDate()}
+								name='date'
+								disabled
+								style={{
+									marginBottom: '7px',
+									justifySelf: 'center',
+									textAlign: 'center',
+									width: '25%',
+								}}
+							/>
+						</FormRow>
+						<FormRow>
+							<div style={{ display: 'flex', flexDirection: 'column' }}>
+								<TextField
+									id='firstName'
+									name='firstName'
+									placeHolder='First Name'
+									onChange={e => {
+										handleInputChange(e);
+									}}
+									onKeyUp={() => searchCustomers()}
+									onFocus={() => searchCustomers()}
+									onClick={() => searchCustomers()}
+									value={inputs.firstName ? inputs.firstName : ''}
+									required
+								/>
+								{/* On Show If There Are Matches Stored In The Matches State */}
+								{matches.length > 0 && !inputs.lastName ? (
+									<Card>
+										<AutoComplete>
+											<div style={{ marginRight: 0 }}>
+												{matches.map(match => (
+													<li
+														key={match.name}
+														onClick={() => selectedMatch(match)}
+													>
+														{match.name}
+													</li>
+												))}
+											</div>
+										</AutoComplete>
+									</Card>
+								) : null}
 							</div>
+
+							<TextField
+								id='lastName'
+								name='lastName'
+								placeHolder='Last Name'
+								onChange={handleInputChange}
+								value={inputs.lastName ? inputs.lastName : ''}
+								style={{ marginRight: 0, maxHeight: '53px' }}
+								onClick={() => setMatches([])}
+								onFocus={() => setMatches([])}
+								required
+							/>
+						</FormRow>
+						<FormRow>
+							<TextField
+								id='email'
+								name='email'
+								placeHolder='Email'
+								onChange={handleInputChange}
+								value={inputs.email ? inputs.email : ''}
+								required
+							/>
+							<TextField
+								id='phone'
+								name='phone'
+								placeHolder='Phone'
+								value={inputs.phone ? inputs.phone : ''}
+								onChange={handleInputChange}
+								required
+								style={{ marginRight: 0 }}
+							/>
+						</FormRow>
+						{needAddress ? (
+							<FormRow>
+								<TextField
+									id='street'
+									name='street'
+									defaultValue={inputs.street}
+									placeHolder='Street'
+									onChange={handleInputChange}
+									style={{ width: '40%' }}
+								/>
+								<TextField
+									id='city'
+									name='city'
+									defaultValue={inputs.city}
+									placeHolder='City'
+									onChange={handleInputChange}
+									style={{ width: '20%' }}
+								/>
+								<TextField
+									id='state'
+									name='state'
+									defaultValue={inputs.state}
+									placeHolder='State'
+									onChange={handleInputChange}
+									maxLength='2'
+									style={{ width: '15%' }}
+								/>
+								<TextField
+									id='zip'
+									name='zip'
+									defaultValue={inputs.zip}
+									placeHolder='Zip'
+									onChange={handleInputChange}
+									maxLength='5'
+									style={{
+										marginRight: 0,
+										width: '15%',
+									}}
+								/>{' '}
+							</FormRow>
 						) : null}
-					</div>
-
-					<input
-						id='lastName'
-						name='lastName'
-						label='Last Name'
-						onChange={handleInputChange}
-						value={inputs.lastName ? inputs.lastName : ''}
-						required={true}
-					/>
-					<input
-						id='email'
-						name='email'
-						label='Email'
-						onChange={handleInputChange}
-						value={inputs.email ? inputs.email : ''}
-						required={true}
-					/>
-					<input
-						id='phone'
-						name='phone'
-						label='Phone'
-						value={inputs.phone ? inputs.phone : ''}
-						onChange={handleInputChange}
-						required={true}
-					/>
-					{needAddress ? (
-						<>
-							<input
-								id='street'
-								name='street'
-								defaultValue={inputs.street}
-								label='Street'
+						<FormRow>
+							<TextArea
+								id='photos'
+								name='photos'
+								defaultValue={inputs.photos}
+								placeHolder='Photos'
+								onChange={handleInputChange}
+								style={{ width: '100%' }}
+								required
+							/>
+							<TextArea
+								id='notes'
+								name='notes'
+								defaultValue={inputs.notes}
+								placeHolder='Notes'
+								style={{ marginRight: 0, width: '100%' }}
 								onChange={handleInputChange}
 							/>
-							<input
-								id='city'
-								name='city'
-								defaultValue={inputs.city}
-								label='City'
+						</FormRow>
+						<FormRow>
+							<SelectField
+								name='paymentMethod'
+								options={options}
 								onChange={handleInputChange}
 							/>
-							<input
-								id='state'
-								name='state'
-								defaultValue={inputs.state}
-								label='State'
+							<TextField
+								id='total'
+								name='total'
+								defaultValue={inputs.total}
+								placeHolder='Total'
 								onChange={handleInputChange}
+								style={{ marginRight: 0 }}
+								required
 							/>
-							<input
-								id='zip'
-								name='zip'
-								defaultValue={inputs.zip}
-								label='Zip'
-								onChange={handleInputChange}
-							/>{' '}
-						</>
-					) : null}
-					<input
-						id='photos'
-						name='photos'
-						defaultValue={inputs.photos}
-						label='Photos'
-						onChange={handleInputChange}
-					/>
-					<input
-						id='notes'
-						name='notes'
-						defaultValue={inputs.notes}
-						label='Notes'
-						onChange={handleInputChange}
-					/>
-
-					<select
-						value={inputs.paymentMethod ? inputs.paymentMethod : ''}
-						name='paymentMethod'
-						onChange={handleInputChange}
-					>
-						<option value='Cash'>Cash</option>
-						<option value='Card'>Card</option>
-						<option value='Invoice'>Invoice</option>
-					</select>
-					<input
-						id='total'
-						name='total'
-						defaultValue={inputs.total}
-						label='Total'
-						onChange={handleInputChange}
-						required={true}
-					/>
-					<PrimaryButton type='submit' style={{ width: '50%' }}>
-						Submit
-					</PrimaryButton>
-				</form>
+						</FormRow>
+						<FormRow>
+							<PrimaryButton
+								type='submit'
+								style={{ width: '30%', margin: '0 auto' }}
+							>
+								Submit
+							</PrimaryButton>
+						</FormRow>
+					</Card>
+				</FormWrapper>
 			</MainWrapper>
 		</div>
 	);

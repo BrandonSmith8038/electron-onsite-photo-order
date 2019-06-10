@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { primary, primaryAccent, hint, darkText } from '../Colors.js';
+import { primary, hint } from '../Colors.js';
 import PropTypes from 'prop-types';
 
-const Input = styled.input`
+const TextAreaField = styled.textarea`
 	padding: 15px 10px;
 	border-radius: 5px;
 	font-size: 18px;
 	border: 1px solid ${primary};
 	transition: 0.5s;
 	outline: none;
-	width: 100%;
+	resize: none;
+
 	&:focus {
 		border: 2px solid ${primary};
 		box-shadow: 10px 13px 29px -14px ${hint};
@@ -24,39 +25,32 @@ const Input = styled.input`
 	}
 `;
 
-const TextField = props => {
-	console.log(props.width);
+const TextArea = props => {
 	return (
-		<Input
-			type='text'
-			id={props.name}
+		<TextAreaField
 			name={props.name}
+			id={props.name}
 			placeholder={props.placeHolder}
+			rows='4'
 			onChange={props.onChange}
 			required={props.required ? true : false}
 			disabled={props.disabled ? true : false}
 			maxLength={props.maxLength ? props.maxLength : null}
 			value={props.value}
-			defaultValue={props.defaultValue}
-			onKeyUp={props.onKeyUp}
-			onClick={props.onClick}
-			onFocus={props.onFocus}
+			width='100%'
 			style={props.style}
 		/>
 	);
 };
 
-TextField.propTypes = {
-	id: PropTypes.string,
-	name: PropTypes.string.isRequired,
-	placeHolder: PropTypes.string.isRequired,
-	value: PropTypes.string,
-	onClick: PropTypes.func,
-	required: PropTypes.bool,
+TextArea.propTypes = {
 	disabled: PropTypes.bool,
 	maxLength: PropTypes.string,
-	defaultValue: PropTypes.string,
-	onKeyUp: PropTypes.func,
+	name: PropTypes.string.isRequired,
+	onChange: PropTypes.func.isRequired,
+	placeHolder: PropTypes.string.isRequired,
+	required: PropTypes.bool,
+	value: PropTypes.string,
 };
 
-export default TextField;
+export default TextArea;

@@ -8,8 +8,6 @@ import Logo from './img/logo.png';
 import NewOrder from './NewOrder';
 import isDev from './utils/isDev';
 
-import TextField from './components/Inputs/TextField';
-
 const Home = props => {
 	const {
 		classes,
