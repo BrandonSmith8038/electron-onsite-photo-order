@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { whiteText, success, error } from './Colors.js';
+import { whiteText, success, error } from '../Colors.js/index.js';
+import { isAbsolute } from 'path';
+import { toPromise } from 'apollo-link';
 
 const ConnectionStatusButton = props => {
 	const { connectionStatus } = props;
@@ -14,6 +16,9 @@ const ConnectionStatusButton = props => {
 		outline: 'none',
 		padding: '8px 12px',
 		textTransform: 'uppercase',
+		position: 'absolute',
+		top: 5,
+		right: 5,
 	};
 	return (
 		<div style={{ float: 'right' }}>

@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import { primary, hint } from '../components/Colors.js';
 
 export const MainWrapper = styled.div`
 	align-items: center;
@@ -12,13 +13,14 @@ export const MainWrapper = styled.div`
 
 export const AppWrapper = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 3fr;
+	grid-template-columns: 1fr 4fr;
 `;
 
 export const HomeButtonWrapper = styled.div`
 	display: grid;
 	grid-gap: 15px;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	justify-content: center;
+	grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
 	width: 90%;
 `;
 
@@ -35,5 +37,21 @@ export const FormRow = styled.div`
 
 	> * {
 		margin-right: 30px;
+	}
+`;
+
+export const SideBarWrapper = styled.div`
+	display: flex;
+	background: ${primary};
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-right: 3px solid #444;
+	position: relative;
+
+	img {
+		position: absolute;
+		max-width: 100%;
+		top: 30px;
 	}
 `;

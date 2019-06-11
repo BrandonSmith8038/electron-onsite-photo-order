@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Home from './Home';
 import NewOrder from './NewOrder';
 import CreateEvent from './CreateEvent';
-import Sidebar from './components/Sidebar';
+import { SideBar } from './components/SideBar';
 
 import { AppWrapper } from './Layout';
 
@@ -73,7 +73,7 @@ function App() {
 
 	return (
 		<AppWrapper>
-			<Sidebar />
+			<SideBar />
 			{content}
 		</AppWrapper>
 	);

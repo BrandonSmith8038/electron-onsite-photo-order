@@ -1,8 +1,7 @@
 import React from 'react';
 
-import ConnectionStatusButton from './components/ConnectionStatusButton';
 import { MainWrapper, HomeButtonWrapper } from './Layout';
-import { PrimaryButton } from './components/Buttons';
+import { PrimaryButton, ConnectionStatusButton } from './components/Buttons';
 import Logo from './img/logo.png';
 
 const Home = props => {
@@ -10,11 +9,11 @@ const Home = props => {
 
 	return (
 		<div>
-			<ConnectionStatusButton
-				setPage={setPage}
-				connectionStatus={connectionStatus}
-			/>
 			<MainWrapper>
+				<ConnectionStatusButton
+					setPage={setPage}
+					connectionStatus={connectionStatus}
+				/>
 				<img src={Logo} alt='' />
 				<HomeButtonWrapper>
 					{currentEvent ? (

@@ -10,6 +10,11 @@ html {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+body {
+	margin: 0;
+	padding: 0;
+}
+
 h4 {
 	font-family: 'Roboto', Fallback, sans-serif;
 }
