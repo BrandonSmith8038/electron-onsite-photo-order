@@ -1,34 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { whiteText, success, error } from './Colors.js';
 
 const ConnectionStatusButton = props => {
-	const { setPage, connectionStatus } = props;
+	const { connectionStatus } = props;
+	const ButtonStyle = {
+		color: whiteText,
+		background: connectionStatus === 'Online' ? success : error,
+		border: 'none',
+		borderRadius: '3px',
+		fontFamily: 'Roboto',
+		opacity: 0.8,
+		outline: 'none',
+		padding: '8px 12px',
+		textTransform: 'uppercase',
+	};
 	return (
-		<div>
-			<div style={{ float: 'right' }}>
-				{connectionStatus === 'Online' ? (
-					<button
-						style={{
-							backgroundColor: '#4caf50',
-							color: 'white',
-						}}
-						disabled={true}
-						onClick={() => setPage('New Order')}
-					>
-						Online
-					</button>
-				) : (
-					<button
-						style={{
-							backgroundColor: '#f44336',
-							color: 'white',
-						}}
-						disabled={true}
-					>
-						Offline
-					</button>
-				)}
-			</div>
+		<div style={{ float: 'right' }}>
+			<button style={ButtonStyle} disabled={true}>
+				{connectionStatus === 'Online' ? 'Online' : 'Offline'}
+			</button>
 		</div>
 	);
 };

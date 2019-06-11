@@ -1,14 +1,12 @@
-import { FormControl } from '@material-ui/core';
-import classNames from 'classnames';
 import React, { Fragment, useEffect, useState } from 'react';
 import { MainWrapper, FormWrapper, FormRow } from './Layout';
 import { PrimaryButton, BackButton, PrimarySwitch } from './components/Buttons';
+import { FormHeading } from './components/Typography';
 import { TextField, TextArea, SelectField } from './components/Inputs';
 import { AutoComplete } from './components/AutoComplete';
 import { Card } from './components/Card';
 import useFormSubmit from './utils/CustomHooks';
 import getDate from './utils/getDate';
-import { DirectiveLocation } from 'graphql';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -124,12 +122,16 @@ const NewOrder = props => {
 		handleAutoComplete('phone', phoneValue);
 	};
 
+	//TODO Fix Hover Style For Form Submit Buttons
 	return (
 		<div>
 			<MainWrapper>
 				<BackButton onClick={() => props.setPage('Home')} />
 				<FormWrapper onSubmit={handleSubmit} width='80%'>
 					<Card>
+						<FormRow>
+							<FormHeading>New Order</FormHeading>
+						</FormRow>
 						<PrimarySwitch onChange={handleSwitchChange} checked={needAddress}>
 							Need Address
 						</PrimarySwitch>
@@ -298,10 +300,7 @@ const NewOrder = props => {
 							/>
 						</FormRow>
 						<FormRow>
-							<PrimaryButton
-								type='submit'
-								style={{ width: '30%', margin: '0 auto' }}
-							>
+							<PrimaryButton style={{ width: '30%', margin: '0 auto' }}>
 								Submit
 							</PrimaryButton>
 						</FormRow>

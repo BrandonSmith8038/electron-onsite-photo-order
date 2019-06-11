@@ -7,6 +7,7 @@ const Input = styled.input`
 	padding: 15px 10px;
 	border-radius: 5px;
 	font-size: 18px;
+	font-family: 'Roboto', Fallback, sans-serif;
 	border: 1px solid ${primary};
 	transition: 0.5s;
 	outline: none;

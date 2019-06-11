@@ -2,7 +2,11 @@ import { Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { Fragment } from 'react';
 
-import { MainWrapper } from './Layout';
+import { MainWrapper, FormWrapper, FormRow } from './Layout';
+import { BackButton, PrimaryButton } from './components/Buttons';
+import { TextField } from './components/Inputs';
+import { FormHeading } from './components/Typography';
+import { Card } from './components/Card';
 import useFormSubmit from './utils/CustomHooks';
 
 const CreateEvent = props => {
@@ -21,40 +25,36 @@ const CreateEvent = props => {
 	console.log(inputs);
 	return (
 		<>
-			<div style={{ float: 'left', clear: 'both' }}>
-				<button
-					onClick={() => props.setPage('Home')}
-					style={{
-						backgroundColor: '#b71c1c',
-						color: 'white',
-					}}
-				>
-					Back
-				</button>
-			</div>
 			<MainWrapper>
-				<h4>New Event</h4>
-				<form onSubmit={handleSubmit}>
-					<div>
-						<input
-							color='textSecondary'
-							id='eventName'
-							label='Event Name'
-							name='eventName'
-							onChange={handleInputChange}
-						/>
-					</div>
-					<input
-						id='venue'
-						label='Venue'
-						variant='outlined'
-						name='venue'
-						onChange={handleInputChange}
-					/>
-					<div>
-						<button type='submit'>Submit</button>
-					</div>
-				</form>
+				<BackButton onClick={() => props.setPage('Home')} />
+
+				<FormWrapper onSubmit={handleSubmit} width='80%'>
+					<Card>
+						<FormRow>
+							<FormHeading>New Event</FormHeading>
+						</FormRow>
+						<FormRow>
+							<TextField
+								id='venue'
+								placeHolder='Venue'
+								name='venue'
+								onChange={handleInputChange}
+							/>
+						</FormRow>
+						<FormRow>
+							<TextField
+								color='textSecondary'
+								id='eventName'
+								placeHolder='Event Name'
+								name='eventName'
+								onChange={handleInputChange}
+							/>
+						</FormRow>
+						<FormRow>
+							<PrimaryButton>Submit</PrimaryButton>
+						</FormRow>
+					</Card>
+				</FormWrapper>
 			</MainWrapper>
 		</>
 	);

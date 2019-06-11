@@ -11,7 +11,8 @@ const PrimaryButton = styled.button`
 	border-radius: 4px;
 	color: ${primary};
   cursor: pointer;
-	display: inline-block;
+  display: inline-block;
+	font-family: 'Roboto', Fallback, sans-serif;
   font-size: 14px;
 	overflow: hidden;
 	padding: 12px 24px;
@@ -69,6 +70,6 @@ const PrimaryButton = styled.button`
 	border: 1px solid ${hint};
 
     }
+  }
 `;
-
 export default PrimaryButton;

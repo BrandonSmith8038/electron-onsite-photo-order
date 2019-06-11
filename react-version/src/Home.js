@@ -31,9 +31,7 @@ const Home = props => {
 					{currentEvent ? (
 						<>
 							<PrimaryButton
-								variant='contained'
 								id='new-order-button'
-								color='primary'
 								onClick={() => setPage('New Order')}
 							>
 								New Order
