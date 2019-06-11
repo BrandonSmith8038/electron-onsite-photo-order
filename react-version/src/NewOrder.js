@@ -159,7 +159,13 @@ const NewOrder = props => {
 							/>
 						</FormRow>
 						<FormRow>
-							<div style={{ display: 'flex', flexDirection: 'column' }}>
+							<div
+								style={{
+									display: 'flex',
+									flexDirection: 'column',
+									width: '100%',
+								}}
+							>
 								<TextField
 									id='firstName'
 									name='firstName'
@@ -212,6 +218,7 @@ const NewOrder = props => {
 								onChange={handleInputChange}
 								value={inputs.email ? inputs.email : ''}
 								required
+								style={{ width: '75%' }}
 							/>
 							<TextField
 								id='phone'
@@ -221,6 +228,7 @@ const NewOrder = props => {
 								onChange={handleInputChange}
 								required
 								style={{ marginRight: 0 }}
+								style={{ width: '25%' }}
 							/>
 						</FormRow>
 						{needAddress ? (

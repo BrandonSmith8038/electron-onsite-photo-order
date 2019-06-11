@@ -113,7 +113,7 @@ const eventEndWithConnection = () =>
 							throw e;
 						})
 						.then(() => {
-							const createPDF = require('./react-version/src/utils/createPDF');
+							const createPDF = require('./utils/createPDF');
 							//TODO Need TO Change This To A Promise
 							createPDF(orderData);
 						})
