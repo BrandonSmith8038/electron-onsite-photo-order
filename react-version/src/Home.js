@@ -4,7 +4,6 @@ import ConnectionStatusButton from './components/ConnectionStatusButton';
 import { MainWrapper, HomeButtonWrapper } from './Layout';
 import { PrimaryButton } from './components/Buttons';
 import Logo from './img/logo.png';
-import isDev from './utils/isDev';
 
 const Home = props => {
 	const { connectionStatus, setPage, currentEvent, eventEnd } = props;
@@ -40,15 +39,6 @@ const Home = props => {
 							Create Event
 						</PrimaryButton>
 					)}
-					{isDev() ? (
-						<PrimaryButton
-							id='customers-button'
-							color='primary'
-							variant='contained'
-						>
-							Get Customers
-						</PrimaryButton>
-					) : null}
 				</HomeButtonWrapper>
 			</MainWrapper>
 		</div>
