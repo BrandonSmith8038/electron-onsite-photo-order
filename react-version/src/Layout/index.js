@@ -18,7 +18,7 @@ export const AppWrapper = styled.div`
 export const HomeButtonWrapper = styled.div`
 	display: grid;
 	grid-gap: 15px;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	width: 90%;
 `;
 

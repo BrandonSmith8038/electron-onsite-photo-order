@@ -1,23 +1,13 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React from 'react';
 
 import ConnectionStatusButton from './components/ConnectionStatusButton';
 import { MainWrapper, HomeButtonWrapper } from './Layout';
-import CreateEvent from './CreateEvent';
 import { PrimaryButton } from './components/Buttons';
 import Logo from './img/logo.png';
-import NewOrder from './NewOrder';
 import isDev from './utils/isDev';
 
 const Home = props => {
-	const {
-		classes,
-		connectionStatus,
-		currentPage,
-		setPage,
-		currentEvent,
-		setEvent,
-		eventEnd,
-	} = props;
+	const { connectionStatus, setPage, currentEvent, eventEnd } = props;
 
 	return (
 		<div>
@@ -39,18 +29,12 @@ const Home = props => {
 						</>
 					) : null}
 					{currentEvent ? (
-						<PrimaryButton
-							variant='contained'
-							color='primary'
-							onClick={() => eventEnd()}
-						>
+						<PrimaryButton id='end-event-button' onClick={() => eventEnd()}>
 							End Event
 						</PrimaryButton>
 					) : (
 						<PrimaryButton
 							id='creat-event-button'
-							color='primary'
-							variant='contained'
 							onClick={() => setPage('Create Event')}
 						>
 							Create Event
