@@ -5,9 +5,11 @@
 	"description": "Red Dirt Photography Onsite Photo Ordering",
 	"main": "main.js",
 	"scripts": {
-		"start": "concurrently \"npm run start-react\" \"sleep 5 && electron main.js\"",
+		"start": "concurrently \"npm run start-react\" \"sleep 5 && electron main-dev.js\"",
+		"start-build": "electron main-prod.js",
 		"start-react": "npm start --prefix react-version",
 		"package-win": "electron-packager . Red-Dirt-Photos-On-Site --extra-resource=\"customers.json\" --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=false --executableName=\"Red Dirt Photos OnSite\" --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Red Dirt Photo Onsite\"",
+		"package-win-react": "electron-packager . Red-Dirt-Photos-On-Site --extra-resource=\"customers.json\" --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=false --executableName=\"Red Dirt Photos OnSite\" --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Red Dirt Photo Onsite\"",
 		"package-linux": "electron-packager . red-dirt-photography-onsite --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds",
 		"create-installer-win": "node installers/windows/createinstaller.js",
 		"create-debian-installer": "electron-installer-debian --src release-builds/red-dirt-photography-onsite-linux-x64/ --arch amd64 --config debian.json"

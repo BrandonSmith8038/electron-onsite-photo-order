@@ -5,7 +5,6 @@ const eventName = document.querySelector('#event-name');
 const venue = document.querySelector('#venue');
 
 const onSubmit = e => {
-	console.log('Submitted');
 	e.preventDefault();
 
 	const currentEvent = {};
