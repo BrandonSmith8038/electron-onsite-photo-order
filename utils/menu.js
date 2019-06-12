@@ -1,10 +1,13 @@
 const electron = require('electron');
+const { shell } = require('electron');
 const { dialog, BrowserWindow } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const clearOrders = require('./clearOrders');
 const createPDF = require('./createPDF');
 const homeDir = require('os').homedir();
+const remote = require('electron').remote;
+const ipcMain = require('electron').ipcMain;
 
 let options = {
 	buttons: ['Yes', 'Cancel'],
@@ -13,6 +16,8 @@ let options = {
 		'Are Your Absolutely Sure You Want To Delete The Currently Saved Orders?',
 	],
 };
+
+// const win = require('electron').remote.app;
 
 module.exports = [
 	{
@@ -39,54 +44,24 @@ module.exports = [
 				},
 			},
 			{
-				label: `Create PDF's`,
+				label: 'Open Orders Folder',
 				click() {
-					const ordersDirectory = `${homeDir}/Orders`;
-
-					fs.readdir(ordersDirectory, (err, files) => {
-						if (err) throw err;
-
-						if (files.length <= 1) {
-							dialog.showErrorBox(
-								`Error Saving Files `,
-								'There Are No Orders To Use',
-							);
-							return;
-						}
-						createPDF();
-						dialog.showMessageBox({
-							message: `PDF's Have Been Saved`,
-							buttons: ['Ok'],
-						});
-					});
+					shell.openItem(`${homeDir}/Orders`);
 				},
 			},
 			{
 				label: 'Clear Current Orders',
 				click() {
-					dialog.showMessageBox(
-						{ buttons: options.buttons, message: options.message[0] },
-						response => {
-							if (response === 1) {
-								return;
-							}
-
-							dialog.showMessageBox(
-								{
-									buttons: options.buttons,
-									message: options.message[1],
-								},
-								response => {
-									if (response === 1) {
-										return;
-									}
-									clearOrders();
-								},
-							);
-						},
-					);
+					clearOrders();
 				},
 			},
+			//{
+			// 	label: 'Force End Event',
+			// 	click() {
+			// 		console.log(win);
+			// 		// BrowserWindow.webContents.send('ping', 'whoooooooh!');
+			// 	},
+			// },
 			{ role: 'separator' },
 			{ role: 'quit' },
 		],

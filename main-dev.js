@@ -79,26 +79,19 @@ function createWindow() {
 	}
 	// Create the browser window.
 	// and load the index.html of the app.
-	win.loadURL(
-		url.format({
-			pathname: path.join(__dirname, '/react-version/build/index.html'),
-			protocol: 'file:',
-			slashes: true,
-		}),
-	);
+	win.loadURL('http://localhost:3000');
 
 	if (isDev()) {
 		// Open the DevTools.
 		win.webContents.openDevTools();
 	}
-	if (isDev()) {
-		BrowserWindow.addDevToolsExtension(
-			path.join(
-				os.homedir(),
-				'.config/google-chrome/Default/Extensions/pkmnigdcbihgkcpblhoollboafggfkpm/4.0.0.6_0',
-			),
-		);
-	}
+
+	BrowserWindow.addDevToolsExtension(
+		path.join(
+			os.homedir(),
+			'.config/google-chrome/Default/Extensions/pkmnigdcbihgkcpblhoollboafggfkpm/4.0.0.6_0',
+		),
+	);
 
 	// Emitted when the window is closed.
 	win.on('closed', () => {

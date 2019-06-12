@@ -17,19 +17,19 @@ module.exports = () => {
 
 	fs.writeFile(filePath1, JSON.stringify(sampleData[0]), 'utf8', err => {
 		if (err) {
-			console.log(err);
+			throw new error(err);
 			return;
 		}
 	});
 	fs.writeFile(filePath2, JSON.stringify(sampleData[1]), 'utf8', err => {
 		if (err) {
-			console.log(err);
+			throw new error(err);
 			return;
 		}
 	});
 	fs.writeFile(filePath3, JSON.stringify(sampleData[2]), 'utf8', err => {
 		if (err) {
-			console.log(err);
+			throw new error(err);
 			return;
 		}
 	});
