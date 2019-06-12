@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { primary, hint } from '../components/Colors.js';
+import { primary } from '../components/Colors.js';
 
 export const MainWrapper = styled.div`
 	align-items: center;

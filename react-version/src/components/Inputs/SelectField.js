@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import PropTypes from 'prop-types';
 import { primary, hint } from '../Colors.js';
 
 const Select = styled.select`
@@ -39,7 +38,6 @@ const SelectField = props => {
 			</option>
 		);
 	});
-	console.log(props);
 	return (
 		<Select onChange={props.onChange} name={props.name} style={props.style}>
 			{options}

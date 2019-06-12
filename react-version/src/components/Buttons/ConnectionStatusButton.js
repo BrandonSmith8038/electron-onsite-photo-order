@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { whiteText, success, error } from '../Colors.js/index.js';
-import { isAbsolute } from 'path';
-import { toPromise } from 'apollo-link';
 
 const ConnectionStatusButton = props => {
 	const { connectionStatus } = props;

@@ -1,6 +1,4 @@
-import { Typography } from '@material-ui/core';
-import classNames from 'classnames';
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { MainWrapper, FormWrapper, FormRow } from './Layout';
 import { BackButton, PrimaryButton } from './components/Buttons';
@@ -20,9 +18,6 @@ const CreateEvent = props => {
 		addEventToLocalStorage,
 	);
 
-	const { classes } = props;
-	console.log(props);
-	console.log(inputs);
 	return (
 		<>
 			<MainWrapper>

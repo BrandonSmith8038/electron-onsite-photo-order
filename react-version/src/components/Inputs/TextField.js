@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { primary, primaryAccent, hint, darkText } from '../Colors.js';
+import { primary, hint } from '../Colors.js';
 import PropTypes from 'prop-types';
 
 const Input = styled.input`
@@ -26,7 +26,6 @@ const Input = styled.input`
 `;
 
 const TextField = props => {
-	console.log(props.width);
 	return (
 		<Input
 			type='text'

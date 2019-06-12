@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MainWrapper, HomeButtonWrapper } from './Layout';
 import { PrimaryButton, ConnectionStatusButton } from './components/Buttons';
-import Logo from './img/logo.png';
+import Logo from './assets/img/logo.png';
 
 const Home = props => {
 	const { connectionStatus, setPage, currentEvent, eventEnd } = props;

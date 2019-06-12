@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MainWrapper, FormWrapper, FormRow } from './Layout';
 import { PrimaryButton, BackButton, PrimarySwitch } from './components/Buttons';
 import { FormHeading } from './components/Typography';
@@ -24,7 +24,6 @@ ipcRenderer.on('order-saved', (event, arg) => {
 });
 
 const NewOrder = props => {
-	const { classes } = props;
 	const [customers, setCustomers] = useState([]);
 	const [matches, setMatches] = useState([]);
 	const [needAddress, setNeedAddress] = useState(false);
@@ -37,7 +36,6 @@ const NewOrder = props => {
 	];
 	// When a new order is submitted
 	const newOrderSubmit = () => {
-		console.log(inputs);
 		if (!inputs.paymentMethod) {
 			// If Payment Method Is Not Selected, display in error state for two seconds
 			setSelectError(true);
@@ -227,8 +225,7 @@ const NewOrder = props => {
 								value={inputs.phone ? inputs.phone : ''}
 								onChange={handleInputChange}
 								required
-								style={{ marginRight: 0 }}
-								style={{ width: '25%' }}
+								style={{ marginRight: 0, width: '25%' }}
 							/>
 						</FormRow>
 						{needAddress ? (

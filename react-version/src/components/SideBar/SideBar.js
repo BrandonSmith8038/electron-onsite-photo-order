@@ -1,9 +1,9 @@
 import React from 'react';
 import { SideBarWrapper } from '../../Layout';
 import SideBarItem from './SideBarItem';
-import Logo from '../../img/white-text.png';
+import Logo from '../../assets/img/white-text-small-min.png';
 
-const Sidebar = () => (
+const Sidebar = props => (
 	<SideBarWrapper>
 		<img src={Logo} alt='' />
 		<SideBarItem title='Login' />
