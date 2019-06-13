@@ -135,6 +135,11 @@ const eventEndWithConnection = () =>
 			event.sender.send('clear-event');
 		});
 	});
+const getCurrentOrders = () => {
+	ipcMain.on('get-current-orders', (event, arg) => {
+		console.log('These Are The Current Orders');
+	});
+};
 
 module.exports = {
 	getCustomers,
@@ -143,4 +148,5 @@ module.exports = {
 	eventEndNoConnection,
 	eventEndWithConnection,
 	createOrder,
+	getCurrentOrders,
 };
