@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.0.0](https://github.com/BrandonSmith8038/electron-onsite-photo-order/compare/v2.1.2...v3.0.0) (2019-06-13)
+
+
+### Bug Fixes
+
+* Got rid of first name and last name in inital form state ([97e82b0](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/97e82b0))
+
+
+### Code Refactoring
+
+* Working on menu ([e6dbc6b](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/e6dbc6b))
+
+
+### Features
+
+* Added back button to new order and create event forms ([ee56cd7](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/ee56cd7))
+* Inital Sidebar Layout ([7b02fec](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/7b02fec))
+
+
+### BREAKING CHANGES
+
+* Need to finish "force end event" and "New Order"
+
+
+
 ## [2.1.2](https://github.com/BrandonSmith8038/electron-onsite-photo-order/compare/v2.1.1...v2.1.2) (2019-05-12)
 
 
