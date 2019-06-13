@@ -21,11 +21,11 @@ const SideBarItemWrapper = styled.div`
 
 const SideBarItem = props => {
 	const { onClick, title } = props;
-	return <SideBarItemWrapper>{title}</SideBarItemWrapper>;
+	return <SideBarItemWrapper onClick={onClick}>{title}</SideBarItemWrapper>;
 };
 
 SideBarItem.propTypes = {
-	onClick: PropTypes.string,
+	onClick: PropTypes.func,
 	title: PropTypes.string,
 };
 

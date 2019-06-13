@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Home from './Home';
 import NewOrder from './NewOrder';
 import CreateEvent from './CreateEvent';
+import CurrentEvent from './CurrentEvent';
 import { SideBar } from './components/SideBar';
 
 import { AppWrapper } from './Layout';
@@ -45,6 +46,9 @@ function App() {
 	let content;
 
 	switch (currentPage) {
+		case 'Current Event':
+			content = <CurrentEvent setPage={setPage} />;
+			break;
 		case 'New Order':
 			content = <NewOrder setPage={setPage} />;
 			break;
@@ -69,7 +73,7 @@ function App() {
 
 	return (
 		<AppWrapper>
-			<SideBar />
+			<SideBar setPage={setPage} />
 			{content}
 		</AppWrapper>
 	);
