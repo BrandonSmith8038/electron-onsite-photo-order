@@ -1,4 +1,4 @@
-const isDev = require('../utils/isDev');
+const isDev = require('./utils/isDev');
 const dev = require('./keys.dev');
 const prod = require('./keys.prod');
 

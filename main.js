@@ -13,7 +13,7 @@ const url = require('url');
 const electron = require('electron');
 const { app, BrowserWindow, Menu, dialog } = require('electron');
 const ipcMain = require('electron').ipcMain;
-const keys = require('./src/config');
+const keys = require('./config');
 const mongoose = require('mongoose');
 const Order = require('./schemas/OrdersSchema');
 const isDev = require('./utils/isDev');
@@ -81,7 +81,7 @@ function createWindow() {
 	// and load the index.html of the app.
 	win.loadURL(
 		url.format({
-			pathname: path.join(__dirname, '/react-version/build/index.html'),
+			pathname: path.join(__dirname, '/react/build/index.html'),
 			protocol: 'file:',
 			slashes: true,
 		}),
