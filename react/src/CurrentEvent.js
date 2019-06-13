@@ -4,13 +4,15 @@ import { MainWrapper } from './Layout';
 
 const { ipcRenderer } = window.require('electron');
 
-const CurrentEvent = () => {
+const CurrentEvent = props => {
+	const { setPage } = props;
 	useEffect(() => {
 		ipcRenderer.send('get-current-orders');
 	}, []);
 
 	return (
 		<MainWrapper>
+			<BackButton onClick={() => setPage('Home')} />
 			<h1>Current Event</h1>
 		</MainWrapper>
 	);
