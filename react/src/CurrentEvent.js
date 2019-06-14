@@ -20,6 +20,13 @@ const CurrentEvent = props => {
 		setOrders(orderData);
 	});
 
+	const orderClick = (type, name) => {
+		const event =
+			type === 'delete' ? 'delete-current-order' : 'edit-current-order';
+		console.log(event, name);
+		ipcRenderer.send(event, name);
+	};
+
 	return (
 		<MainWrapper>
 			<BackButton onClick={() => setPage('Home')} />
@@ -50,8 +57,21 @@ const CurrentEvent = props => {
 											<td>{photos}</td>
 											<td>
 												{
-													<div style={{ display: 'flex' }}>
-														<Edit /> <Trash />
+													<div
+														style={{
+															display: 'flex',
+															width: '100%',
+															height: '100%',
+														}}
+													>
+														<div onClick={() => orderClick('edit', firstName)}>
+															<Edit />
+														</div>
+														<div
+															onClick={() => orderClick('delete', firstName)}
+														>
+															<Trash />
+														</div>
 													</div>
 												}
 											</td>

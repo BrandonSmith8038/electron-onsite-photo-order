@@ -151,8 +151,21 @@ const getCurrentOrders = () => {
 	});
 };
 
+const deleteCurrentOrder = () => {
+	ipcMain.on('delete-current-order', (event, arg) => {
+		console.log('Delete', arg);
+	});
+};
+const editCurrentOrder = () => {
+	ipcMain.on('edit-current-order', (event, arg) => {
+		console.log('Edit', arg);
+	});
+};
+
 module.exports = {
 	getCustomers,
+	deleteCurrentOrder,
+	editCurrentOrder,
 	writeOrderDB,
 	notifyOrderTotals,
 	eventEndNoConnection,

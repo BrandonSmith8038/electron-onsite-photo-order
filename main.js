@@ -33,6 +33,8 @@ mongoose.Promise = global.Promise;
 
 // Run All ipc main functions
 ipcMainFunctions.getCustomers();
+ipcMainFunctions.deleteCurrentOrder();
+ipcMainFunctions.editCurrentOrder();
 ipcMainFunctions.getCurrentOrders();
 ipcMainFunctions.writeOrderDB();
 ipcMainFunctions.notifyOrderTotals();
