@@ -4,6 +4,7 @@ import { primary, hint } from '../Colors.js';
 
 const Select = styled.select`
 	background: none;
+	font-family: 'Roboto', Fallback, sans-serif;
 	border: 1px solid ${primary};
 	border-radius: 5px;
 	color: ${hint};
