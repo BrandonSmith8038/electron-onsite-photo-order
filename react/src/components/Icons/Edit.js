@@ -1,4 +1,5 @@
 import React from 'react';
+import { success } from '../Colors.js';
 
 const Edit = () => {
 	return (
