@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import Home from './Home';
 import NewOrder from './NewOrder';
+import EditOrder from './EditOrder';
 import CreateEvent from './CreateEvent';
+import CurrentEvent from './CurrentEvent';
 import { SideBar } from './components/SideBar';
 
-import { AppWrapper } from './Layout';
+import { AppWrapper, MainWrapper } from './Layout';
+import { BackButton } from './components/Buttons';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -13,6 +16,7 @@ function App() {
 	const [connectionStatus, setConnectionStatus] = useState('');
 	const [currentPage, setPage] = useState('Home');
 	const [currentEvent, setEvent] = useState('');
+	const [currentOrder, setCurrentOrder] = useState('');
 
 	useEffect(() => {
 		const currentEvent = localStorage.getItem('Current Event');
@@ -45,8 +49,16 @@ function App() {
 	let content;
 
 	switch (currentPage) {
+		case 'Current Event':
+			content = (
+				<CurrentEvent setPage={setPage} setCurrentOrder={setCurrentOrder} />
+			);
+			break;
 		case 'New Order':
 			content = <NewOrder setPage={setPage} />;
+			break;
+		case 'Edit Order':
+			content = <EditOrder setPage={setPage} currentOrder={currentOrder} />;
 			break;
 		case 'Create Event':
 			content = <CreateEvent setPage={setPage} setEvent={setEvent} />;
@@ -64,12 +76,21 @@ function App() {
 			);
 			break;
 		default:
-			return <h1>No Component Found</h1>;
+			content = (
+				<MainWrapper>
+					<BackButton
+						onClick={() => {
+							setPage('Home');
+						}}
+					/>
+					<h1>404 Not Found</h1>
+				</MainWrapper>
+			);
 	}
 
 	return (
 		<AppWrapper>
-			<SideBar />
+			<SideBar setPage={setPage} />
 			{content}
 		</AppWrapper>
 	);

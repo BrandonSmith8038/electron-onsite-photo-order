@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import BackArrow from '../Icons/BackArrow';
+import { BackArrow } from '../Icons/';
 import PropTypes from 'prop-types';
 
 const Button = styled.button`

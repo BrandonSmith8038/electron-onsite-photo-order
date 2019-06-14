@@ -24,9 +24,10 @@ const getCustomers = () =>
 	});
 
 const createOrder = () => {
-	ipcMain.on('create-order', (event, arg) => {
-		const newOrderJSON = JSON.stringify(arg);
-		const { firstName, lastName, date, total } = arg;
+	ipcMain.on('create-order', (event, order, edit) => {
+		console.log(edit);
+		const newOrderJSON = JSON.stringify(order);
+		const { firstName, lastName, date, total } = order;
 
 		// const { date, firstName, lastName, total } = arg;
 
@@ -36,7 +37,11 @@ const createOrder = () => {
 			if (err) {
 				return;
 			}
-			event.sender.send('order-saved', { firstName, lastName, date, total });
+			if (edit) {
+				event.sender.send('order-edited', { firstName, lastName, date, total });
+			} else {
+				event.sender.send('order-saved', { firstName, lastName, date, total });
+			}
 		});
 	});
 };
@@ -135,12 +140,102 @@ const eventEndWithConnection = () =>
 			event.sender.send('clear-event');
 		});
 	});
+const getCurrentOrders = () => {
+	ipcMain.on('get-current-orders', (event, arg) => {
+		const ordersDirectory = `${homeDir}/Orders`;
+		// Get All The Files In Orders Directory
+		const files = fs.readdirSync(ordersDirectory);
+		let orderArray = [];
+		for (const file of files) {
+			// Read Each File Stats
+			const stats = fs.statSync(path.join(ordersDirectory, file));
+			// If The file is an actual file and not a directory
+			if (stats.isFile()) {
+				// Read The Data Of Each File
+				const data = fs.readFileSync(path.join(ordersDirectory, file));
+				// Push The Data To The Orders Array
+				orderArray.push(JSON.parse(data));
+			}
+			// Send The Orders Back To The IPCRenderer That Asked For It
+			event.reply('send-current-orders', orderArray);
+		}
+	});
+};
+
+const deleteCurrentOrder = () => {
+	ipcMain.on('delete-current-order', (event, firstName, lastName) => {
+		const options = {
+			type: 'question',
+			buttons: ['No', 'Yes'],
+			message: 'Are You Sure You Want To Delete This Order?',
+			title: 'Confirm Order Delete',
+		};
+		dialog.showMessageBox(null, options, response => {
+			if (response === 0) return;
+			//TODO Need To Add Confirmation Dialogs
+			const ordersDirectory = `${homeDir}/Orders`;
+			// Get All The Files In Orders Directory
+			let files = fs.readdirSync(ordersDirectory);
+			let filepath;
+			for (const file of files) {
+				// Read Each File Stats
+				const stats = fs.statSync(path.join(ordersDirectory, file));
+				// If The file is an actual file and not a directory
+
+				if (stats.isFile()) {
+					// Read The Data Of Each File
+					const data = fs.readFileSync(path.join(ordersDirectory, file));
+					// Save The Order To JSON
+					const order = JSON.parse(data);
+					// If the firsName and lastName that were sent match the firstName and lastName of the order read
+					if (firstName === order.firstName && lastName === order.lastName) {
+						// Grab the filepath of that current Order
+						filepath = path.join(ordersDirectory, file);
+					}
+				}
+			}
+			// Delete The File with the filepath that was found
+			fs.unlink(filepath, err => {
+				// If There Was An Error Deleting
+				if (err) {
+					console.log('There Was An Error');
+				}
+				// Create an arrays of orders
+				let orderArray = [];
+				// Reread all the files and directories in the orders directory.
+				let files = fs.readdirSync(ordersDirectory);
+				// Loop through each file or directory
+				for (const file of files) {
+					// If its an actual file and not a directory add it to the new orders array
+					const stats = fs.statSync(path.join(ordersDirectory, file));
+					if (stats.isFile()) {
+						const data = fs.readFileSync(path.join(ordersDirectory, file));
+						orderArray.push(JSON.parse(data));
+					}
+					// Send the array of orders back to who asked for it.
+					event.reply('send-current-orders', orderArray);
+				}
+				console.log('Deleted');
+				event.reply('order-deleted', firstName);
+			});
+		});
+	});
+};
+
+const editCurrentOrder = () => {
+	ipcMain.on('edit-current-order', (event, firstName, lastName) => {
+		console.log('Edit', firstName);
+	});
+};
 
 module.exports = {
 	getCustomers,
+	deleteCurrentOrder,
+	editCurrentOrder,
 	writeOrderDB,
 	notifyOrderTotals,
 	eventEndNoConnection,
 	eventEndWithConnection,
 	createOrder,
+	getCurrentOrders,
 };

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 const TextAreaField = styled.textarea`
 	padding: 15px 10px;
+	font-family: 'Roboto', Fallback, sans-serif;
 	border-radius: 5px;
 	font-size: 18px;
 	border: 1px solid ${primary};
