@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BackButton } from './components/Buttons';
 import { MainWrapper, TableWrapper, TableRow } from './Layout';
 import { Table } from './components/Table/';
+import { Trash, Edit } from './components/Icons';
 import { Card } from './components/Card';
 
 const { ipcRenderer } = window.require('electron');
@@ -28,25 +29,36 @@ const CurrentEvent = props => {
 				<TableWrapper width='90%'>
 					<Card>
 						<Table>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Phone</th>
-							<th>Photos</th>
-							{orders.map(order => {
-								const { firstName, lastName, email, phone, photos } = order;
-								return (
-									<>
-										<tr>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Phone</th>
+									<th>Photos</th>
+								</tr>
+							</thead>
+							<tbody>
+								{orders.map(order => {
+									const { firstName, lastName, email, phone, photos } = order;
+									return (
+										<tr key={firstName}>
 											<td>
 												{firstName} {lastName}
 											</td>
 											<td>{email}</td>
 											<td>{phone}</td>
 											<td>{photos}</td>
+											<td>
+												{
+													<div style={{ display: 'flex' }}>
+														<Edit /> <Trash />
+													</div>
+												}
+											</td>
 										</tr>
-									</>
-								);
-							})}
+									);
+								})}
+							</tbody>
 						</Table>
 					</Card>
 				</TableWrapper>

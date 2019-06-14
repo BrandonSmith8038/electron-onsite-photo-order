@@ -16,13 +16,22 @@ const Table = styled.table`
 			background: ${primary};
 			color: #fff;
 		}
+		td {
+			&:last-of-type {
+				border: none;
+
+				&:hover {
+					background: #fff;
+					color: black;
+				}
+			}
+		}
 	}
 
 	th {
 		color: ${primary};
 		text-transform: uppercase;
 	}
-
 	th,
 	td {
 		border: 1px solid #dfdfdf;
