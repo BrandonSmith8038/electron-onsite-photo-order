@@ -22,7 +22,7 @@ module.exports = currentOrder => {
 		zip,
 		photos,
 		notes,
-		payment,
+		paymentMethod,
 		total,
 	} = currentOrder;
 
@@ -69,7 +69,7 @@ module.exports = currentOrder => {
 	doc.moveDown(1);
 	if (notes) doc.text(`Notes: ${notes}`);
 	doc.moveDown(1);
-	doc.text(`Payment Method: ${payment}`);
+	doc.text(`Payment Method: ${paymentMethod}`);
 	doc.moveDown(2);
 	doc.font('Helvetica-Bold').text(`Total: $${total}`, {
 		underline: true,
