@@ -20,11 +20,10 @@ const CurrentEvent = props => {
 		setOrders(orderData);
 	});
 
-	const orderClick = (type, name) => {
+	const orderClick = (type, firstName, lastName) => {
 		const event =
 			type === 'delete' ? 'delete-current-order' : 'edit-current-order';
-		console.log(event, name);
-		ipcRenderer.send(event, name);
+		ipcRenderer.send(event, firstName, lastName);
 	};
 
 	return (
@@ -64,11 +63,17 @@ const CurrentEvent = props => {
 															height: '100%',
 														}}
 													>
-														<div onClick={() => orderClick('edit', firstName)}>
+														<div
+															onClick={() =>
+																orderClick('edit', firstName, lastName)
+															}
+														>
 															<Edit />
 														</div>
 														<div
-															onClick={() => orderClick('delete', firstName)}
+															onClick={() =>
+																orderClick('delete', firstName, lastName)
+															}
 														>
 															<Trash />
 														</div>

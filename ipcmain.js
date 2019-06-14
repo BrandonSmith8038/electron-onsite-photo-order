@@ -152,13 +152,40 @@ const getCurrentOrders = () => {
 };
 
 const deleteCurrentOrder = () => {
-	ipcMain.on('delete-current-order', (event, arg) => {
-		console.log('Delete', arg);
+	ipcMain.on('delete-current-order', (event, firstName, lastName) => {
+		const ordersDirectory = `${homeDir}/Orders`;
+		let files = fs.readdirSync(ordersDirectory);
+		let filepath;
+		for (const file of files) {
+			const stats = fs.statSync(path.join(ordersDirectory, file));
+			if (stats.isFile()) {
+				const data = fs.readFileSync(path.join(ordersDirectory, file));
+				const order = JSON.parse(data);
+				if (firstName === order.firstName && lastName === order.lastName) {
+					filepath = path.join(ordersDirectory, file);
+				}
+			}
+		}
+		fs.unlink(filepath, err => {
+			if (err) {
+				console.log('There Was An Error');
+			}
+			let orderArray = [];
+			let files = fs.readdirSync(ordersDirectory);
+			for (const file of files) {
+				const stats = fs.statSync(path.join(ordersDirectory, file));
+				if (stats.isFile()) {
+					const data = fs.readFileSync(path.join(ordersDirectory, file));
+					orderArray.push(JSON.parse(data));
+				}
+				event.reply('send-current-orders', orderArray);
+			}
+		});
 	});
 };
 const editCurrentOrder = () => {
-	ipcMain.on('edit-current-order', (event, arg) => {
-		console.log('Edit', arg);
+	ipcMain.on('edit-current-order', (event, firstName, lastName) => {
+		console.log('Edit', firstName);
 	});
 };
 
