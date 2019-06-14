@@ -16,6 +16,7 @@ const Table = styled.table`
 			background: ${primary};
 			color: #fff;
 		}
+
 		td {
 			&:last-of-type {
 				border: none;
@@ -24,6 +25,15 @@ const Table = styled.table`
 					background: #fff;
 					color: black;
 				}
+			}
+		}
+	}
+	thead {
+		tr {
+			cursor: initial;
+			&:hover {
+				background: #fff;
+				color: black;
 			}
 		}
 	}
