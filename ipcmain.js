@@ -159,48 +159,58 @@ const getCurrentOrders = () => {
 
 const deleteCurrentOrder = () => {
 	ipcMain.on('delete-current-order', (event, firstName, lastName) => {
-		const ordersDirectory = `${homeDir}/Orders`;
-		// Get All The Files In Orders Directory
-		let files = fs.readdirSync(ordersDirectory);
-		let filepath;
-		for (const file of files) {
-			// Read Each File Stats
-			const stats = fs.statSync(path.join(ordersDirectory, file));
-			// If The file is an actual file and not a directory
-
-			if (stats.isFile()) {
-				// Read The Data Of Each File
-				const data = fs.readFileSync(path.join(ordersDirectory, file));
-				// Save The Order To JSON
-				const order = JSON.parse(data);
-				// If the firsName and lastName that were sent match the firstName and lastName of the order read
-				if (firstName === order.firstName && lastName === order.lastName) {
-					// Grab the filepath of that current Order
-					filepath = path.join(ordersDirectory, file);
-				}
-			}
-		}
-		// Delete The File with the filepath that was found
-		fs.unlink(filepath, err => {
-			// If There Was An Error Deleting
-			if (err) {
-				console.log('There Was An Error');
-			}
-			// Create an arrays of orders
-			let orderArray = [];
-			// Reread all the files and directories in the orders directory.
+		const options = {
+			type: 'question',
+			buttons: ['No', 'Yes'],
+			message: 'Are You Sure You Want To Delete This Order?',
+			title: 'Confirm Order Delete',
+		};
+		dialog.showMessageBox(null, options, response => {
+			if (response === 0) return;
+			//TODO Need To Add Confirmation Dialogs
+			const ordersDirectory = `${homeDir}/Orders`;
+			// Get All The Files In Orders Directory
 			let files = fs.readdirSync(ordersDirectory);
-			// Loop through each file or directory
+			let filepath;
 			for (const file of files) {
-				// If its an actual file and not a directory add it to the new orders array
+				// Read Each File Stats
 				const stats = fs.statSync(path.join(ordersDirectory, file));
+				// If The file is an actual file and not a directory
+
 				if (stats.isFile()) {
+					// Read The Data Of Each File
 					const data = fs.readFileSync(path.join(ordersDirectory, file));
-					orderArray.push(JSON.parse(data));
+					// Save The Order To JSON
+					const order = JSON.parse(data);
+					// If the firsName and lastName that were sent match the firstName and lastName of the order read
+					if (firstName === order.firstName && lastName === order.lastName) {
+						// Grab the filepath of that current Order
+						filepath = path.join(ordersDirectory, file);
+					}
 				}
-				// Send the array of orders back to who asked for it.
-				event.reply('send-current-orders', orderArray);
 			}
+			// Delete The File with the filepath that was found
+			fs.unlink(filepath, err => {
+				// If There Was An Error Deleting
+				if (err) {
+					console.log('There Was An Error');
+				}
+				// Create an arrays of orders
+				let orderArray = [];
+				// Reread all the files and directories in the orders directory.
+				let files = fs.readdirSync(ordersDirectory);
+				// Loop through each file or directory
+				for (const file of files) {
+					// If its an actual file and not a directory add it to the new orders array
+					const stats = fs.statSync(path.join(ordersDirectory, file));
+					if (stats.isFile()) {
+						const data = fs.readFileSync(path.join(ordersDirectory, file));
+						orderArray.push(JSON.parse(data));
+					}
+					// Send the array of orders back to who asked for it.
+					event.reply('send-current-orders', orderArray);
+				}
+			});
 		});
 	});
 };
