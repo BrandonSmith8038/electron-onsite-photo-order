@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.1.0](https://github.com/BrandonSmith8038/electron-onsite-photo-order/compare/v3.0.0...v3.1.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* Payment Method Not Showing Up On PDF ([5cdc599](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/5cdc599))
+
+
+### Features
+
+* Add Back Button To Current Event Page ([1b91a8f](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/1b91a8f))
+* Clicking edit icon goes to the edit page, clicking the back arrow on edit page goes back to th ([143b6ce](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/143b6ce))
+* Confirmation Box Before Deleting ([ca43389](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/ca43389))
+* Created a table wrapper component temporaily, render first and last name of each order ([3a1997f](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/3a1997f))
+* Delete Order on button click ([b8c8343](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/b8c8343))
+* Display Edit and Trash Icons ([824e4ea](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/824e4ea))
+* Display initial order info in table ([3371c63](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/3371c63))
+* Made a better 404 Page ([fe1ea27](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/fe1ea27))
+* Order Editing ([6df9142](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/6df9142))
+* Render The Current Event Page ([4922392](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/4922392))
+* Send correct event and name to ipcmain on order click ([0ed32cf](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/0ed32cf))
+* Send message to ipcmain when Current Event Component Loads ([ffeb77b](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/ffeb77b))
+* Trash Icon to Delete Icon ([6dce0cf](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/6dce0cf))
+
+
+
 # [3.0.0](https://github.com/BrandonSmith8038/electron-onsite-photo-order/compare/v2.1.2...v3.0.0) (2019-06-13)
 
 
