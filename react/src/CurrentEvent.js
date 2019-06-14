@@ -29,12 +29,6 @@ const CurrentEvent = props => {
 	// 	new Notification(notification.title, notification);
 	// });
 
-	const orderClick = (type, firstName, lastName) => {
-		const event =
-			type === 'delete' ? 'delete-current-order' : 'edit-current-order';
-		ipcRenderer.send(event, firstName, lastName);
-	};
-
 	return (
 		<MainWrapper>
 			<BackButton onClick={() => setPage('Home')} />
@@ -72,16 +66,16 @@ const CurrentEvent = props => {
 															height: '100%',
 														}}
 													>
-														<div
-															onClick={() =>
-																orderClick('edit', firstName, lastName)
-															}
-														>
+														<div onClick={() => setPage('Edit Event')}>
 															<Edit />
 														</div>
 														<div
 															onClick={() =>
-																orderClick('delete', firstName, lastName)
+																ipcRenderer.send(
+																	'delete-current-order',
+																	firstName,
+																	lastName,
+																)
 															}
 														>
 															<Trash />
