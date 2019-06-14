@@ -210,6 +210,8 @@ const deleteCurrentOrder = () => {
 					// Send the array of orders back to who asked for it.
 					event.reply('send-current-orders', orderArray);
 				}
+				console.log('Deleted');
+				event.reply('order-deleted', firstName);
 			});
 		});
 	});

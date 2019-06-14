@@ -20,6 +20,15 @@ const CurrentEvent = props => {
 		setOrders(orderData);
 	});
 
+	// ipcRenderer.on('order-deleted', (event, name) => {
+	// 	const notification = {
+	// 		title: 'Order Deleted',
+	// 		// icon: '../../../assets/icons/png/24x24.png',
+	// 		body: `${name}'s Order Deleted`,
+	// 	};
+	// 	new Notification(notification.title, notification);
+	// });
+
 	const orderClick = (type, firstName, lastName) => {
 		const event =
 			type === 'delete' ? 'delete-current-order' : 'edit-current-order';
