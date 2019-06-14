@@ -30,6 +30,12 @@ export const FormWrapper = styled.form`
 	width: ${props => props.width};
 `;
 
+export const TableWrapper = styled.form`
+	display: flex;
+	flex-direction: column;
+	width: ${props => props.width};
+`;
+
 export const FormRow = styled.div`
 	display: flex;
 	justify-content: space-evenly;

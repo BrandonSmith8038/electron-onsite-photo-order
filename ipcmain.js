@@ -137,7 +137,17 @@ const eventEndWithConnection = () =>
 	});
 const getCurrentOrders = () => {
 	ipcMain.on('get-current-orders', (event, arg) => {
-		console.log('These Are The Current Orders');
+		const ordersDirectory = `${homeDir}/Orders`;
+		const files = fs.readdirSync(ordersDirectory);
+		let orderArray = [];
+		for (const file of files) {
+			const stats = fs.statSync(path.join(ordersDirectory, file));
+			if (stats.isFile()) {
+				const data = fs.readFileSync(path.join(ordersDirectory, file));
+				orderArray.push(JSON.parse(data));
+			}
+			event.reply('send-current-orders', orderArray);
+		}
 	});
 };
 
