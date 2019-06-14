@@ -6,7 +6,8 @@ import CreateEvent from './CreateEvent';
 import CurrentEvent from './CurrentEvent';
 import { SideBar } from './components/SideBar';
 
-import { AppWrapper } from './Layout';
+import { AppWrapper, MainWrapper } from './Layout';
+import { BackButton } from './components/Buttons';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -68,7 +69,16 @@ function App() {
 			);
 			break;
 		default:
-			return <h1>No Component Found</h1>;
+			content = (
+				<MainWrapper>
+					<BackButton
+						onClick={() => {
+							setPage('Home');
+						}}
+					/>
+					<h1>404 Not Found</h1>
+				</MainWrapper>
+			);
 	}
 
 	return (
