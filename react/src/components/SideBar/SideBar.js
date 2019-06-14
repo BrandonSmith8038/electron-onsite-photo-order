@@ -7,7 +7,12 @@ const Sidebar = props => {
 	const { setPage } = props;
 	return (
 		<SideBarWrapper>
-			<img src={Logo} alt='' />
+			<img
+				src={Logo}
+				alt=''
+				onClick={() => setPage('Home')}
+				style={{ cursor: 'pointer' }}
+			/>
 			<SideBarItem title='Login' />
 			<SideBarItem
 				title='Current Event'

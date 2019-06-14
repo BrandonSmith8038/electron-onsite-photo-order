@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Home from './Home';
 import NewOrder from './NewOrder';
+import EditOrder from './EditOrder';
 import CreateEvent from './CreateEvent';
 import CurrentEvent from './CurrentEvent';
 import { SideBar } from './components/SideBar';
@@ -52,6 +53,9 @@ function App() {
 			break;
 		case 'New Order':
 			content = <NewOrder setPage={setPage} />;
+			break;
+		case 'Edit Order':
+			content = <EditOrder setPage={setPage} />;
 			break;
 		case 'Create Event':
 			content = <CreateEvent setPage={setPage} setEvent={setEvent} />;

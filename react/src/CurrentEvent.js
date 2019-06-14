@@ -66,7 +66,7 @@ const CurrentEvent = props => {
 															height: '100%',
 														}}
 													>
-														<div onClick={() => setPage('Edit Event')}>
+														<div onClick={() => setPage('Edit Order')}>
 															<Edit />
 														</div>
 														<div
