@@ -10,12 +10,12 @@ import getDate from './utils/getDate';
 
 const { ipcRenderer } = window.require('electron');
 
-ipcRenderer.on('order-saved', (event, arg) => {
+ipcRenderer.on('order-edited', (event, arg) => {
 	const { firstName, lastName, total } = arg;
 	const notification = {
-		title: 'Order Saved....',
+		title: 'Order Edited',
 		icon: '../../../assets/icons/png/24x24.png',
-		body: `New Order Saved | ${firstName} ${lastName} | $${total}`,
+		body: `Order Edited | ${firstName} ${lastName} | $${total}`,
 	};
 	const successNotification = new Notification(
 		notification.title,
@@ -26,13 +26,44 @@ ipcRenderer.on('order-saved', (event, arg) => {
 const EditOrder = props => {
 	const [customers, setCustomers] = useState([]);
 	const [matches, setMatches] = useState([]);
-	const [needAddress, setNeedAddress] = useState(false);
+	const [needAddress, setNeedAddress] = useState(true);
 	const [selectError, setSelectError] = useState(false);
+	const { currentOrder } = props;
+
+	const {
+		inputs,
+		setInputs,
+		handleAutoComplete,
+		handleInputChange,
+		handleEditOrder,
+		handleSubmit,
+	} = useFormSubmit(() => {
+		newOrderSubmit();
+	});
+
+	useEffect(() => {
+		ipcRenderer.send('getCustomers');
+		setInputs(currentOrder);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	const options = [
 		{ value: 'Payment Method', placeholder: true },
-		{ value: 'Cash' },
-		{ value: 'Card' },
-		{ value: 'Invoice' },
+
+		{
+			value: 'Cash',
+			selected: currentOrder.paymentMethod === 'Cash' ? 'selected' : null,
+		},
+
+		{
+			value: 'Card',
+			selected: currentOrder.paymentMethod === 'Card' ? 'selected' : null,
+		},
+
+		{
+			value: 'Invoice',
+			selected: currentOrder.paymentMethod === 'Invoice' ? 'selected' : null,
+		},
 	];
 	// When a new order is submitted
 	const newOrderSubmit = () => {
@@ -45,24 +76,11 @@ const EditOrder = props => {
 			return;
 		}
 		// Send a command to ipcmain to save the order as a json file
-		ipcRenderer.send('create-order', inputs);
+		ipcRenderer.send('create-order', inputs, 'edit');
 		// Go back to the home page
 		props.setPage('Home');
 	};
 
-	const {
-		inputs,
-		handleAutoComplete,
-		handleInputChange,
-		handleSubmit,
-	} = useFormSubmit(() => {
-		newOrderSubmit();
-	});
-
-	// When the component loads tell the ipcMain to grab all the customers from the api
-	useEffect(() => {
-		ipcRenderer.send('getCustomers');
-	}, []);
 	// Once the IPCmain grabs all the customers from the api it sends them back to the componet so we can do something
 	// with them.
 	ipcRenderer.on('sendCustomers', (event, arg) => {
@@ -114,10 +132,10 @@ const EditOrder = props => {
 			.slice(-1)
 			.join(' ');
 
-		handleAutoComplete('lastName', lastNameValue);
-		handleAutoComplete('firstName', firstNameValue);
-		handleAutoComplete('email', emailValue);
-		handleAutoComplete('phone', phoneValue);
+		// handleAutoComplete('lastName', lastNameValue);
+		// handleAutoComplete('firstName', firstNameValue);
+		// handleAutoComplete('email', emailValue);
+		// handleAutoComplete('phone', phoneValue);
 	};
 
 	//TODO Fix Hover Style For Form Submit Buttons
@@ -128,7 +146,7 @@ const EditOrder = props => {
 				<FormWrapper onSubmit={handleSubmit} width='80%'>
 					<Card>
 						<FormRow>
-							<FormHeading>New Order</FormHeading>
+							<FormHeading>Edit Order</FormHeading>
 						</FormRow>
 						<PrimarySwitch onChange={handleSwitchChange} checked={needAddress}>
 							Need Address
@@ -167,6 +185,7 @@ const EditOrder = props => {
 								<TextField
 									id='firstName'
 									name='firstName'
+									disabled
 									placeHolder='First Name'
 									onChange={e => {
 										handleInputChange(e);
@@ -199,6 +218,7 @@ const EditOrder = props => {
 							<TextField
 								id='lastName'
 								name='lastName'
+								disabled
 								placeHolder='Last Name'
 								onChange={handleInputChange}
 								value={inputs.lastName ? inputs.lastName : ''}
@@ -233,7 +253,7 @@ const EditOrder = props => {
 								<TextField
 									id='street'
 									name='street'
-									defaultValue={inputs.street}
+									value={inputs.street ? inputs.street : ''}
 									placeHolder='Street'
 									onChange={handleInputChange}
 									style={{ width: '40%' }}
@@ -241,7 +261,7 @@ const EditOrder = props => {
 								<TextField
 									id='city'
 									name='city'
-									defaultValue={inputs.city}
+									value={inputs.city ? inputs.city : ''}
 									placeHolder='City'
 									onChange={handleInputChange}
 									style={{ width: '20%' }}
@@ -249,7 +269,7 @@ const EditOrder = props => {
 								<TextField
 									id='state'
 									name='state'
-									defaultValue={inputs.state}
+									value={inputs.state ? inputs.state : ''}
 									placeHolder='State'
 									onChange={handleInputChange}
 									maxLength='2'
@@ -258,7 +278,7 @@ const EditOrder = props => {
 								<TextField
 									id='zip'
 									name='zip'
-									defaultValue={inputs.zip}
+									value={inputs.zip ? inputs.zip : ''}
 									placeHolder='Zip'
 									onChange={handleInputChange}
 									maxLength='5'
@@ -273,7 +293,7 @@ const EditOrder = props => {
 							<TextArea
 								id='photos'
 								name='photos'
-								defaultValue={inputs.photos}
+								value={inputs.photos ? inputs.photos : ''}
 								placeHolder='Photos'
 								onChange={handleInputChange}
 								style={{ width: '100%' }}
@@ -282,7 +302,7 @@ const EditOrder = props => {
 							<TextArea
 								id='notes'
 								name='notes'
-								defaultValue={inputs.notes}
+								value={inputs.notes ? inputs.notes : ''}
 								placeHolder='Notes'
 								style={{ marginRight: 0, width: '100%' }}
 								onChange={handleInputChange}
@@ -293,11 +313,12 @@ const EditOrder = props => {
 								name='paymentMethod'
 								options={options}
 								onChange={handleInputChange}
+								value={inputs.paymentMethod ? inputs.paymentMethod : ''}
 							/>
 							<TextField
 								id='total'
 								name='total'
-								defaultValue={inputs.total}
+								value={inputs.total ? inputs.total : ''}
 								placeHolder='Total'
 								onChange={handleInputChange}
 								style={{ marginRight: 0 }}

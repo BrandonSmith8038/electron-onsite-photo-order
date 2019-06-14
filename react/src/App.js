@@ -16,6 +16,7 @@ function App() {
 	const [connectionStatus, setConnectionStatus] = useState('');
 	const [currentPage, setPage] = useState('Home');
 	const [currentEvent, setEvent] = useState('');
+	const [currentOrder, setCurrentOrder] = useState('');
 
 	useEffect(() => {
 		const currentEvent = localStorage.getItem('Current Event');
@@ -49,13 +50,15 @@ function App() {
 
 	switch (currentPage) {
 		case 'Current Event':
-			content = <CurrentEvent setPage={setPage} />;
+			content = (
+				<CurrentEvent setPage={setPage} setCurrentOrder={setCurrentOrder} />
+			);
 			break;
 		case 'New Order':
 			content = <NewOrder setPage={setPage} />;
 			break;
 		case 'Edit Order':
-			content = <EditOrder setPage={setPage} />;
+			content = <EditOrder setPage={setPage} currentOrder={currentOrder} />;
 			break;
 		case 'Create Event':
 			content = <CreateEvent setPage={setPage} setEvent={setEvent} />;

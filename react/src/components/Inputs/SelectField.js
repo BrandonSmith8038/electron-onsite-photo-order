@@ -25,7 +25,7 @@ const Select = styled.select`
 
 const SelectField = props => {
 	const options = props.options.map(option => {
-		const { value, placeholder } = option;
+		const { value, placeholder, editPage, selected } = option;
 
 		return (
 			<option
@@ -33,6 +33,7 @@ const SelectField = props => {
 				key={value}
 				value={placeholder ? null : value}
 				style={{ color: placeholder ? hint : null }}
+				selected={selected}
 			>
 				{value}
 			</option>

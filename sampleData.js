@@ -10,7 +10,8 @@ module.exports = [
 		state: 'Arizona',
 		photos: '7845,6598,4124,',
 		notes: 'No Note',
-		paymentMethod: 'cash',
+		paymentMethod: 'Cash',
+		zip: '85385',
 		total: '100',
 	},
 	{
@@ -24,7 +25,8 @@ module.exports = [
 		state: 'AZ',
 		photos: '4578,6548,1235',
 		notes: 'Test Note',
-		paymentMethod: 'cash',
+		paymentMethod: 'Card',
+		zip: '85338',
 		total: '40',
 	},
 	{
@@ -37,7 +39,8 @@ module.exports = [
 		city: '85361',
 		state: 'Arizona',
 		photos: '7894,1248,6541',
-		paymentMethod: 'invoice',
+		paymentMethod: 'Invoice',
+		zip: '85361',
 		total: '15',
 	},
 ];

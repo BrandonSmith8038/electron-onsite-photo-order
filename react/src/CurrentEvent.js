@@ -8,7 +8,7 @@ import { Card } from './components/Card';
 const { ipcRenderer } = window.require('electron');
 
 const CurrentEvent = props => {
-	const { setPage } = props;
+	const { setPage, setCurrentOrder } = props;
 	const [orders, setOrders] = useState([]);
 	let output;
 
@@ -66,7 +66,12 @@ const CurrentEvent = props => {
 															height: '100%',
 														}}
 													>
-														<div onClick={() => setPage('Edit Order')}>
+														<div
+															onClick={() => {
+																setPage('Edit Order');
+																setCurrentOrder(order);
+															}}
+														>
 															<Edit />
 														</div>
 														<div

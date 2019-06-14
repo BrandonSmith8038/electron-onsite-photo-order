@@ -24,9 +24,10 @@ const getCustomers = () =>
 	});
 
 const createOrder = () => {
-	ipcMain.on('create-order', (event, arg) => {
-		const newOrderJSON = JSON.stringify(arg);
-		const { firstName, lastName, date, total } = arg;
+	ipcMain.on('create-order', (event, order, edit) => {
+		console.log(edit);
+		const newOrderJSON = JSON.stringify(order);
+		const { firstName, lastName, date, total } = order;
 
 		// const { date, firstName, lastName, total } = arg;
 
@@ -36,7 +37,11 @@ const createOrder = () => {
 			if (err) {
 				return;
 			}
-			event.sender.send('order-saved', { firstName, lastName, date, total });
+			if (edit) {
+				event.sender.send('order-edited', { firstName, lastName, date, total });
+			} else {
+				event.sender.send('order-saved', { firstName, lastName, date, total });
+			}
 		});
 	});
 };

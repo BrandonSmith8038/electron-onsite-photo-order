@@ -28,9 +28,16 @@ const useFormSubmit = callback => {
 			[inputField]: newValue,
 		}));
 	};
-
+	const handleEditOrder = (inputField, newValue) => {
+		setInputs(inputs => ({
+			...inputs,
+			[inputField]: newValue,
+		}));
+	};
 	return {
+		setInputs,
 		handleSubmit,
+		handleEditOrder,
 		handleInputChange,
 		handleAutoComplete,
 		inputs,
