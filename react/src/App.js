@@ -36,7 +36,7 @@ function App() {
 
 	const eventEnd = () => {
 		if (connectionStatus === 'Online') {
-			ipcRenderer.send('event-end-with-connection');
+			ipcRenderer.send('event-end-with-connection', currentEvent);
 		} else {
 			ipcRenderer.send('event-end-no-connection');
 		}

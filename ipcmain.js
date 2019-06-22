@@ -84,7 +84,7 @@ const eventEndNoConnection = () =>
 	});
 
 const eventEndWithConnection = () =>
-	ipcMain.on('event-end-with-connection', (event, arg) => {
+	ipcMain.on('event-end-with-connection', (event, currentEvent) => {
 		const options = {
 			type: 'question',
 			buttons: ['No', 'Yes'],
@@ -94,8 +94,10 @@ const eventEndWithConnection = () =>
 		dialog.showMessageBox(null, options, response => {
 			//TODO Need To Add Confirmation Dialogs
 			if (response === 0) return;
+			const { eventName, venue } = currentEvent;
 			const ordersDirectory = `${homeDir}/Orders`;
 			const pdfDirectory = `${homeDir}/Orders/PDFs`;
+			const eventFolder = `${pdfDirectory}/${venue}-${eventName}`;
 			// Look in The Orders Directory and see if there are files
 			const files = fs.readdirSync(ordersDirectory);
 			// Show Error If There Are No Files
@@ -105,39 +107,59 @@ const eventEndWithConnection = () =>
 					'There Are No Orders To Use',
 				);
 			}
-			for (const file of files) {
-				const stats = fs.statSync(path.join(ordersDirectory, file));
-				if (stats.isFile()) {
-					const data = fs.readFileSync(path.join(ordersDirectory, file));
-					const orderData = JSON.parse(data);
-					//TODO: Check If Folders Already Exist
-					fsPromises
-						.mkdir(
-							`${pdfDirectory}/${orderData.firstName} ${orderData.lastName}`,
-						)
-						.catch(e => {
-							throw e;
-						})
-						.then(() => {
-							const createPDF = require('./utils/createPDF');
-							//TODO Need TO Change This To A Promise
-							createPDF(orderData);
-						})
-						.then(() => {
-							const newOrder = new Order(orderData);
-							newOrder
-								.save()
+			fsPromises
+				.mkdir(eventFolder)
+				.catch(e => {
+					throw e;
+				})
+				.then(() => {
+					for (const file of files) {
+						const stats = fs.statSync(path.join(ordersDirectory, file));
+						if (stats.isFile()) {
+							const data = fs.readFileSync(path.join(ordersDirectory, file));
+							const orderData = JSON.parse(data);
+							//TODO: Check If Folders Already Exist
+							fsPromises
+								.mkdir(
+									`${eventFolder}/${orderData.firstName} ${orderData.lastName}`,
+									{ recursive: true },
+								)
 								.catch(e => {
 									throw e;
 								})
 								.then(() => {
-									fs.unlink(path.join(ordersDirectory, file), err => {
-										if (err) throw err;
-									});
+									const createPDF = require('./utils/createPDF');
+									//TODO Need TO Change This To A Promise
+									createPDF(orderData, eventFolder);
+								})
+								.then(() => {
+									const newOrder = new Order(orderData);
+									newOrder
+										.save()
+										.catch(e => {
+											throw e;
+										})
+
+										.then(() => {
+											fs.copyFile(
+												path.join(pdfDirectory, file),
+												path.join(eventFolder, file),
+												err => {
+													if (
+														err => {
+															console.log(err);
+														}
+													)
+														fs.unlink(path.join(ordersDirectory, file), err => {
+															if (err) throw err;
+														});
+												},
+											);
+										});
 								});
-						});
-				}
-			}
+						}
+					}
+				});
 			event.sender.send('clear-event');
 		});
 	});

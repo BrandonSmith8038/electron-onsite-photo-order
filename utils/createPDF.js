@@ -7,7 +7,7 @@ const PDFDocument = require('pdfkit');
 const homeDir = require('os').homedir();
 const sampleData = require('../sampleData');
 
-module.exports = currentOrder => {
+module.exports = (currentOrder, eventFolder) => {
 	const pdfDirectory = `${homeDir}/Orders/PDFs`;
 	const ordersDirectory = `${homeDir}/Orders`;
 	const {
@@ -32,7 +32,7 @@ module.exports = currentOrder => {
 
 	doc.pipe(
 		fs.createWriteStream(
-			`${pdfDirectory}/${firstName} ${lastName}/${firstName} ${lastName} - ${date}.pdf`,
+			`${eventFolder}/${firstName} ${lastName}/${firstName} ${lastName} - ${date}.pdf`,
 		),
 	); // write to PDF
 
