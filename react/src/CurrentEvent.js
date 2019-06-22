@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BackButton } from './components/Buttons';
+import { BackButton, PrimaryButton } from './components/Buttons';
 import { MainWrapper, TableWrapper, TableRow } from './Layout';
 import { Table } from './components/Table/';
 import { Trash, Edit } from './components/Icons';
@@ -20,6 +20,10 @@ const CurrentEvent = props => {
 		setOrders(orderData);
 	});
 
+	const getNightlyTotal = () => {
+		ipcRenderer.send('notify-order-totals');
+	};
+
 	// ipcRenderer.on('order-deleted', (event, name) => {
 	// 	const notification = {
 	// 		title: 'Order Deleted',
@@ -37,6 +41,9 @@ const CurrentEvent = props => {
 			) : (
 				<TableWrapper width='90%'>
 					<Card>
+						<PrimaryButton width='25%' onClick={() => getNightlyTotal()}>
+							Nightly Total
+						</PrimaryButton>
 						<Table>
 							<thead>
 								<tr>
