@@ -4,7 +4,7 @@ import { primary } from '../Colors.js';
 const Table = styled.table`
 	width: 100%;
 	border-collapse: collapse;
-	margin: 0;
+	margin: 10px 0 0 0;
 	padding: 0;
 	background-color: #fff;
 	text-align: center;

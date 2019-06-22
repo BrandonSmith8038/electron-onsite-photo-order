@@ -8,6 +8,7 @@ const remote = electron.remote;
 const fs = require('fs');
 const keys = require('./config');
 const customerJSON = keys.CUSTOMERSFILE;
+const getData = require('./utils/nightlyOrderTotals');
 
 const ipcMain = require('electron').ipcMain;
 
@@ -57,7 +58,7 @@ const writeOrderDB = () =>
 
 const notifyOrderTotals = () =>
 	ipcMain.on('notify-order-totals', (event, arg) => {
-		const { nightlyTotal, numberOfOrders } = arg;
+		const { nightlyTotal, numberOfOrders } = getData;
 		const options = {
 			type: 'info',
 			buttons: ['Ok'],
