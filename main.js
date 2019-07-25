@@ -112,6 +112,11 @@ function createWindow() {
 	});
 }
 
+menuTemplate.push({
+	label: '',
+	submenu: [{ role: 'toggledevtools' }],
+});
+
 // Dont Show The Development Menu In Production
 if (isDev()) {
 	menuTemplate.push({
