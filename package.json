@@ -6,7 +6,7 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "concurrently \"npm run start-react\" \"sleep 5 && electron main-dev.js\"",
-		"start-build": "electron main-prod.js",
+		"start-build": "electron main.js",
 		"start-react": "npm start --prefix react",
 		"package-win": "electron-packager . Red-Dirt-Photos-On-Site --extra-resource=\"customers.json\" --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=false --executableName=\"Red Dirt Photos OnSite\" --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Red Dirt Photo Onsite\"",
 		"package-win-react": "electron-packager . Red-Dirt-Photos-On-Site --extra-resource=\"customers.json\" --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=false --executableName=\"Red Dirt Photos OnSite\" --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Red Dirt Photo Onsite\"",
