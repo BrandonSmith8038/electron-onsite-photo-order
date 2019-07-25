@@ -7,6 +7,7 @@ const Card = styled.div`
 	display: inline-block;
 	height: 100%;
 	margin: 1rem;
+	overflow-y: overlay;
 	padding: 10px;
 	position: relative;
 	width: 100%;
