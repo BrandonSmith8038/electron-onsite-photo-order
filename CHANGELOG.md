@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.2.0](https://github.com/BrandonSmith8038/electron-onsite-photo-order/compare/v3.1.0...v3.2.0) (2019-07-25)
+
+
+### Features
+
+* Current Event Total Button ([c206269](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/c206269))
+* Save order pdfs into individual folders based on event ([7cfe8be](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/7cfe8be))
+* Temporairly adding dev tools to production for debuging ([ea647d9](https://github.com/BrandonSmith8038/electron-onsite-photo-order/commit/ea647d9))
+
+
+
 # [3.1.0](https://github.com/BrandonSmith8038/electron-onsite-photo-order/compare/v3.0.0...v3.1.0) (2019-06-14)
 
 
