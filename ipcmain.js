@@ -18,16 +18,16 @@ const getCustomers = () =>
 		let customers;
 		fs.readFile(customerJSON, (err, data) => {
 			if (err) {
-				throw err;
+				log.error(`Problem Reading The Customers File, ${err}`);
 			}
 			customers = data.toString('utf8');
 			event.reply('sendCustomers', customers);
+			log.info(`Customers File Retrivied`);
 		});
 	});
 
 const createOrder = () => {
 	ipcMain.on('create-order', (event, order, edit) => {
-		console.log(edit);
 		const newOrderJSON = JSON.stringify(order);
 		const { firstName, lastName, date, total } = order;
 
@@ -37,12 +37,15 @@ const createOrder = () => {
 
 		fs.writeFile(filePath, newOrderJSON, 'utf8', err => {
 			if (err) {
+				log.error(`Problem Saving The Order: ${err}`);
 				return;
 			}
 			if (edit) {
 				event.sender.send('order-edited', { firstName, lastName, date, total });
+				log.info(`Order Saved: ${order}`);
 			} else {
 				event.sender.send('order-saved', { firstName, lastName, date, total });
+				log.info(`Order Saved: ${order}`);
 			}
 		});
 	});
@@ -53,7 +56,11 @@ const writeOrderDB = () =>
 		const newOrder = new Order(arg);
 		newOrder.save(err => {
 			if (err) {
+				log.error(
+					`Problem Saving Order To Database: ${err} - Order: ${newOrder}`,
+				);
 			}
+			log.info(`Order Saved To Database: ${newOrder}`);
 		});
 	});
 
@@ -156,7 +163,10 @@ const eventEndWithConnection = () =>
 														}
 													)
 														fs.unlink(path.join(ordersDirectory, file), err => {
-															if (err) throw err;
+															if (err) {
+																log.error(`Could Not Delete File: ${file}`);
+															}
+															log.info(`File Deleted: ${file}`);
 														});
 												},
 											);

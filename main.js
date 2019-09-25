@@ -21,6 +21,7 @@ const menuTemplate = require('./utils/menu');
 const createSampleOrders = require('./utils/createSampleOrders');
 const rootPath = require('electron-root-path');
 const getCustomers = require('./utils/fetchCustomers');
+const log = require('electron-log');
 
 const ipcMainFunctions = require('./ipcmain');
 
@@ -48,6 +49,10 @@ if (isDev()) {
 		// Note that the path to electron may vary according to the main file
 		electron: require(`${__dirname}/node_modules/electron`),
 	});
+
+	log.info('APP LOADED IN DEV MODE');
+} else {
+	log.info('APP LOADED IN PRODUCTION MODE');
 }
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -169,9 +174,10 @@ app.on('ready', () => {
 		if (checkConnection() === 'Connected') {
 			mongoose.connect(keys.MONGOURI, { useNewUrlParser: true }, err => {
 				if (err) {
+					log.info(`Database Connection Error: ${err}`);
 					throw err;
 				} else {
-					console.log('Database Connected');
+					log.info('Database Connected');
 				}
 			});
 		}
