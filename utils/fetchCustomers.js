@@ -2,7 +2,7 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 const path = require('path');
 const keys = require('../config');
-const log = require(electron - log);
+const log = require('electron-log');
 const query = `query {
   business(id: "QnVzaW5lc3M6NDgxZDExM2QtMzUxOC00YzBiLWFiOTItZWM1MTMyNDBiMTFh") {
     id

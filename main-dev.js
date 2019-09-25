@@ -43,7 +43,7 @@ ipcMainFunctions.eventEndNoConnection();
 ipcMainFunctions.eventEndWithConnection();
 ipcMainFunctions.createOrder();
 
-iif (isDev()) {
+if (isDev()) {
 	// Enable live reload for Electron too
 	require('electron-reload')(__dirname, {
 		// Note that the path to electron may vary according to the main file
