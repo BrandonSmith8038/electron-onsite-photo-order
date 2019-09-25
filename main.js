@@ -42,6 +42,7 @@ ipcMainFunctions.notifyOrderTotals();
 ipcMainFunctions.eventEndNoConnection();
 ipcMainFunctions.eventEndWithConnection();
 ipcMainFunctions.createOrder();
+ipcMainFunctions.logLocalStorageCurrentEvent();
 
 if (isDev()) {
 	// Enable live reload for Electron too

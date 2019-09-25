@@ -266,6 +266,21 @@ const editCurrentOrder = () => {
 	});
 };
 
+const logLocalStorageCurrentEvent = () => {
+	ipcMain.on(
+		'local-storage-current-event-change',
+		(event, currentEvent, action, file) => {
+			if (action === 'removed') {
+				log.info(`The current Event was ${action} from ${file}`);
+			} else {
+				log.info(
+					`The Current Event Was ${action} To ${currentEvent.venue}-${currentEvent.eventName} from ${file}`,
+				);
+			}
+		},
+	);
+};
+
 module.exports = {
 	getCustomers,
 	deleteCurrentOrder,
@@ -276,4 +291,5 @@ module.exports = {
 	eventEndWithConnection,
 	createOrder,
 	getCurrentOrders,
+	logLocalStorageCurrentEvent,
 };

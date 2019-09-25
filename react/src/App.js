@@ -22,8 +22,16 @@ function App() {
 		const currentEvent = localStorage.getItem('Current Event');
 		if (currentEvent) {
 			setEvent(JSON.parse(currentEvent));
+			ipcRenderer.send(
+				'local-storage-current-event-change',
+				JSON.parse(currentEvent),
+				'set',
+				'App.js',
+			);
 		}
+	}, []);
 
+	useEffect(() => {
 		setInterval(() => {
 			const isOnline = navigator.onLine;
 			if (isOnline) {
@@ -44,6 +52,12 @@ function App() {
 
 	ipcRenderer.on('clear-event', () => {
 		localStorage.removeItem('Current Event');
+		ipcRenderer.send(
+			'local-storage-current-event-change',
+			'',
+			'removed',
+			'App.js',
+		);
 		setEvent('');
 	});
 	let content;
