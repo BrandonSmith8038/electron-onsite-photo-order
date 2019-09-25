@@ -9,6 +9,7 @@ const fs = require('fs');
 const keys = require('./config');
 const customerJSON = keys.CUSTOMERSFILE;
 const getData = require('./utils/nightlyOrderTotals');
+const log = require('electron-log');
 
 const ipcMain = require('electron').ipcMain;
 
@@ -97,9 +98,13 @@ const eventEndWithConnection = () =>
 			const { eventName, venue } = currentEvent;
 			const ordersDirectory = `${homeDir}/Orders`;
 			const pdfDirectory = `${homeDir}/Orders/PDFs`;
-			const eventFolder = `${pdfDirectory}/${venue}-${eventName}`;
 			// Look in The Orders Directory and see if there are files
 			const files = fs.readdirSync(ordersDirectory);
+			// Check if the event folder already exists
+			if (fs.existsSync(`${pdfDirectory}/${venue}-${eventName}`)) {
+				log.error('Event Folder Already Exists');
+			}
+			const eventFolder = `${pdfDirectory}/${venue}-${eventName}`;
 			// Show Error If There Are No Files
 			if (files.length <= 1) {
 				dialog.showErrorBox(
