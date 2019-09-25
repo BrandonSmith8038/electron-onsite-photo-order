@@ -16,6 +16,7 @@ const getData = () => {
 				try {
 					const data = fs.readFileSync(`${directory}/${file}`);
 					const order = JSON.parse(data);
+					log.info(`Order Read, ${data}`);
 					const total = parseInt(order.total);
 					totals.push(total);
 					numberOfOrders++;
