@@ -9,6 +9,7 @@ const fs = require('fs');
 const keys = require('./config');
 const customerJSON = keys.CUSTOMERSFILE;
 const getData = require('./utils/nightlyOrderTotals');
+const log = require('electron-log');
 
 const ipcMain = require('electron').ipcMain;
 
@@ -17,16 +18,16 @@ const getCustomers = () =>
 		let customers;
 		fs.readFile(customerJSON, (err, data) => {
 			if (err) {
-				throw err;
+				log.error(`Problem Reading The Customers File, ${err}`);
 			}
 			customers = data.toString('utf8');
 			event.reply('sendCustomers', customers);
+			log.info(`Customers File Retrivied`);
 		});
 	});
 
 const createOrder = () => {
 	ipcMain.on('create-order', (event, order, edit) => {
-		console.log(edit);
 		const newOrderJSON = JSON.stringify(order);
 		const { firstName, lastName, date, total } = order;
 
@@ -36,12 +37,15 @@ const createOrder = () => {
 
 		fs.writeFile(filePath, newOrderJSON, 'utf8', err => {
 			if (err) {
+				log.error(`Problem Saving The Order: ${err}`);
 				return;
 			}
 			if (edit) {
 				event.sender.send('order-edited', { firstName, lastName, date, total });
+				log.info(`Order Saved: ${order}`);
 			} else {
 				event.sender.send('order-saved', { firstName, lastName, date, total });
+				log.info(`Order Saved: ${order}`);
 			}
 		});
 	});
@@ -52,7 +56,11 @@ const writeOrderDB = () =>
 		const newOrder = new Order(arg);
 		newOrder.save(err => {
 			if (err) {
+				log.error(
+					`Problem Saving Order To Database: ${err} - Order: ${newOrder}`,
+				);
 			}
+			log.info(`Order Saved To Database: ${newOrder}`);
 		});
 	});
 
@@ -97,9 +105,13 @@ const eventEndWithConnection = () =>
 			const { eventName, venue } = currentEvent;
 			const ordersDirectory = `${homeDir}/Orders`;
 			const pdfDirectory = `${homeDir}/Orders/PDFs`;
-			const eventFolder = `${pdfDirectory}/${venue}-${eventName}`;
 			// Look in The Orders Directory and see if there are files
 			const files = fs.readdirSync(ordersDirectory);
+			// Check if the event folder already exists
+			if (fs.existsSync(`${pdfDirectory}/${venue}-${eventName}`)) {
+				log.error('Event Folder Already Exists');
+			}
+			const eventFolder = `${pdfDirectory}/${venue}-${eventName}`;
 			// Show Error If There Are No Files
 			if (files.length <= 1) {
 				dialog.showErrorBox(
@@ -151,7 +163,10 @@ const eventEndWithConnection = () =>
 														}
 													)
 														fs.unlink(path.join(ordersDirectory, file), err => {
-															if (err) throw err;
+															if (err) {
+																log.error(`Could Not Delete File: ${file}`);
+															}
+															log.info(`File Deleted: ${file}`);
 														});
 												},
 											);
@@ -251,6 +266,21 @@ const editCurrentOrder = () => {
 	});
 };
 
+const logLocalStorageCurrentEvent = () => {
+	ipcMain.on(
+		'local-storage-current-event-change',
+		(event, currentEvent, action, file) => {
+			if (action === 'removed') {
+				log.info(`The current Event was ${action} from ${file}`);
+			} else {
+				log.info(
+					`The Current Event Was ${action} To ${currentEvent.venue}-${currentEvent.eventName} from ${file}`,
+				);
+			}
+		},
+	);
+};
+
 module.exports = {
 	getCustomers,
 	deleteCurrentOrder,
@@ -261,4 +291,5 @@ module.exports = {
 	eventEndWithConnection,
 	createOrder,
 	getCurrentOrders,
+	logLocalStorageCurrentEvent,
 };

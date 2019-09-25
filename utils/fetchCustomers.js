@@ -2,6 +2,7 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 const path = require('path');
 const keys = require('../config');
+const log = require('electron-log');
 const query = `query {
   business(id: "QnVzaW5lc3M6NDgxZDExM2QtMzUxOC00YzBiLWFiOTItZWM1MTMyNDBiMTFh") {
     id
@@ -48,7 +49,12 @@ module.exports = () => {
 		})
 		.then(() => {
 			fs.writeFile(keys.CUSTOMERSFILE, JSON.stringify(customersArray), err => {
-				if (err) throw err;
+				if (err) {
+					log.error(
+						`*fetchCustomer* - Problem Writing Customers File - ${err}`,
+					);
+					throw err;
+				}
 			});
 		});
 };

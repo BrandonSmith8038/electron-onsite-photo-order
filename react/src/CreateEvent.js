@@ -7,9 +7,17 @@ import { FormHeading } from './components/Typography';
 import { Card } from './components/Card';
 import useFormSubmit from './utils/CustomHooks';
 
+const { ipcRenderer } = window.require('electron');
+
 const CreateEvent = props => {
 	const addEventToLocalStorage = () => {
 		localStorage.setItem('Current Event', JSON.stringify(inputs));
+		ipcRenderer.send(
+			'local-storage-current-event-change',
+			inputs,
+			'set',
+			'CreatEvent.js',
+		);
 		props.setEvent(inputs);
 		props.setPage('Home');
 	};

@@ -26,6 +26,7 @@
 		"classnames": "^2.2.6",
 		"concurrently": "^4.1.0",
 		"electron": "^5.0.0",
+		"electron-log": "^3.0.8",
 		"electron-reload": "^1.4.0",
 		"electron-root-path": "^1.0.9",
 		"graphql": "^14.2.1",
